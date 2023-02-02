@@ -1,6 +1,14 @@
 import createElement from '../../../helpers/createElement';
 import './style.scss';
 
+const playPauseVideo = (video: HTMLVideoElement): void => {
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+};
+
 const progressBarRender = () => {
   const progressBarTime = createElement('progress-bar-time', {
     class: 'progress-bar-time',
@@ -32,15 +40,7 @@ const btnControlsRender = (video: HTMLVideoElement) => {
   const playPause = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn play-pause' })
   );
-  playPause.addEventListener('click', () => {
-    if (video.paused) {
-      video.play();
-      playPause.classList.add('pause');
-    } else {
-      video.pause();
-      playPause.classList.remove('pause');
-    }
-  });
+  playPause.addEventListener('click', () => playPauseVideo(video));
 
   btnControlsLeft.append(playPause);
   const skipBackward = <HTMLButtonElement>(
@@ -86,23 +86,24 @@ const videoPlayerRender = (src: string, duration = 0) => {
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: src })
   );
+
   videoPlayer.append(video);
   console.log(duration);
 
   video.addEventListener('click', () => {
-    const playPause = document.querySelector('.play-pause');
-    if (video.paused) {
-      video.play();
-      playPause!.classList.add('pause');
-    } else {
-      video.pause();
-      playPause!.classList.remove('pause');
-    }
+    playPauseVideo(video);
   });
 
-  video.addEventListener('ended', () => {
-    const playPause = document.querySelector('.play-pause');
-    playPause?.classList.remove('pause');
+  // video.addEventListener('ended', () => {
+  //   playPauseVideo(video);
+  // });
+  video.addEventListener('play', () => {
+    const btnPlayPause = document.querySelector('.play-pause');
+    btnPlayPause!.classList.add('pause');
+  });
+  video.addEventListener('pause', () => {
+    const btnPlayPause = document.querySelector('.play-pause');
+    btnPlayPause!.classList.remove('pause');
   });
 
   const close = createElement('div', { class: 'close' });

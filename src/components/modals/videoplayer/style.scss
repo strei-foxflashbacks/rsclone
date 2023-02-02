@@ -1,0 +1,138 @@
+.video-player {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // z-index: 10;
+  background-color: black;
+}
+
+.video {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+}
+
+.close {
+  position: absolute;
+  left: 48px;
+  top: 48px;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  background-image: url(../../assets/icons/close.svg);
+}
+
+
+.controls {
+  // height: 60px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 50px;
+  display: flex;
+  flex-direction: column;
+
+  .progress-bar {
+    width: 100%;
+
+    &-time {
+      display: flex;
+      column-gap: 30px;
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+  }
+
+  &-buttons {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &-left {
+      display: flex;
+    }
+  }
+
+
+
+  &-btn {
+    height: 32px;
+    width: 32px;
+    background: none;
+    background-size: contain;
+    cursor: pointer;
+
+    &+& {
+      margin-left: 20px;
+    }
+  }
+
+  .play-pause {
+    background-image: url(../../assets/icons/play.svg);
+
+    &.pause {
+      background-image: url(../../assets/icons/pause.svg);
+
+    }
+  }
+
+  .skip-backward {
+    background-image: url(../../assets/icons/skip-backward.svg);
+    position: relative;
+
+    &::after {
+      content: '10';
+      position: absolute;
+      left: 0;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .skip-forward {
+    background-image: url(../../assets/icons/skip-forward.svg);
+    position: relative;
+
+    &::after {
+      content: '10';
+      position: absolute;
+      right: 0;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .volume {
+    background-image: url(../../assets/icons/volume-full.svg);
+  }
+
+  .subtitle-soundtrack {
+    background-image: url(../../assets/icons/subtitle.svg);
+  }
+
+  .settings {
+    background-image: url(../../assets/icons/settings.svg);
+  }
+
+  .streaming {
+    background-image: url(../../assets/icons/streaming.svg);
+  }
+
+  .fullscreen {
+    background-image: url(../../assets/icons/fullscreen.svg);
+  }
+}

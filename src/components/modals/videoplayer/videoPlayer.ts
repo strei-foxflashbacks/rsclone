@@ -3,6 +3,8 @@ import {
   MIN_IN_HOUR,
   SEC_IN_HOUR,
   SEC_IN_MINUTE,
+  SKIP_BACKWARD,
+  SKIP_FORWARD,
 } from '../../../types/constants';
 import './style.scss';
 import './../../assets/previews/preview0.png';
@@ -89,6 +91,10 @@ const timeLineRender = () => {
   return timeLineTime;
 };
 
+const skip = (skipDuration: number) => {
+  videoContainer.currentTime += skipDuration;
+};
+
 const btnControlsRender = (video: HTMLVideoElement) => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
 
@@ -104,10 +110,16 @@ const btnControlsRender = (video: HTMLVideoElement) => {
   const skipBackward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-backward' })
   );
+  skipBackward.addEventListener('click', () => {
+    skip(SKIP_BACKWARD);
+  });
   btnControlsLeft.append(skipBackward);
   const skipForward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-forward' })
   );
+  skipForward.addEventListener('click', () => {
+    skip(SKIP_FORWARD);
+  });
   btnControlsLeft.append(skipForward);
   const volume = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn volume' })

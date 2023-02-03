@@ -5,6 +5,21 @@ import {
   SEC_IN_MINUTE,
 } from '../../../types/constants';
 import './style.scss';
+import './../../assets/previews/preview0.png';
+import './../../assets/previews/preview1.png';
+import './../../assets/previews/preview2.png';
+import './../../assets/previews/preview3.png';
+import './../../assets/previews/preview4.png';
+import './../../assets/previews/preview5.png';
+import './../../assets/previews/preview6.png';
+import './../../assets/previews/preview7.png';
+import './../../assets/previews/preview8.png';
+import './../../assets/previews/preview9.png';
+import './../../assets/previews/preview10.png';
+import './../../assets/previews/preview11.png';
+import './../../assets/previews/preview12.png';
+import './../../assets/previews/preview13.png';
+import './../../assets/previews/preview14.png';
 
 let videoContainer: HTMLVideoElement;
 
@@ -18,17 +33,11 @@ const playPauseVideo = (video: HTMLVideoElement): void => {
 
 const updateTimeLine = () => {
   const timeLine = <HTMLElement>document.querySelector('.timeline');
-  const indicator = <HTMLElement>document.querySelector('.timeline-indicator');
 
   const positionPercent = `${
     (videoContainer.currentTime / videoContainer.duration) * 100
   }%`;
-  timeLine!.style.setProperty(
-    '--timeline-position',
-    // eslint-disable-next-line @typescript-eslint/comma-dangle
-    positionPercent
-  );
-  indicator.style.setProperty('--indicator-position', positionPercent);
+  timeLine!.style.setProperty('--timeline-position', positionPercent);
 };
 
 const timeLineRender = () => {
@@ -40,6 +49,38 @@ const timeLineRender = () => {
     class: 'timeline-indicator',
   });
   timeLine.append(timeLineIndicator);
+
+  const previewImage = <HTMLImageElement>createElement('img', {
+    class: 'timeline-preview-img',
+    alt: 'preview image',
+  });
+  timeLine.append(previewImage);
+
+  timeLine.addEventListener('click', (e: MouseEvent) => {
+    const xClickMouse = e.x - timeLine.getBoundingClientRect().x;
+    const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
+    const percent = xClickMouse / widthTimeLine;
+    videoContainer.currentTime = videoContainer.duration * percent;
+  });
+
+  timeLine.addEventListener('mousemove', (e: MouseEvent) => {
+    const xClickMouse = e.x - timeLine.getBoundingClientRect().x;
+    const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
+    const percent = (xClickMouse / widthTimeLine) * 100;
+    timeLine.style.setProperty('--timeline-preview', `${percent}%`);
+    const imgNumber = Math.trunc(percent / (100 / 15));
+
+    previewImage.src = `./assets/preview${imgNumber}.png`;
+    previewImage.style.display = 'block';
+  });
+
+  document.addEventListener('mousemove', (e: Event) => {
+    const target = <HTMLElement>e.target;
+    if (!target.classList.contains('timeline')) {
+      timeLine.style.setProperty('--timeline-preview', '0%');
+      previewImage.style.display = 'none';
+    }
+  });
 
   const time = createElement('div', { class: 'time' });
 

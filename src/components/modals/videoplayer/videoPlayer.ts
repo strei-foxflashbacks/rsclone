@@ -1,4 +1,9 @@
 import createElement from '../../../helpers/createElement';
+import {
+  MIN_IN_HOUR,
+  SEC_IN_HOUR,
+  SEC_IN_MINUTE,
+} from '../../../types/constants';
 import './style.scss';
 
 const playPauseVideo = (video: HTMLVideoElement): void => {
@@ -18,13 +23,6 @@ const progressBarRender = () => {
   );
 
   const time = createElement('div', { class: 'time' });
-  const hour = createElement('span', { class: 'time-hour' }, '-00:');
-  const min = createElement('span', { class: 'time-min' }, '00:');
-  const sec = createElement('span', { class: 'time-sec' }, '00');
-
-  time.append(hour);
-  time.append(min);
-  time.append(sec);
 
   progressBarTime.append(progressBar);
   progressBarTime.append(time);
@@ -81,22 +79,49 @@ const btnControlsRender = (video: HTMLVideoElement) => {
   return btnControls;
 };
 
-const videoPlayerRender = (src: string, duration = 0) => {
+const convertNumToString = (num: number): string =>
+  num.toString().padStart(2, '0');
+
+const formatTime = (time: number) => {
+  toString().padStart(2, '0');
+  const sec = Math.floor(time % SEC_IN_MINUTE);
+  const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
+  const hour = Math.floor(time / SEC_IN_HOUR);
+  return `-${convertNumToString(hour)}:${convertNumToString(
+    // eslint-disable-next-line @typescript-eslint/comma-dangle
+    min
+  )}:${convertNumToString(sec)}`;
+};
+
+const updateTime = (video: HTMLVideoElement) => {
+  const time = document.querySelector('.time');
+  const duration = video.duration;
+  const currentTime = video.currentTime;
+  time!.textContent = formatTime(duration - currentTime);
+};
+
+const videoPlayerRender = (src: string) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: src })
   );
 
+  video.addEventListener('loadeddata', () => {
+    const time = document.querySelector('.time');
+    const duration = video.duration;
+    time!.textContent = formatTime(duration);
+  });
+
+  video.addEventListener('timeupdate', () => {
+    updateTime(video);
+  });
+
   videoPlayer.append(video);
-  console.log(duration);
 
   video.addEventListener('click', () => {
     playPauseVideo(video);
   });
 
-  // video.addEventListener('ended', () => {
-  //   playPauseVideo(video);
-  // });
   video.addEventListener('play', () => {
     const btnPlayPause = document.querySelector('.play-pause');
     btnPlayPause!.classList.add('pause');

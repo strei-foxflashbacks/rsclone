@@ -6,6 +6,8 @@ import {
 } from '../../../types/constants';
 import './style.scss';
 
+let videoContainer: HTMLVideoElement;
+
 const playPauseVideo = (video: HTMLVideoElement): void => {
   if (video.paused) {
     video.play();
@@ -14,19 +16,36 @@ const playPauseVideo = (video: HTMLVideoElement): void => {
   }
 };
 
-const progressBarRender = () => {
-  const progressBarTime = createElement('progress-bar-time', {
-    class: 'progress-bar-time',
-  });
-  const progressBar = <HTMLInputElement>(
-    createElement('input', { class: 'progress-bar', type: 'range', value: '0' })
+const updateTimeLine = () => {
+  const timeLine = <HTMLElement>document.querySelector('.timeline');
+  const indicator = <HTMLElement>document.querySelector('.timeline-indicator');
+
+  const positionPercent = `${
+    (videoContainer.currentTime / videoContainer.duration) * 100
+  }%`;
+  timeLine!.style.setProperty(
+    '--timeline-position',
+    // eslint-disable-next-line @typescript-eslint/comma-dangle
+    positionPercent
   );
+  indicator.style.setProperty('--indicator-position', positionPercent);
+};
+
+const timeLineRender = () => {
+  const timeLineTime = createElement('timeline-time', {
+    class: 'timeline-time',
+  });
+  const timeLine = createElement('div', { class: 'timeline' });
+  const timeLineIndicator = createElement('div', {
+    class: 'timeline-indicator',
+  });
+  timeLine.append(timeLineIndicator);
 
   const time = createElement('div', { class: 'time' });
 
-  progressBarTime.append(progressBar);
-  progressBarTime.append(time);
-  return progressBarTime;
+  timeLineTime.append(timeLine);
+  timeLineTime.append(time);
+  return timeLineTime;
 };
 
 const btnControlsRender = (video: HTMLVideoElement) => {
@@ -105,7 +124,7 @@ const videoPlayerRender = (src: string) => {
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: src })
   );
-
+  videoContainer = video;
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');
     const duration = video.duration;
@@ -114,6 +133,7 @@ const videoPlayerRender = (src: string) => {
 
   video.addEventListener('timeupdate', () => {
     updateTime(video);
+    updateTimeLine();
   });
 
   videoPlayer.append(video);
@@ -135,7 +155,7 @@ const videoPlayerRender = (src: string) => {
   videoPlayer.append(close);
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(progressBarRender());
+  controls.append(timeLineRender());
   controls.append(btnControlsRender(video));
 
   videoPlayer.append(controls);

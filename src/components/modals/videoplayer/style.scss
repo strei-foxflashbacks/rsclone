@@ -41,11 +41,45 @@
   display: flex;
   flex-direction: column;
 
-  .progress-bar {
+  .timeline {
     width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: calc(100% - var(--timeline-position));
+      background-color: orange;
+    }
+
+    &:hover {
+      height: 8px;
+
+      .timeline-indicator {
+        height: 18px;
+        width: 18px;
+      }
+    }
+
+    &-indicator {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background-color: orange;
+      position: absolute;
+      left: var(--indicator-position);
+      transform: translate(-50%, -33%);
+    }
 
     &-time {
       display: flex;
+      align-items: center;
       column-gap: 30px;
       color: white;
       font-size: 20px;

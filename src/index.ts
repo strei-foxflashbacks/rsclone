@@ -1,6 +1,10 @@
 //styles import
 
 import './style.scss';
+import setCurrentPage from './pages/defaultPage';
+import getNews from './templates/main/news';
+import getMainContent from './templates/main/mainContent';
+setCurrentPage([getNews(), getMainContent()]);
 
 //assets import
 

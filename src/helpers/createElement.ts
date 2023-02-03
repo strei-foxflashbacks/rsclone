@@ -1,4 +1,4 @@
-import {Attribute} from "../types/types";
+import { Attribute } from '../types/types';
 
 const createElement = (
   tagName: string,

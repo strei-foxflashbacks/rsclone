@@ -213,5 +213,9 @@
 
   .fullscreen {
     background-image: url(../../assets/icons/fullscreen.svg);
+
+    &.fullscreen-exit {
+      background-image: url(../../assets/icons/fullscreen-exit.svg);
+    }
   }
 }

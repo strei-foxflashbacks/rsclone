@@ -182,6 +182,16 @@ const btnControlsRender = () => {
   const fullscreen = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn fullscreen' })
   );
+  fullscreen.addEventListener('click', () => {
+    const videoPlayer = document.querySelector('.video-player');
+    if (!document.fullscreenElement) {
+      videoPlayer!.requestFullscreen();
+      fullscreen.classList.add('fullscreen-exit');
+    } else {
+      document.exitFullscreen();
+      fullscreen.classList.remove('fullscreen-exit');
+    }
+  });
   btnControlsRight.append(fullscreen);
   btnControls.append(btnControlsRight);
 

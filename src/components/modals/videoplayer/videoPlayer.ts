@@ -126,13 +126,6 @@ const btnControlsRender = () => {
   const volumeBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn volume' })
   );
-  volumeBtn.addEventListener('click', () => {
-    if (videoContainer.muted) {
-      videoContainer.muted = false;
-    } else {
-      videoContainer.muted = true;
-    }
-  });
   volumeContainer.append(volumeBtn);
   const volumeRange = <HTMLInputElement>createElement('input', {
     class: 'volume-range',
@@ -144,12 +137,20 @@ const btnControlsRender = () => {
   });
   videoContainer.volume = +volumeRange.value;
   volumeRange.addEventListener('input', () => {
+    videoContainer.muted = false;
     videoContainer.volume = +volumeRange.value;
   });
-  volumeContainer.append(volumeRange);
-
-  btnControlsLeft.append(volumeContainer);
-  btnControls.append(btnControlsLeft);
+  let lastVolume: number;
+  volumeBtn.addEventListener('click', () => {
+    if (videoContainer.muted) {
+      videoContainer.muted = false;
+      videoContainer.volume = lastVolume;
+    } else {
+      lastVolume = videoContainer.volume;
+      videoContainer.muted = true;
+      videoContainer.volume = 0;
+    }
+  });
   videoContainer.addEventListener('volumechange', () => {
     volumeRange.value = `${videoContainer.volume}`;
     if (!videoContainer.volume || videoContainer.muted) {
@@ -163,6 +164,10 @@ const btnControlsRender = () => {
       volumeBtn.classList.remove('half-volume');
     }
   });
+  volumeContainer.append(volumeRange);
+
+  btnControlsLeft.append(volumeContainer);
+  btnControls.append(btnControlsLeft);
 
   const btnControlsRight = createElement('div', {
     class: 'controls-buttons-right',

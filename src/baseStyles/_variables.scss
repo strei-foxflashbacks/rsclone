@@ -11,10 +11,13 @@ $accent-color: #6dcdff;
 $main-font: 400 16px 'Raleway', sans-serif;
 $title-font: 600 16px 'Oswald', sans-serif;
 
+//sizes
+$header-size: 50px;
+$border-radius: 7px;
+
+//mixins
 @mixin content-container {
   max-width: 1100px;
   margin: auto;
   padding: 0 15px;
 }
-
-$border-radius: 7px;

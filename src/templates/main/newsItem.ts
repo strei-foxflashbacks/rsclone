@@ -12,3 +12,5 @@ const getNewsItem = (newsData: INewsRecord): HTMLElement => {
   newsItem.append(photo, article);
   return  newsItem;
 };
+
+export default getNewsItem;

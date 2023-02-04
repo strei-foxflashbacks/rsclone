@@ -1,0 +1,22 @@
+@import "./baseStyles/normalize.css";
+@import "./baseStyles/variables";
+@import "./templates/header/header";
+
+body {
+  font: $main-font;
+}
+.button {
+  border: none;
+  background-color: $accent-color;
+  height: 30px;
+  border-radius: $border-radius;
+  min-width: 70px;
+  color: $light-title;
+  &:hover {
+    background-color: #59bcee;
+  }
+  &:active {
+    scale: 1.1;
+    background-color: $accent-color;
+  }
+}

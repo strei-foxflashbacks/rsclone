@@ -9,7 +9,7 @@ export const getMainPage = () :HTMLElement => {
   if (main) {
     clearElement(main);
   } else {
-    main = createElement('main', {});
+    main = createElement('main', { class: 'wrapper' });
   }
 
   main.append(getNews(), getMainContent());

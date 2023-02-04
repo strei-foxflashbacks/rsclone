@@ -20,3 +20,8 @@ body {
     background-color: $accent-color;
   }
 }
+
+.wrapper {
+  min-height: calc(100vh - 35px);
+}
+

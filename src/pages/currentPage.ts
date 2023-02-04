@@ -1,6 +1,8 @@
 import getHeader from '../templates/header/header';
 import clearElement from './clearElement';
 import getFooter from '../templates/footer/footer';
+import createElement from '../helpers/createElement';
+
 const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
   if (!body) {
@@ -8,7 +10,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   }
   clearElement(body);
 
-  const main = document.createElement('main');
+  const main = createElement('main', { class: 'wrapper' });
   mainElements.forEach(element => {
     main.append(element);
   });

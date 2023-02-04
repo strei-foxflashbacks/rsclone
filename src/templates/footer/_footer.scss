@@ -1,0 +1,20 @@
+.footer-container {
+  position: relative;
+}
+
+.footer {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  gap: 20px;
+  &__end {
+    position: absolute;
+    display: flex;
+    gap: 20px;
+    right: 20px;
+  }
+  &__item {
+    color: $dark-text;
+    text-decoration: none;
+  }
+}

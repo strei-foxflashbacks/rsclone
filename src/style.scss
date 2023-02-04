@@ -26,6 +26,10 @@ body {
 }
 
 .wrapper {
+  @include content-container;
   min-height: calc(100vh - 35px);
+  display: flex;
+  gap: 10px;
+  padding-top: $header-size;
 }
 

@@ -12,7 +12,10 @@ export const getMainPage = () :HTMLElement => {
     main = createElement('main', { class: 'wrapper' });
   }
 
-  main.append(getNews(), getMainContent());
+  const containerMainPage = createElement('div', { class: 'news-and-films' });
+  containerMainPage.append(getNews(), getMainContent());
+  main.append(containerMainPage);
+
   return main;
 };
 export default getMainPage;

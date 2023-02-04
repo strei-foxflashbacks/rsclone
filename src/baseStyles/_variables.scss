@@ -21,3 +21,9 @@ $border-radius: 7px;
   margin: auto;
   padding: 0 15px;
 }
+@mixin title {
+  color: $light-title;
+  font: $title-font;
+  font-size: 26px;
+  text-transform: uppercase;
+}

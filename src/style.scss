@@ -33,3 +33,7 @@ body {
   padding-top: $header-size;
 }
 
+.subtitle {
+@include subtitle;
+}
+

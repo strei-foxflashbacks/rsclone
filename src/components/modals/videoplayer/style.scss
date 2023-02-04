@@ -105,13 +105,17 @@
   }
 
   &-buttons {
-    height: 60px;
+    height: 36px;
     width: 100%;
+    margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
-    &-left {
+    &-left,
+    &-right {
       display: flex;
+      column-gap: 20px;
     }
   }
 
@@ -121,10 +125,6 @@
     background: none;
     background-size: contain;
     cursor: pointer;
-
-    &+& {
-      margin-left: 20px;
-    }
   }
 
   .play-pause {
@@ -166,7 +166,38 @@
 
   .volume {
     background-image: url(../../assets/icons/volume-full.svg);
+
+    &-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        .volume-range {
+          width: 100px;
+          opacity: 1;
+        }
+      }
+    }
+
+    &-range {
+      cursor: pointer;
+      margin-left: 20px;
+      width: 0;
+      transform-origin: left;
+      opacity: 0;
+      transition: all .5s ease;
+    }
+
+    &.muted {
+      background-image: url(../../assets/icons/volume-muted.svg);
+    }
+
+    &.half-volume {
+      background-image: url(../../assets/icons/volume-half.svg);
+    }
   }
+
 
   .subtitle-soundtrack {
     background-image: url(../../assets/icons/subtitle.svg);

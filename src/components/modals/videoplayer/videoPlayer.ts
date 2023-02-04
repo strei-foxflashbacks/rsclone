@@ -25,11 +25,11 @@ import './../../assets/previews/preview14.png';
 
 let videoContainer: HTMLVideoElement;
 
-const playPauseVideo = (video: HTMLVideoElement): void => {
-  if (video.paused) {
-    video.play();
+const playPauseVideo = (): void => {
+  if (videoContainer.paused) {
+    videoContainer.play();
   } else {
-    video.pause();
+    videoContainer.pause();
   }
 };
 
@@ -95,7 +95,7 @@ const skip = (skipDuration: number) => {
   videoContainer.currentTime += skipDuration;
 };
 
-const btnControlsRender = (video: HTMLVideoElement) => {
+const btnControlsRender = () => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
 
   const btnControlsLeft = createElement('div', {
@@ -104,7 +104,7 @@ const btnControlsRender = (video: HTMLVideoElement) => {
   const playPause = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn play-pause' })
   );
-  playPause.addEventListener('click', () => playPauseVideo(video));
+  playPause.addEventListener('click', () => playPauseVideo());
 
   btnControlsLeft.append(playPause);
   const skipBackward = <HTMLButtonElement>(
@@ -121,11 +121,48 @@ const btnControlsRender = (video: HTMLVideoElement) => {
     skip(SKIP_FORWARD);
   });
   btnControlsLeft.append(skipForward);
-  const volume = <HTMLButtonElement>(
+
+  const volumeContainer = createElement('div', { class: 'volume-container' });
+  const volumeBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn volume' })
   );
-  btnControlsLeft.append(volume);
+  volumeBtn.addEventListener('click', () => {
+    if (videoContainer.muted) {
+      videoContainer.muted = false;
+    } else {
+      videoContainer.muted = true;
+    }
+  });
+  volumeContainer.append(volumeBtn);
+  const volumeRange = <HTMLInputElement>createElement('input', {
+    class: 'volume-range',
+    type: 'range',
+    min: '0',
+    max: '1',
+    step: '0.01',
+    value: '0.5',
+  });
+  videoContainer.volume = +volumeRange.value;
+  volumeRange.addEventListener('input', () => {
+    videoContainer.volume = +volumeRange.value;
+  });
+  volumeContainer.append(volumeRange);
+
+  btnControlsLeft.append(volumeContainer);
   btnControls.append(btnControlsLeft);
+  videoContainer.addEventListener('volumechange', () => {
+    volumeRange.value = `${videoContainer.volume}`;
+    if (!videoContainer.volume || videoContainer.muted) {
+      volumeBtn.classList.add('muted');
+      volumeBtn.classList.remove('half-volume');
+    } else if (videoContainer.volume <= 0.5) {
+      volumeBtn.classList.remove('muted');
+      volumeBtn.classList.add('half-volume');
+    } else {
+      volumeBtn.classList.remove('muted');
+      volumeBtn.classList.remove('half-volume');
+    }
+  });
 
   const btnControlsRight = createElement('div', {
     class: 'controls-buttons-right',
@@ -192,7 +229,7 @@ const videoPlayerRender = (src: string) => {
   videoPlayer.append(video);
 
   video.addEventListener('click', () => {
-    playPauseVideo(video);
+    playPauseVideo();
   });
 
   video.addEventListener('play', () => {
@@ -209,7 +246,7 @@ const videoPlayerRender = (src: string) => {
 
   const controls = createElement('div', { class: 'controls' });
   controls.append(timeLineRender());
-  controls.append(btnControlsRender(video));
+  controls.append(btnControlsRender());
 
   videoPlayer.append(controls);
 

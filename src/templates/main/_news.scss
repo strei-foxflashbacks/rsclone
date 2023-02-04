@@ -1,0 +1,17 @@
+.news {
+  flex-grow: 1;
+}
+.title {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background-color: $title-background;
+  min-height: 90px;
+  align-items: center;
+  &__icon {
+  }
+  &__text {
+    @include title;
+    margin: 0;
+  }
+}

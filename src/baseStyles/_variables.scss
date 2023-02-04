@@ -1,0 +1,20 @@
+//colors
+$title-background: black;
+$shadow: #afafaf;
+$rating: #ffc400;
+$light-title: white;
+$dark-text: #252525;
+$light-dark-text: #9b9b9b;
+$accent-color: #6dcdff;
+
+//fonts
+$main-font: 400 16px 'Raleway', sans-serif;
+$title-font: 600 16px 'Oswald', sans-serif;
+
+@mixin content-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+$border-radius: 7px;

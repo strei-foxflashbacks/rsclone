@@ -1,7 +1,10 @@
 @import "./baseStyles/normalize.css";
 @import "./baseStyles/variables";
 @import "./templates/header/header";
-@import "templates/footer/footer";
+@import "./templates/main/news";
+@import "./templates/main/films";
+@import "./templates/footer/footer";
+
 
 body {
   font: $main-font;

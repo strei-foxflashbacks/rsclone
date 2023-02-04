@@ -1,5 +1,4 @@
 import createElement from '../../helpers/createElement';
-import '../../components/assets/showjet.png';
 
 const getHeader = () :HTMLElement => {
   const header = createElement('header', { class: 'header-container' } );

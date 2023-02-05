@@ -6,6 +6,7 @@
   -webkit-box-shadow: 0 7px 12px 0 rgba(121, 121, 121, 0.6);
   -moz-box-shadow: 0 7px 12px 0 rgba(121, 121, 121, 0.6);
   position: fixed;
+  z-index: 100;
 }
 .content-container {
   @include content-container;

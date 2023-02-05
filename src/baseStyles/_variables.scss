@@ -1,6 +1,6 @@
 //colors
 $title-background: black;
-$shadow: #afafaf;
+$shadow: #eaeaea;
 $rating: #ffc400;
 $light-title: white;
 $dark-text: #252525;
@@ -14,6 +14,7 @@ $title-font: 600 16px 'Oswald', sans-serif;
 //sizes
 $header-size: 50px;
 $border-radius: 7px;
+$news-width: 300px;
 
 //mixins
 @mixin content-container {
@@ -32,4 +33,5 @@ $border-radius: 7px;
   font: $title-font;
   font-size: 19px;
   text-transform: uppercase;
+  margin: 0;
 }

@@ -1,32 +1,64 @@
 .news {
-  max-width: 300px;
+  max-width: $news-width;
 }
 .title {
+  background-color: $title-background;
+  min-height: 80px;
+  align-items: end;
+  padding: 30px 40px 20px;
+  border-bottom: 7px solid white;
   display: flex;
   gap: 10px;
-  padding: 10px;
-  background-color: $title-background;
-  min-height: 90px;
-  align-items: center;
+
   &__icon {
   }
   &__text {
     @include title;
+    position: relative;
     margin: 0;
   }
 }
 
 .news-item {
+    overflow: hidden;
+
   &__photo {
-    width: 100%;
+    width: $news-width;
+    height: 220px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   &__text {
     text-align: justify;
   }
+  &__article {
+    max-height: 269px;
+    overflow: hidden;
+    position: relative;
+  }
   &__date {
+    padding: 10px 0;
+    margin: 0;
     font-size: 12px;
     color: $accent-color;
   }
+  &:hover &__article {
+    background-color: $shadow;
+  }
+  &:hover > &__photo {
+    scale: 1.1;
+  }
 }
+
+.shadow {
+  width: 100%;
+  height: 100px;
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7385547969187676) 60%, rgba(255,255,255,1) 80%);
+  position: absolute;
+  bottom: 0;
+}
+
 
 

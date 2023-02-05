@@ -22,6 +22,7 @@ import './../../assets/previews/preview11.png';
 import './../../assets/previews/preview12.png';
 import './../../assets/previews/preview13.png';
 import './../../assets/previews/preview14.png';
+import { TVideoControlsSettingsItems } from '../../../types/types';
 
 let videoContainer: HTMLVideoElement;
 
@@ -176,10 +177,107 @@ const btnControlsRender = () => {
     createElement('button', { class: 'controls-btn subtitle-soundtrack' })
   );
   btnControlsRight.append(subtitleSoundtrack);
-  const settings = <HTMLButtonElement>(
+  const settingsContainer = createElement('div', {
+    class: 'settings-container',
+  });
+  const settingsBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn settings' })
   );
-  btnControlsRight.append(settings);
+  settingsContainer.append(settingsBtn);
+  const settingsPopup = createElement('div', {
+    class: 'controls-popup settings-popup',
+  });
+  const settingsItemsName: TVideoControlsSettingsItems[] = [
+    'subtitle',
+    'quality',
+    'speed',
+  ];
+  enum ControlsPopupText {
+    subtitle = 'Subtitle size',
+    quality = 'Quality video',
+    speed = 'Play speed',
+  }
+  // enum SubSettingsSubtitleSizeText {
+  //   small = 'Small',
+  //   standard = 'Standard',
+  //   large = 'Large',
+  // }
+  // enum SubSettingsQualityText {
+  //   auto = 'Auto',
+  //   '1440p' = '1440p',
+  //   '1080p' = '1080p',
+  //   '720p' = '720p',
+  //   '480p' = '480p',
+  // }
+  // enum SubSettingsSpeedText {
+  //   '0.25x' = '0.25x',
+  //   '0.5x' = '0.5x',
+  //   '0.75x' = '0.75x',
+  //   normal = 'Normal',
+  //   '1.25x' = '1.25x',
+  //   '1.5x' = '1.5x',
+  //   '1.75x' = '1.75x',
+  //   '2x' = '2x',
+  // }
+  const defaultSubtitleSize = 'standard';
+  const defaultQuality = 'auto';
+  const defaultSpeedVideo = 'normal';
+  const subSettings: { [key in TVideoControlsSettingsItems]: string[] } = {
+    subtitle: ['small', 'standard', 'large'],
+    quality: ['auto', '1440p', '1080p', '720p', '480p'],
+    speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
+  };
+
+  // const sizeSubtitle: 'small' | 'standard' | 'large' = 'standard';
+
+  settingsItemsName.forEach((item) => {
+    const settingsItem = createElement('div', {
+      class: 'controls-popup-item',
+    });
+    const titleContainer = createElement('div', {
+      class: 'controls-popup-title-container',
+    });
+    const iconItem = createElement('div', {
+      class: `controls-popup-icon controls-popup-icon-${item}`,
+    });
+    const titleItem = createElement(
+      'p',
+      { class: 'controls-popup-item-title' },
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+      `${ControlsPopupText[item]}`
+    );
+    titleContainer.append(iconItem);
+    titleContainer.append(titleItem);
+    settingsItem.append(titleContainer);
+
+    const subSettingsItems = createElement('ul', {
+      class: 'subsettings-items',
+    });
+    subSettings[item].forEach((itemSubSettings) => {
+      const activeSubSettingsItem = [
+        defaultSubtitleSize,
+        defaultQuality,
+        defaultSpeedVideo,
+      ].includes(itemSubSettings);
+      const activeSubSettingsClass = activeSubSettingsItem
+        ? 'active-subsettings'
+        : '';
+      const subSettingsItem = createElement(
+        'li',
+        {
+          class: `subsettings-item subsettings-item-${itemSubSettings} ${activeSubSettingsClass}`,
+        },
+        // eslint-disable-next-line @typescript-eslint/comma-dangle
+        `${itemSubSettings}`
+      );
+      subSettingsItems.append(subSettingsItem);
+    });
+    settingsItem.append(subSettingsItems);
+    settingsPopup.append(settingsItem);
+  });
+
+  settingsContainer.append(settingsPopup);
+  btnControlsRight.append(settingsContainer);
   const streaming = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn streaming' })
   );

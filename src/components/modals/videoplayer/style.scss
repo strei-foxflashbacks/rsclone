@@ -55,7 +55,7 @@
     }
 
     &::before {
-      background-color: orange;
+      background-color: skyblue;
       right: calc(100% - var(--timeline-position));
       z-index: 1;
     }
@@ -78,7 +78,7 @@
       height: 12px;
       width: 12px;
       border-radius: 50%;
-      background-color: orange;
+      background-color: skyblue;
       position: absolute;
       left: var(--timeline-position);
       transform: translate(-50%, -33%);
@@ -120,10 +120,12 @@
   }
 
   &-btn {
-    height: 32px;
-    width: 32px;
+    height: 40px;
+    width: 40px;
     background: none;
-    background-size: contain;
+    background-size: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
     cursor: pointer;
   }
 
@@ -198,6 +200,77 @@
     }
   }
 
+  &-popup {
+    background-color: rgba(30, 30, 30);
+    position: absolute;
+    bottom: -5550px;
+    right: -120px;
+    border-radius: 16px;
+    display: flex;
+    column-gap: 5px;
+    padding: 20px 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity .5s ease;
+
+    &-title-container {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      margin-bottom: 8px;
+    }
+
+    &-item {
+      width: 160px;
+      text-align: initial;
+      color: white;
+      display: flex;
+      flex-direction: column;
+
+      .subsettings {
+        &-items {
+          list-style: none;
+        }
+
+        &-item {
+          cursor: pointer;
+          padding: 4px 8px;
+
+          &:hover {
+            background-color: rgba(50, 50, 50, 1);
+          }
+
+          &.active-subsettings {
+            background-color: rgba(100, 100, 100, 1);
+          }
+        }
+      }
+    }
+
+    &-span {
+      opacity: 0.5;
+    }
+
+    &-icon {
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-right: 5px;
+
+      &-subtitle {
+        background-image: url(./../../assets/icons/subtitle-settings.svg);
+      }
+
+      &-quality {
+        background-image: url(./../../assets/icons/settings.svg);
+      }
+
+      &-speed {
+        background-image: url(./../../assets/icons/speed-settings.svg);
+      }
+    }
+  }
 
   .subtitle-soundtrack {
     background-image: url(../../assets/icons/subtitle.svg);
@@ -205,6 +278,17 @@
 
   .settings {
     background-image: url(../../assets/icons/settings.svg);
+
+    &-container {
+      position: relative;
+
+      &:hover {
+        .controls-popup {
+          opacity: 1;
+          bottom: 40px;
+        }
+      }
+    }
   }
 
   .streaming {

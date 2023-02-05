@@ -1,8 +1,8 @@
-import { Attribute } from '../types/types';
+import { IAttribute } from '../types/types';
 
 const createElement = (
   tagName: string,
-  attributes: Attribute,
+  attributes: IAttribute,
   // eslint-disable-next-line @typescript-eslint/comma-dangle
   textContent?: string
 ): HTMLElement => {

@@ -108,3 +108,5 @@ src/.DS_Store
 .DS_Store
 
 /.idea
+/src/style.css
+/src/style.css.map

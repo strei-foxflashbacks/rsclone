@@ -1,0 +1,37 @@
+@import "./baseStyles/normalize.css";
+@import "./baseStyles/variables";
+@import "./templates/header/header";
+@import "templates/main/news/news";
+@import "./templates/main/films/films";
+@import "./templates/footer/footer";
+
+
+body {
+  font: $main-font;
+}
+.button {
+  border: none;
+  background-color: $accent-color;
+  height: 30px;
+  border-radius: $border-radius;
+  min-width: 70px;
+  color: $light-title;
+  &:hover {
+    background-color: #59bcee;
+  }
+  &:active {
+    scale: 1.1;
+    background-color: $accent-color;
+  }
+}
+
+.wrapper {
+  @include content-container;
+  display: flex;
+  gap: $gap;
+}
+
+.subtitle {
+@include subtitle;
+}
+

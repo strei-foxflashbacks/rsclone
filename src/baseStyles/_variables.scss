@@ -1,0 +1,37 @@
+//colors
+$title-background: black;
+$shadow: #eaeaea;
+$light-title: white;
+$dark-text: #252525;
+$light-dark-text: #9b9b9b;
+$accent-color: #5ac2f1;
+
+//fonts
+$main-font: 400 16px 'Raleway', sans-serif;
+$title-font: 600 16px 'Oswald', sans-serif;
+
+//sizes
+$header-size: 50px;
+$border-radius: 7px;
+$news-width: 300px;
+$gap: 7px;
+
+//mixins
+@mixin content-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 15px;
+}
+@mixin title {
+  color: $light-title;
+  font: $title-font;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+@mixin subtitle {
+  color: $title-background;
+  font: $title-font;
+  font-size: 19px;
+  text-transform: uppercase;
+  margin: 0;
+}

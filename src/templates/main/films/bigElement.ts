@@ -1,9 +1,10 @@
 import createElement from '../../../helpers/createElement';
 import createStar from './ratingStarElement';
 import { StarColor } from '../../../types/star';
+import openFilmPage from './functions/openFilmPage';
 
-const getBigElement = (path: string, title: string, titleEng: string, rating: number, note: string): HTMLElement => {
-  const bigElement = createElement('div', {});
+const getBigElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
+  const bigElement = createElement('div', { class: 'big-element', 'data-id': id });
   bigElement.style.backgroundImage = `url('${path}')`;
   bigElement.classList.add('films__big-element', 'films__photo');
   const container = createElement('div', { class: 'films__container' });
@@ -29,6 +30,7 @@ const getBigElement = (path: string, title: string, titleEng: string, rating: nu
   const noteElem = createElement('p', { class: 'films__note' }, note);
   container.append(titleElem, titleEngElem, getStarsSet(), noteElem);
   bigElement.append(container, containerShadowing);
+  bigElement.addEventListener('click', openFilmPage);
   return bigElement;
 };
 

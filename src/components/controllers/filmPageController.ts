@@ -1,6 +1,9 @@
 import getFilmPage from '../../templates/main/filmPage/filmPage';
-import getBigElement from '../../templates/main/films/bigElement';
+import getFilmElement from '../../templates/main/films/filmElement';
 import { IFilmResponse } from '../../types/IFilmResponse';
+import { IFilmSections } from '../../types/IFilmSections';
+
+export const temp: IFilmSections = { genres: 'приключения, детектив, комедия', audio: 'русский', release: '2021', countries: 'Испания' };
 
 export const films: IFilmResponse[] = [{ 'path': './assets/losMisteriosDeLaura.jpg',
   'title': '1',

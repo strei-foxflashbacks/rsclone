@@ -70,7 +70,7 @@ export const filmPageController = (id: string): void => {
 
   films.forEach(elem => {
     if (elem.id === id) {
-      const filmPage = getFilmPage(id);
+      const filmPage = getFilmPage(elem);
 
       main.append(filmPage);
     }

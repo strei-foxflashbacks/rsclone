@@ -22,7 +22,7 @@ import './../../assets/previews/preview11.png';
 import './../../assets/previews/preview12.png';
 import './../../assets/previews/preview13.png';
 import './../../assets/previews/preview14.png';
-import { TVideoControlsSettingsItems } from '../../../types/types';
+import { TSpeedVideo, TVideoControlsSettingsItems } from '../../../types/types';
 
 let videoContainer: HTMLVideoElement;
 
@@ -197,6 +197,16 @@ const btnControlsRender = () => {
     quality = 'Quality video',
     speed = 'Play speed',
   }
+  const speedVideo: { [key in TSpeedVideo]: number } = {
+    '0.25x': 0.25,
+    '0.5x': 0.5,
+    '0.75x': 0.75,
+    normal: 1,
+    '1.25x': 1.25,
+    '1.5x': 1.5,
+    '1.75x': 1.75,
+    '2x': 2,
+  };
   // enum SubSettingsSubtitleSizeText {
   //   small = 'Small',
   //   standard = 'Standard',
@@ -227,8 +237,6 @@ const btnControlsRender = () => {
     quality: ['auto', '1440p', '1080p', '720p', '480p'],
     speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
   };
-
-  // const sizeSubtitle: 'small' | 'standard' | 'large' = 'standard';
 
   settingsItemsName.forEach((item) => {
     const settingsItem = createElement('div', {
@@ -265,13 +273,38 @@ const btnControlsRender = () => {
       const subSettingsItem = createElement(
         'li',
         {
-          class: `subsettings-item subsettings-item-${itemSubSettings} ${activeSubSettingsClass}`,
+          class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
+          id: `${itemSubSettings}`,
         },
         // eslint-disable-next-line @typescript-eslint/comma-dangle
         `${itemSubSettings}`
       );
       subSettingsItems.append(subSettingsItem);
     });
+
+    const changeActiveSubSettings = (el: HTMLElement) => {
+      const parentEl = el.parentElement;
+      [...parentEl!.children].forEach((element) => {
+        element.classList.remove('active-subsettings');
+      });
+    };
+
+    const changeVideoSpeed = (speed: string) => {
+      if (videoContainer.playbackRate !== +speed) {
+        videoContainer.playbackRate = speedVideo[<TSpeedVideo>speed];
+      }
+    };
+
+    const changeSettings = (e: Event) => {
+      const target = <HTMLElement>e.target;
+      if (target.className.includes('speed')) {
+        changeActiveSubSettings(target);
+        target.classList.add('active-subsettings');
+        changeVideoSpeed(target.id);
+      }
+    };
+
+    subSettingsItems.addEventListener('click', changeSettings);
     settingsItem.append(subSettingsItems);
     settingsPopup.append(settingsItem);
   });

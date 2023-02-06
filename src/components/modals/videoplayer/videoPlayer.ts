@@ -92,8 +92,8 @@ const timeLineRender = () => {
   return timeLineTime;
 };
 
-const skip = (skipDuration: number) => {
-  videoContainer.currentTime += skipDuration;
+const skip = (skipTime: number) => {
+  videoContainer.currentTime += skipTime;
 };
 
 const btnControlsRender = () => {
@@ -109,14 +109,14 @@ const btnControlsRender = () => {
 
   btnControlsLeft.append(playPause);
   const skipBackward = <HTMLButtonElement>(
-    createElement('button', { class: 'controls-btn skip-backward' })
+    createElement('button', { class: 'controls-btn skip-btn skip-backward' })
   );
   skipBackward.addEventListener('click', () => {
     skip(SKIP_BACKWARD);
   });
   btnControlsLeft.append(skipBackward);
   const skipForward = <HTMLButtonElement>(
-    createElement('button', { class: 'controls-btn skip-forward' })
+    createElement('button', { class: 'controls-btn skip-btn skip-forward' })
   );
   skipForward.addEventListener('click', () => {
     skip(SKIP_FORWARD);

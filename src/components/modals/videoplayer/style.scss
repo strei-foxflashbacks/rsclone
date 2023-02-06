@@ -138,33 +138,36 @@
     }
   }
 
-  .skip-backward {
-    background-image: url(../../assets/icons/skip-backward.svg);
-    position: relative;
+  .skip {
+    &-btn {
+      position: relative;
 
-    &::after {
-      content: '10';
-      position: absolute;
-      left: 0;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
+      &::after {
+        content: '10';
+        position: absolute;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    &-backward {
+      background-image: url(../../assets/icons/skip-backward.svg);
+
+      &::after {
+        left: 5px;
+      }
+    }
+
+    &-forward {
+      background-image: url(../../assets/icons/skip-forward.svg);
+
+      &::after {
+        right: 7px;
+      }
     }
   }
 
-  .skip-forward {
-    background-image: url(../../assets/icons/skip-forward.svg);
-    position: relative;
-
-    &::after {
-      content: '10';
-      position: absolute;
-      right: 0;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
 
   .volume {
     background-image: url(../../assets/icons/volume-full.svg);

@@ -1,5 +1,5 @@
-import createElement from '../../helpers/createElement';
-import newsData from '../../components/newsData';
+import createElement from '../../../helpers/createElement';
+import newsData from '../../../components/newsData';
 import getNewsItem from './newsItem';
 
 const getNews = (): HTMLElement => {

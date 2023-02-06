@@ -1,8 +1,8 @@
 @import "./baseStyles/normalize.css";
 @import "./baseStyles/variables";
 @import "./templates/header/header";
-@import "./templates/main/news";
-@import "./templates/main/films";
+@import "templates/main/news/news";
+@import "./templates/main/films/films";
 @import "./templates/footer/footer";
 
 
@@ -29,7 +29,7 @@ body {
   @include content-container;
   min-height: calc(100vh - 35px);
   display: flex;
-  gap: 10px;
+  gap: $gap;
 }
 
 .subtitle {

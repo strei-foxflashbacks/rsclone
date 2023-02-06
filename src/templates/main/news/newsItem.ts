@@ -1,5 +1,5 @@
-import createElement from '../../helpers/createElement';
-import { INewsRecord } from '../../types/INewsRecord';
+import createElement from '../../../helpers/createElement';
+import { INewsRecord } from '../../../types/INewsRecord';
 
 const getNewsItem = (newsData: INewsRecord): HTMLElement => {
   const newsItem = createElement('div', { class: 'news-item' });

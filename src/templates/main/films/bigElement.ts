@@ -1,7 +1,9 @@
 import createElement from '../../../helpers/createElement';
-import createStar from './ratingStarElement';
+import createStar from '../../../components/ratingStarElement';
 import { StarColor } from '../../../types/star';
 import openFilmPage from './functions/openFilmPage';
+import createFavourites from '../../../components/controllers/favouritesElement';
+import { FavoritesColor } from '../../../types/favorite';
 
 const getBigElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
   const bigElement = createElement('div', { class: 'big-element', 'data-id': id });
@@ -11,6 +13,12 @@ const getBigElement = (path: string, title: string, titleEng: string, rating: nu
   const containerShadowing = createElement('div', { class: 'films__container_shadow' });
   const titleElem  = createElement('div', { class: 'films__title' }, title);
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, titleEng);
+
+  const favorites = createFavourites(FavoritesColor.white) as HTMLElement;
+  favorites.classList.add('films__favorites');
+  favorites.setAttribute('width', '30px');
+  favorites.setAttribute('height', '30px');
+
 
   const getStarsSet = () : HTMLElement => {
     const ratingElem = createElement('div', { class: 'rating' });
@@ -29,7 +37,7 @@ const getBigElement = (path: string, title: string, titleEng: string, rating: nu
 
   const noteElem = createElement('p', { class: 'films__note' }, note);
   container.append(titleElem, titleEngElem, getStarsSet(), noteElem);
-  bigElement.append(container, containerShadowing);
+  bigElement.append(container, containerShadowing, favorites);
   bigElement.addEventListener('click', openFilmPage);
   return bigElement;
 };

@@ -27,7 +27,6 @@ body {
 
 .wrapper {
   @include content-container;
-  min-height: calc(100vh - 35px);
   display: flex;
   gap: $gap;
 }

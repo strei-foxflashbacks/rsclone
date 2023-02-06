@@ -1,10 +1,17 @@
 .footer-container {
-  position: relative;
+  position: fixed;
+  top: calc((100vh - 35px));
+  z-index: 101;
+  background-color: white;
+  width: 100%;
+  height: $header-size;
+
 }
 
 .footer {
   display: flex;
   position: relative;
+  top: 6px;
   justify-content: center;
   gap: 20px;
   &__end {

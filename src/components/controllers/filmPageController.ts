@@ -1,7 +1,8 @@
 import getFilmPage from '../../templates/main/filmPage/filmPage';
 import getBigElement from '../../templates/main/films/bigElement';
+import { IFilmResponse } from '../../types/IFilmResponse';
 
-export const films = [{ 'path': './assets/losMisteriosDeLaura.jpg',
+export const films: IFilmResponse[] = [{ 'path': './assets/losMisteriosDeLaura.jpg',
   'title': '1',
   'titleEng': 'Los Misterios De Laura',
   'rating': 3,

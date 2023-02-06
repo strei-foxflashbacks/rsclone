@@ -19,7 +19,7 @@ $gap: 7px;
 //mixins
 @mixin content-container {
   max-width: 1100px;
-  margin: auto;
+  margin: auto auto $header-size auto;
   padding: 0 15px;
 }
 @mixin title {

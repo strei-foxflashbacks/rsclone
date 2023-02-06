@@ -1,9 +1,18 @@
 .film-page {
   width: 100%;
-}
 
-.header-margin {
-  margin-top: $header-size;
+  &__header-margin {
+    margin-top: $header-size;
+  }
+
+  &__th {
+  @include title;
+    color: $dark-text;
+    text-align: start;
+    height: 55px;
+  }
+
+
 }
 
 

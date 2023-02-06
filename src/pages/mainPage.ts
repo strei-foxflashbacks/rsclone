@@ -1,7 +1,7 @@
 import createElement from '../helpers/createElement';
 import clearElement from './clearElement';
-import getNews from '../templates/main/news';
-import getMainContent from '../templates/main/films';
+import getNews from '../templates/main/news/news';
+import getMainContent from '../templates/main/films/films';
 
 export const getMainPage = () :HTMLElement => {
   let main = document.querySelector('main');

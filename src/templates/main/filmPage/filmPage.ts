@@ -1,6 +1,7 @@
 import createElement from '../../../helpers/createElement';
 import { IFilmResponse } from '../../../types/IFilmResponse';
-import getBigElement from '../films/bigElement';
+import getFilmElement from '../films/filmElement';
+import { temp } from '../../../components/controllers/filmPageController';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });

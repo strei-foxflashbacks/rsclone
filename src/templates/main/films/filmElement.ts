@@ -5,7 +5,7 @@ import openFilmPage from './functions/openFilmPage';
 import createFavourites from '../../../components/controllers/favouritesElement';
 import { FavoritesColor } from '../../../types/favorite';
 
-const getBigElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
+const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
   const bigElement = createElement('div', { class: 'big-element', 'data-id': id });
   bigElement.style.backgroundImage = `url('${path}')`;
   bigElement.classList.add('films__big-element', 'films__photo');
@@ -42,4 +42,4 @@ const getBigElement = (path: string, title: string, titleEng: string, rating: nu
   return bigElement;
 };
 
-export default getBigElement;
+export default getFilmElement;

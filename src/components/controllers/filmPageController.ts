@@ -82,7 +82,7 @@ export const filmPageController = (id: string): void => {
 
 export const mainPageController = (main: HTMLElement): void => {
   films.forEach(elem => {
-    const film = getBigElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
+    const film = getFilmElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
     main.append(film);
   });
 };

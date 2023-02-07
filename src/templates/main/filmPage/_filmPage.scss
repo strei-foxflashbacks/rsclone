@@ -12,6 +12,21 @@
     height: 55px;
   }
 
+  &__table {
+    max-height: 400px;
+    width: 100%;
+  }
+  &__text {
+    vertical-align: top;
+  }
+  &__column {
+    width: 30%;
+  }
+  &__title {
+    @include title;
+    color: $dark-text;
+  }
+
 
 }
 

@@ -12,7 +12,23 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
 
   const table = createInfoTable();
 
-  container.append(filmElement, table);
+  const materials = createElement('div', { class: 'materials' });
+  const trailer = createElement('div', { class: 'materials__trailer' });
+  const middlePoster = createElement('div', { class: 'materials__middle' });
+
+  const materialsMiniGroup = createElement('div', { class: 'materials__group' });
+  const miniPoster1 = createElement('div', { class: 'materials__mini' });
+  const miniPoster2 = createElement('div', { class: 'materials__mini' });
+  const miniPoster3 = createElement('div', { class: 'materials__mini' });
+  const miniPoster4 = createElement('div', { class: 'materials__mini' });
+  materialsMiniGroup.append(miniPoster1, miniPoster2, miniPoster3, miniPoster4);
+
+  const bigPoster = createElement('div', { class: 'materials__big' });
+
+  materials.append(trailer, middlePoster, materialsMiniGroup, bigPoster);
+
+
+  container.append(filmElement, table, materials);
   return container;
 };
 

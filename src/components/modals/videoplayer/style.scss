@@ -205,6 +205,7 @@
 
   &-popup {
     background-color: rgba(30, 30, 30);
+    min-height: 200px;
     position: absolute;
     bottom: -5550px;
     right: -120px;
@@ -275,8 +276,19 @@
     }
   }
 
-  .subtitle-soundtrack {
+  .subtitle-sound {
     background-image: url(../../assets/icons/subtitle.svg);
+
+    &-container {
+      position: relative;
+
+      &:hover {
+        .controls-popup {
+          opacity: 1;
+          bottom: 40px;
+        }
+      }
+    }
   }
 
   .settings {

@@ -17,3 +17,8 @@ export type TSpeedVideo =
   | '1.5x'
   | '1.75x'
   | '2x';
+
+export type TVideoControlsSubtitleSoundItems =
+  | 'sound'
+  | 'language'
+  | 'subtitle';

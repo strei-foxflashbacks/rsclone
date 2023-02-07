@@ -22,7 +22,11 @@ import './../../assets/previews/preview11.png';
 import './../../assets/previews/preview12.png';
 import './../../assets/previews/preview13.png';
 import './../../assets/previews/preview14.png';
-import { TSpeedVideo, TVideoControlsSettingsItems } from '../../../types/types';
+import {
+  TSpeedVideo,
+  TVideoControlsSettingsItems,
+  TVideoControlsSubtitleSoundItems,
+} from '../../../types/types';
 
 let videoContainer: HTMLVideoElement;
 
@@ -94,6 +98,52 @@ const timeLineRender = () => {
 
 const skip = (skipTime: number) => {
   videoContainer.currentTime += skipTime;
+};
+
+const settingsItemsName: TVideoControlsSettingsItems[] = [
+  'subtitle',
+  'quality',
+  'speed',
+];
+enum ControlsPopupSettingsText {
+  subtitle = 'Subtitle size',
+  quality = 'Quality video',
+  speed = 'Play speed',
+}
+const speedVideo: { [key in TSpeedVideo]: number } = {
+  '0.25x': 0.25,
+  '0.5x': 0.5,
+  '0.75x': 0.75,
+  normal: 1,
+  '1.25x': 1.25,
+  '1.5x': 1.5,
+  '1.75x': 1.75,
+  '2x': 2,
+};
+const defaultSubtitleSize = 'standard';
+const defaultQuality = 'auto';
+const defaultSpeedVideo = 'normal';
+
+const changeActiveSubSettings = (el: HTMLElement) => {
+  const parentEl = el.parentElement;
+  [...parentEl!.children].forEach((element) => {
+    element.classList.remove('active-subsettings');
+  });
+};
+
+const changeVideoSpeed = (speed: string) => {
+  if (videoContainer.playbackRate !== +speed) {
+    videoContainer.playbackRate = speedVideo[<TSpeedVideo>speed];
+  }
+};
+
+const changeSettings = (e: Event) => {
+  const target = <HTMLElement>e.target;
+  if (target.className.includes('speed')) {
+    changeActiveSubSettings(target);
+    target.classList.add('active-subsettings');
+    changeVideoSpeed(target.id);
+  }
 };
 
 const btnControlsRender = () => {
@@ -173,10 +223,77 @@ const btnControlsRender = () => {
   const btnControlsRight = createElement('div', {
     class: 'controls-buttons-right',
   });
-  const subtitleSoundtrack = <HTMLButtonElement>(
-    createElement('button', { class: 'controls-btn subtitle-soundtrack' })
+  const subtitleSoundContainer = createElement('div', {
+    class: 'subtitle-sound-container',
+  });
+  const subtitleSound = <HTMLButtonElement>(
+    createElement('button', { class: 'controls-btn subtitle-sound' })
   );
-  btnControlsRight.append(subtitleSoundtrack);
+  subtitleSoundContainer.append(subtitleSound);
+  const subtitleSoundPopup = createElement('div', {
+    class: 'controls-popup subtitle-sound-popup',
+  });
+  const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
+    'sound',
+    'language',
+    'subtitle',
+  ];
+  enum ControlsPopupSubtitleSoundText {
+    sound = 'Sound',
+    language = 'Language',
+    subtitle = 'Subtitle',
+  }
+  const defaultSound = 'stereo';
+  const defaultLanguage = 'english';
+  const defaultSubtitle = 'off';
+  const subSettingSubtitleSound = {
+    sound: ['stereo', '5.1'],
+    language: ['english', 'russian'],
+    subtitle: ['off', 'on'],
+  };
+  subtitleSoundItemsName.forEach((item) => {
+    const subtitleSoundItem = createElement('div', {
+      class: 'controls-popup-item',
+    });
+    const titleItem = createElement(
+      'p',
+      { class: 'controls-popup-item-title' },
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+      `${ControlsPopupSubtitleSoundText[item]}`
+    );
+    const subSettingsItems = createElement('ul', {
+      class: 'subsettings-items',
+    });
+    subSettingSubtitleSound[item].forEach((itemSubSettings) => {
+      const activeSubSettingsItem = [
+        defaultSound,
+        defaultLanguage,
+        defaultSubtitle,
+      ].includes(itemSubSettings);
+      const activeSubSettingsClass = activeSubSettingsItem
+        ? 'active-subsettings'
+        : '';
+      const subSettingsItem = createElement(
+        'li',
+        {
+          class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
+          id: `${itemSubSettings}`,
+        },
+        // eslint-disable-next-line @typescript-eslint/comma-dangle
+        `${itemSubSettings}`
+      );
+      subSettingsItems.append(subSettingsItem);
+    });
+
+    subtitleSoundItem.append(titleItem);
+    subtitleSoundItem.append(subSettingsItems);
+    subSettingsItems.addEventListener('click', changeSettings);
+    subtitleSoundPopup.append(subtitleSoundItem);
+  });
+
+  subtitleSoundContainer.append(subtitleSoundPopup);
+  btnControlsRight.append(subtitleSoundContainer);
+
   const settingsContainer = createElement('div', {
     class: 'settings-container',
   });
@@ -187,52 +304,10 @@ const btnControlsRender = () => {
   const settingsPopup = createElement('div', {
     class: 'controls-popup settings-popup',
   });
-  const settingsItemsName: TVideoControlsSettingsItems[] = [
-    'subtitle',
-    'quality',
-    'speed',
-  ];
-  enum ControlsPopupText {
-    subtitle = 'Subtitle size',
-    quality = 'Quality video',
-    speed = 'Play speed',
-  }
-  const speedVideo: { [key in TSpeedVideo]: number } = {
-    '0.25x': 0.25,
-    '0.5x': 0.5,
-    '0.75x': 0.75,
-    normal: 1,
-    '1.25x': 1.25,
-    '1.5x': 1.5,
-    '1.75x': 1.75,
-    '2x': 2,
-  };
-  // enum SubSettingsSubtitleSizeText {
-  //   small = 'Small',
-  //   standard = 'Standard',
-  //   large = 'Large',
-  // }
-  // enum SubSettingsQualityText {
-  //   auto = 'Auto',
-  //   '1440p' = '1440p',
-  //   '1080p' = '1080p',
-  //   '720p' = '720p',
-  //   '480p' = '480p',
-  // }
-  // enum SubSettingsSpeedText {
-  //   '0.25x' = '0.25x',
-  //   '0.5x' = '0.5x',
-  //   '0.75x' = '0.75x',
-  //   normal = 'Normal',
-  //   '1.25x' = '1.25x',
-  //   '1.5x' = '1.5x',
-  //   '1.75x' = '1.75x',
-  //   '2x' = '2x',
-  // }
-  const defaultSubtitleSize = 'standard';
-  const defaultQuality = 'auto';
-  const defaultSpeedVideo = 'normal';
-  const subSettings: { [key in TVideoControlsSettingsItems]: string[] } = {
+
+  const subSettingSettings: {
+    [key in TVideoControlsSettingsItems]: string[];
+  } = {
     subtitle: ['small', 'standard', 'large'],
     quality: ['auto', '1440p', '1080p', '720p', '480p'],
     speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
@@ -252,7 +327,7 @@ const btnControlsRender = () => {
       'p',
       { class: 'controls-popup-item-title' },
       // eslint-disable-next-line @typescript-eslint/comma-dangle
-      `${ControlsPopupText[item]}`
+      `${ControlsPopupSettingsText[item]}`
     );
     titleContainer.append(iconItem);
     titleContainer.append(titleItem);
@@ -261,7 +336,7 @@ const btnControlsRender = () => {
     const subSettingsItems = createElement('ul', {
       class: 'subsettings-items',
     });
-    subSettings[item].forEach((itemSubSettings) => {
+    subSettingSettings[item].forEach((itemSubSettings) => {
       const activeSubSettingsItem = [
         defaultSubtitleSize,
         defaultQuality,
@@ -281,28 +356,6 @@ const btnControlsRender = () => {
       );
       subSettingsItems.append(subSettingsItem);
     });
-
-    const changeActiveSubSettings = (el: HTMLElement) => {
-      const parentEl = el.parentElement;
-      [...parentEl!.children].forEach((element) => {
-        element.classList.remove('active-subsettings');
-      });
-    };
-
-    const changeVideoSpeed = (speed: string) => {
-      if (videoContainer.playbackRate !== +speed) {
-        videoContainer.playbackRate = speedVideo[<TSpeedVideo>speed];
-      }
-    };
-
-    const changeSettings = (e: Event) => {
-      const target = <HTMLElement>e.target;
-      if (target.className.includes('speed')) {
-        changeActiveSubSettings(target);
-        target.classList.add('active-subsettings');
-        changeVideoSpeed(target.id);
-      }
-    };
 
     subSettingsItems.addEventListener('click', changeSettings);
     settingsItem.append(subSettingsItems);

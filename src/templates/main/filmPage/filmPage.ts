@@ -3,6 +3,7 @@ import { IFilmResponse } from '../../../types/IFilmResponse';
 import getFilmElement from '../films/filmElement';
 import { createInfoTable } from './infoTable';
 import getGroupOfPosters from './groupOfPosters';
+import getSerialEpisode from './serialEpisode';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });

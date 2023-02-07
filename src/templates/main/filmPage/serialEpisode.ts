@@ -1,13 +1,18 @@
 import createElement from '../../../helpers/createElement';
 
-const getSerialEpisode = (): HTMLElement => {
+const getSerialEpisode = (order: number, name: string, rate: boolean): HTMLElement => {
   const container = createElement('div', { class: 'episode' });
   container.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-  const order = createElement('div', { class: 'episode__order' });
-  const name = createElement('div', { class: 'episode__name' });
-  const playIcon = createElement('img', { class: 'episode__play' });
-  const rate = createElement('div', { class: 'episode__rate' });
-  container.append(order, name, playIcon, rate);
+  const orderAndRate = createElement('div', { class: 'episode__order-and-rate' });
+  const orderElem = createElement('div', { class: 'episode__order' }, `серия ${order}`);
+  const nameElem = createElement('div', { class: 'episode__name' }, name);
+  const playIcon = createElement('img', { class: 'episode__play', src: './assets/playTrailer.svg' });
+
+  const rateValue = rate ? 'бесплатно' : 'по подписке';
+
+  const rateElem = createElement('div', { class: 'episode__rate' }, rateValue);
+  orderAndRate.append(orderElem, rateElem);
+  container.append(orderAndRate, playIcon, nameElem);
   return container;
 };
 

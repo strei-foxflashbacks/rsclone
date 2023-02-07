@@ -2,7 +2,7 @@ import createElement from '../../../helpers/createElement';
 import createStar from '../../../components/ratingStarElement';
 import { StarColor } from '../../../types/star';
 import openFilmPage from './functions/openFilmPage';
-import createFavourites from '../../../components/controllers/favouritesElement';
+import createFavourites from '../../../components/favouritesElement';
 import { FavoritesColor } from '../../../types/favorite';
 
 const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
@@ -10,7 +10,6 @@ const getFilmElement = (path: string, title: string, titleEng: string, rating: n
   bigElement.style.backgroundImage = `url('${path}')`;
   bigElement.classList.add('films__big-element', 'films__photo');
   const container = createElement('div', { class: 'films__container' });
-  const containerShadowing = createElement('div', { class: 'films__container_shadow' });
   const titleElem  = createElement('div', { class: 'films__title' }, title);
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, titleEng);
 

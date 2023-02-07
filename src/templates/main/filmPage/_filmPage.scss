@@ -59,9 +59,7 @@
     grid-area: grp;
   }
   &__group > div {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    @include background-positioning;
   }
 
   &__big {

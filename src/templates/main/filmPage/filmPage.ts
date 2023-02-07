@@ -14,8 +14,10 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const table = createInfoTable();
   const materials = getGroupOfPosters();
 
+  const series = getSerialEpisode();
 
-  container.append(filmElement, table, materials);
+
+  container.append(filmElement, table, materials, series);
   return container;
 };
 

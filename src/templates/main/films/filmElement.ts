@@ -36,7 +36,7 @@ const getFilmElement = (path: string, title: string, titleEng: string, rating: n
 
   const noteElem = createElement('p', { class: 'films__note' }, note);
   container.append(titleElem, titleEngElem, getStarsSet(), noteElem);
-  bigElement.append(container, containerShadowing, favorites);
+  bigElement.append(container, favorites);
   bigElement.addEventListener('click', openFilmPage);
   return bigElement;
 };

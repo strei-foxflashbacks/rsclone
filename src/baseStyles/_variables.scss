@@ -35,3 +35,8 @@ $gap: 7px;
   text-transform: uppercase;
   margin: 0;
 }
+@mixin background-positioning {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

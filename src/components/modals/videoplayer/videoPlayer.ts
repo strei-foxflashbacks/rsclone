@@ -166,7 +166,6 @@ const changeSettings = (e: Event) => {
   if (target.className.includes('size')) {
     changeActiveSubSettings(target);
     target.classList.add('active-subsettings');
-    console.log(target.id);
     const size = <'small' | 'standard' | 'large'>target.id;
     videoElement.style.setProperty(
       '--subtitle-font-size',
@@ -176,20 +175,22 @@ const changeSettings = (e: Event) => {
   }
 };
 
-let timeout: string | number | NodeJS.Timeout | undefined;
+let timeoutHidden: string | number | NodeJS.Timeout | undefined;
 const hiddenInterface = () => {
   const close = videoPlayerElement.querySelector('.close');
   const controls = videoPlayerElement.querySelector('.controls');
-  if (timeout) {
-    clearTimeout(timeout);
+  if (timeoutHidden) {
+    clearTimeout(timeoutHidden);
     videoPlayerElement.classList.remove('hide-interface');
     close!.classList.remove('hide-interface');
     controls!.classList.remove('hide-interface');
   }
-  timeout = setTimeout(() => {
-    videoPlayerElement.classList.add('hide-interface');
-    close!.classList.add('hide-interface');
-    controls!.classList.add('hide-interface');
+  timeoutHidden = setTimeout(() => {
+    if (!videoElement.paused) {
+      videoPlayerElement.classList.add('hide-interface');
+      close!.classList.add('hide-interface');
+      controls!.classList.add('hide-interface');
+    }
   }, 5000);
 };
 
@@ -481,18 +482,18 @@ const switchSubtitleLang = () => {
   if (!subs.length) return;
   for (const sub of subs) {
     // const sub = subs[i];
-    console.log('sub', sub);
+    // console.log('sub', sub);
 
     sub.mode = 'hidden';
-    console.log('sub', sub);
+    // console.log('sub', sub);
 
     if (sub.language === currentSubtitleLang) sub.mode = 'showing';
-    console.log(sub.mode);
-    console.log('subs', subs);
+    // console.log(sub.mode);
+    // console.log('subs', subs);
   }
-  const s1 = videoElement.textTracks[0];
-  console.log('change', videoElement.textTracks[0] === s1);
-  console.log('change', videoElement.textTracks);
+  // const s1 = videoElement.textTracks[0];
+  // console.log('change', videoElement.textTracks[0] === s1);
+  // console.log('change', videoElement.textTracks);
 };
 
 const addSubtitles = () => {
@@ -539,14 +540,13 @@ const videoPlayerRender = (src: string) => {
 
   videoPlayer.append(video);
 
-  video.addEventListener('click', () => {
-    playPauseVideo();
-  });
+  video.addEventListener('click', playPauseVideo);
 
   video.addEventListener('play', () => {
     const btnPlayPause = document.querySelector('.play-pause');
     btnPlayPause!.classList.add('pause');
     iconCenterAnimate('play');
+    hiddenInterface();
   });
   video.addEventListener('pause', () => {
     const btnPlayPause = document.querySelector('.play-pause');
@@ -562,6 +562,7 @@ const videoPlayerRender = (src: string) => {
   controls.append(btnControlsRender());
 
   videoPlayer.append(controls);
+  hiddenInterface();
 
   return videoPlayer;
 };

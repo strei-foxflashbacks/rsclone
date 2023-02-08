@@ -408,12 +408,68 @@ const updateTime = (video: HTMLVideoElement) => {
   time!.textContent = formatTime(duration - currentTime);
 };
 
+import './../../assets/videos/video-en.vtt';
+import './../../assets/videos/video-ru.vtt';
+
+const subtitleSrcArray = [
+  {
+    src: './assets/video-en.vtt',
+    srclang: 'en',
+    label: 'English',
+  },
+  {
+    src: './assets/video-ru.vtt',
+    srclang: 'ru',
+    label: 'Russian',
+  },
+];
+
+// const defaultSubtitleLang = 'en';
+
+const currentSubtitleLang = 'en';
+const switchSubtitleLang = () => {
+  const subs = videoContainer.textTracks;
+  if (!subs.length) return;
+  for (const sub of subs) {
+    // const sub = subs[i];
+    console.log('sub', sub);
+
+    sub.mode = 'hidden';
+    console.log('sub', sub);
+
+    if (sub.language === currentSubtitleLang) sub.mode = 'showing';
+    console.log(sub.mode);
+    console.log('subs', subs);
+  }
+  const s1 = videoContainer.textTracks[0];
+  console.log('change', videoContainer.textTracks[0] === s1);
+  console.log('change', videoContainer.textTracks);
+};
+
+const addSubtitles = () => {
+  if (!subtitleSrcArray.length) return;
+  subtitleSrcArray.forEach((sub) => {
+    const subtitleContainer = <HTMLTrackElement>createElement('track', {
+      class: 'track-subtitle',
+    });
+    subtitleContainer.default = sub.srclang === 'en';
+    subtitleContainer.src = sub.src;
+    subtitleContainer.srclang = sub.srclang;
+    subtitleContainer.label = sub.label;
+    subtitleContainer.track.mode = 'hidden';
+    videoContainer.append(subtitleContainer);
+  });
+
+  switchSubtitleLang();
+};
+
 const videoPlayerRender = (src: string) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: src })
   );
   videoContainer = video;
+  addSubtitles();
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');
     const duration = video.duration;

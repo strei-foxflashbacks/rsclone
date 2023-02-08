@@ -17,6 +17,10 @@
   max-height: 100vh;
   width: 100%;
   height: 100%;
+
+  .track-subtitle {
+    font-size: var(--subtitle-font-size);
+  }
 }
 
 .close {
@@ -216,6 +220,7 @@
     font-weight: 600;
     opacity: 0;
     transition: opacity .5s ease;
+    z-index: 1;
 
     &-title-container {
       display: flex;

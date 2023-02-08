@@ -10,6 +10,10 @@
   align-items: center;
   text-align: center;
   background-color: black;
+
+  &.hide-interface {
+    cursor: none;
+  }
 }
 
 .video {
@@ -31,6 +35,11 @@
   width: 32px;
   cursor: pointer;
   background-image: url(../../assets/icons/close.svg);
+  transition: all .5s ease;
+
+  &.hide-interface {
+    top: -100px;
+  }
 }
 
 .controls {
@@ -41,6 +50,11 @@
   padding: 0 50px;
   display: flex;
   flex-direction: column;
+  transition: all .5s ease;
+
+  &.hide-interface {
+    bottom: -100px;
+  }
 
   .timeline {
     width: 100%;
@@ -104,7 +118,7 @@
       position: absolute;
       top: -80px;
       left: calc(var(--timeline-preview) - 40px);
-      // display: none;
+      display: none;
     }
   }
 

@@ -28,13 +28,14 @@ import {
   TVideoControlsSubtitleSoundItems,
 } from '../../../types/types';
 
-let videoContainer: HTMLVideoElement;
+let videoElement: HTMLVideoElement;
+let videoPlayerElement: HTMLElement;
 
 const playPauseVideo = (): void => {
-  if (videoContainer.paused) {
-    videoContainer.play();
+  if (videoElement.paused) {
+    videoElement.play();
   } else {
-    videoContainer.pause();
+    videoElement.pause();
   }
 };
 
@@ -42,7 +43,7 @@ const updateTimeLine = () => {
   const timeLine = <HTMLElement>document.querySelector('.timeline');
 
   const positionPercent = `${
-    (videoContainer.currentTime / videoContainer.duration) * 100
+    (videoElement.currentTime / videoElement.duration) * 100
   }%`;
   timeLine!.style.setProperty('--timeline-position', positionPercent);
 };
@@ -67,7 +68,7 @@ const timeLineRender = () => {
     const xClickMouse = e.x - timeLine.getBoundingClientRect().x;
     const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
     const percent = xClickMouse / widthTimeLine;
-    videoContainer.currentTime = videoContainer.duration * percent;
+    videoElement.currentTime = videoElement.duration * percent;
   });
 
   timeLine.addEventListener('mousemove', (e: MouseEvent) => {
@@ -97,7 +98,7 @@ const timeLineRender = () => {
 };
 
 const skip = (skipTime: number) => {
-  videoContainer.currentTime += skipTime;
+  videoElement.currentTime += skipTime;
 };
 
 const settingsItemsName: TVideoControlsSettingsItems[] = [
@@ -132,8 +133,8 @@ const changeActiveSubSettings = (el: HTMLElement) => {
 };
 
 const switchVideoSpeed = (speed: string) => {
-  if (videoContainer.playbackRate !== +speed) {
-    videoContainer.playbackRate = speedVideo[<TSpeedVideo>speed];
+  if (videoElement.playbackRate !== +speed) {
+    videoElement.playbackRate = speedVideo[<TSpeedVideo>speed];
   }
 };
 
@@ -155,12 +156,30 @@ const changeSettings = (e: Event) => {
     target.classList.add('active-subsettings');
     console.log(target.id);
     const size = <'small' | 'standard' | 'large'>target.id;
-    videoContainer.style.setProperty(
+    videoElement.style.setProperty(
       '--subtitle-font-size',
       // eslint-disable-next-line @typescript-eslint/comma-dangle
       SubtitleFontSize[size]
     );
   }
+};
+
+let timeout: string | number | NodeJS.Timeout | undefined;
+const hiddenInterface = () => {
+  // videoPlayerElement.style.display
+  const close = videoPlayerElement.querySelector('.close');
+  const controls = videoPlayerElement.querySelector('.controls');
+  if (timeout) {
+    clearTimeout(timeout);
+    videoPlayerElement.classList.remove('hide-interface');
+    close!.classList.remove('hide-interface');
+    controls!.classList.remove('hide-interface');
+  }
+  timeout = setTimeout(() => {
+    videoPlayerElement.classList.add('hide-interface');
+    close!.classList.add('hide-interface');
+    controls!.classList.add('hide-interface');
+  }, 5000);
 };
 
 const btnControlsRender = () => {
@@ -203,28 +222,28 @@ const btnControlsRender = () => {
     step: '0.01',
     value: '0.5',
   });
-  videoContainer.volume = +volumeRange.value;
+  videoElement.volume = +volumeRange.value;
   volumeRange.addEventListener('input', () => {
-    videoContainer.muted = false;
-    videoContainer.volume = +volumeRange.value;
+    videoElement.muted = false;
+    videoElement.volume = +volumeRange.value;
   });
   let lastVolume: number;
   volumeBtn.addEventListener('click', () => {
-    if (videoContainer.muted) {
-      videoContainer.muted = false;
-      videoContainer.volume = lastVolume;
+    if (videoElement.muted) {
+      videoElement.muted = false;
+      videoElement.volume = lastVolume;
     } else {
-      lastVolume = videoContainer.volume;
-      videoContainer.muted = true;
-      videoContainer.volume = 0;
+      lastVolume = videoElement.volume;
+      videoElement.muted = true;
+      videoElement.volume = 0;
     }
   });
-  videoContainer.addEventListener('volumechange', () => {
-    volumeRange.value = `${videoContainer.volume}`;
-    if (!videoContainer.volume || videoContainer.muted) {
+  videoElement.addEventListener('volumechange', () => {
+    volumeRange.value = `${videoElement.volume}`;
+    if (!videoElement.volume || videoElement.muted) {
       volumeBtn.classList.add('muted');
       volumeBtn.classList.remove('half-volume');
-    } else if (videoContainer.volume <= 0.5) {
+    } else if (videoElement.volume <= 0.5) {
       volumeBtn.classList.remove('muted');
       volumeBtn.classList.add('half-volume');
     } else {
@@ -389,9 +408,8 @@ const btnControlsRender = () => {
     createElement('button', { class: 'controls-btn fullscreen' })
   );
   fullscreen.addEventListener('click', () => {
-    const videoPlayer = document.querySelector('.video-player');
     if (!document.fullscreenElement) {
-      videoPlayer!.requestFullscreen();
+      videoPlayerElement.requestFullscreen();
       fullscreen.classList.add('fullscreen-exit');
     } else {
       document.exitFullscreen();
@@ -445,7 +463,7 @@ const subtitleSrcArray = [
 
 const currentSubtitleLang = 'en';
 const switchSubtitleLang = () => {
-  const subs = videoContainer.textTracks;
+  const subs = videoElement.textTracks;
   if (!subs.length) return;
   for (const sub of subs) {
     // const sub = subs[i];
@@ -458,9 +476,9 @@ const switchSubtitleLang = () => {
     console.log(sub.mode);
     console.log('subs', subs);
   }
-  const s1 = videoContainer.textTracks[0];
-  console.log('change', videoContainer.textTracks[0] === s1);
-  console.log('change', videoContainer.textTracks);
+  const s1 = videoElement.textTracks[0];
+  console.log('change', videoElement.textTracks[0] === s1);
+  console.log('change', videoElement.textTracks);
 };
 
 const addSubtitles = () => {
@@ -474,7 +492,7 @@ const addSubtitles = () => {
     subtitleContainer.srclang = sub.srclang;
     subtitleContainer.label = sub.label;
     subtitleContainer.track.mode = 'hidden';
-    videoContainer.append(subtitleContainer);
+    videoElement.append(subtitleContainer);
   });
 
   switchSubtitleLang();
@@ -482,10 +500,13 @@ const addSubtitles = () => {
 
 const videoPlayerRender = (src: string) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
+  videoPlayerElement = videoPlayer;
+  videoPlayerElement.addEventListener('mousemove', hiddenInterface);
+
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: src })
   );
-  videoContainer = video;
+  videoElement = video;
   addSubtitles();
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');

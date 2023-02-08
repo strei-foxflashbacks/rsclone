@@ -101,6 +101,18 @@ const skip = (skipTime: number) => {
   videoElement.currentTime += skipTime;
 };
 
+const iconCenterAnimate = (className: string) => {
+  const videoPlayerIconCenter = <HTMLElement>(
+    videoPlayerElement.querySelector('.video-player-icon-center')
+  );
+  videoPlayerIconCenter!.classList.add(className);
+  videoPlayerIconCenter!.style.display = 'block';
+  setTimeout(() => {
+    videoPlayerIconCenter!.style.display = 'none';
+    videoPlayerIconCenter!.classList.remove(className);
+  }, 1000);
+};
+
 const settingsItemsName: TVideoControlsSettingsItems[] = [
   'size',
   'quality',
@@ -166,7 +178,6 @@ const changeSettings = (e: Event) => {
 
 let timeout: string | number | NodeJS.Timeout | undefined;
 const hiddenInterface = () => {
-  // videoPlayerElement.style.display
   const close = videoPlayerElement.querySelector('.close');
   const controls = videoPlayerElement.querySelector('.controls');
   if (timeout) {
@@ -197,7 +208,9 @@ const btnControlsRender = () => {
   const skipBackward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-btn skip-backward' })
   );
+
   skipBackward.addEventListener('click', () => {
+    iconCenterAnimate('skip-backward');
     skip(SKIP_BACKWARD);
   });
   btnControlsLeft.append(skipBackward);
@@ -205,6 +218,7 @@ const btnControlsRender = () => {
     createElement('button', { class: 'controls-btn skip-btn skip-forward' })
   );
   skipForward.addEventListener('click', () => {
+    iconCenterAnimate('skip-forward');
     skip(SKIP_FORWARD);
   });
   btnControlsLeft.append(skipForward);
@@ -500,6 +514,10 @@ const addSubtitles = () => {
 
 const videoPlayerRender = (src: string) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
+  const videoPlayerIconCenter = createElement('div', {
+    class: 'video-player-icon-center',
+  });
+  videoPlayer.append(videoPlayerIconCenter);
   videoPlayerElement = videoPlayer;
   videoPlayerElement.addEventListener('mousemove', hiddenInterface);
 
@@ -528,10 +546,12 @@ const videoPlayerRender = (src: string) => {
   video.addEventListener('play', () => {
     const btnPlayPause = document.querySelector('.play-pause');
     btnPlayPause!.classList.add('pause');
+    iconCenterAnimate('play');
   });
   video.addEventListener('pause', () => {
     const btnPlayPause = document.querySelector('.play-pause');
     btnPlayPause!.classList.remove('pause');
+    iconCenterAnimate('pause');
   });
 
   const close = createElement('div', { class: 'close' });

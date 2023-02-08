@@ -2,7 +2,7 @@ export interface IAttribute {
   [key: string]: string;
 }
 
-export type TVideoControlsSettingsItems = 'subtitle' | 'quality' | 'speed';
+export type TVideoControlsSettingsItems = 'size' | 'quality' | 'speed';
 
 export type TSubtitleSize = 'small' | 'standard' | 'large';
 

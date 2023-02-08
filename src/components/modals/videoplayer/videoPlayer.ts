@@ -101,12 +101,12 @@ const skip = (skipTime: number) => {
 };
 
 const settingsItemsName: TVideoControlsSettingsItems[] = [
-  'subtitle',
+  'size',
   'quality',
   'speed',
 ];
 enum ControlsPopupSettingsText {
-  subtitle = 'Subtitle size',
+  size = 'Subtitle size',
   quality = 'Quality video',
   speed = 'Play speed',
 }
@@ -131,18 +131,35 @@ const changeActiveSubSettings = (el: HTMLElement) => {
   });
 };
 
-const changeVideoSpeed = (speed: string) => {
+const switchVideoSpeed = (speed: string) => {
   if (videoContainer.playbackRate !== +speed) {
     videoContainer.playbackRate = speedVideo[<TSpeedVideo>speed];
   }
 };
+
+enum SubtitleFontSize {
+  small = '80%',
+  standard = '100%',
+  large = '120%',
+}
 
 const changeSettings = (e: Event) => {
   const target = <HTMLElement>e.target;
   if (target.className.includes('speed')) {
     changeActiveSubSettings(target);
     target.classList.add('active-subsettings');
-    changeVideoSpeed(target.id);
+    switchVideoSpeed(target.id);
+  }
+  if (target.className.includes('size')) {
+    changeActiveSubSettings(target);
+    target.classList.add('active-subsettings');
+    console.log(target.id);
+    const size = <'small' | 'standard' | 'large'>target.id;
+    videoContainer.style.setProperty(
+      '--subtitle-font-size',
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+      SubtitleFontSize[size]
+    );
   }
 };
 
@@ -308,7 +325,7 @@ const btnControlsRender = () => {
   const subSettingSettings: {
     [key in TVideoControlsSettingsItems]: string[];
   } = {
-    subtitle: ['small', 'standard', 'large'],
+    size: ['small', 'standard', 'large'],
     quality: ['auto', '1440p', '1080p', '720p', '480p'],
     speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
   };

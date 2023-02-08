@@ -66,5 +66,17 @@
     grid-area: big;
   }
 }
+.persons {
+  &__titles {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__title {
+    @include title;
+    color: $dark-text;
+  }
+
+}
 
 

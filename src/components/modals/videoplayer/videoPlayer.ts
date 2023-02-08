@@ -28,6 +28,24 @@ import {
   TVideoControlsSubtitleSoundItems,
 } from '../../../types/types';
 
+const previewImg = [
+  './assets/preview0.png',
+  './assets/preview1.png',
+  './assets/preview2.png',
+  './assets/preview3.png',
+  './assets/preview4.png',
+  './assets/preview5.png',
+  './assets/preview6.png',
+  './assets/preview7.png',
+  './assets/preview8.png',
+  './assets/preview9.png',
+  './assets/preview10.png',
+  './assets/preview11.png',
+  './assets/preview12.png',
+  './assets/preview13.png',
+  './assets/preview14.png',
+];
+
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
 
@@ -76,9 +94,8 @@ const timeLineRender = () => {
     const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
     const percent = (xClickMouse / widthTimeLine) * 100;
     timeLine.style.setProperty('--timeline-preview', `${percent}%`);
-    const imgNumber = Math.trunc(percent / (100 / 15));
-
-    previewImage.src = `./assets/preview${imgNumber}.png`;
+    const imgNumber = Math.trunc(percent / (100 / previewImg.length));
+    previewImage.src = previewImg[imgNumber];
     previewImage.style.display = 'block';
   });
 
@@ -194,6 +211,32 @@ const hiddenInterface = () => {
   }, 5000);
 };
 
+const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
+  'sound',
+  'language',
+  'subtitle',
+];
+enum ControlsPopupSubtitleSoundText {
+  sound = 'Sound',
+  language = 'Language',
+  subtitle = 'Subtitle',
+}
+const defaultSound = 'stereo';
+const defaultLanguage = 'english';
+const defaultSubtitle = 'off';
+const subSettingSubtitleSound = {
+  sound: ['stereo', '5.1'],
+  language: ['english', 'russian'],
+  subtitle: ['off', 'on'],
+};
+const subSettingSettings: {
+  [key in TVideoControlsSettingsItems]: string[];
+} = {
+  size: ['small', 'standard', 'large'],
+  quality: ['auto', '1440p', '1080p', '720p', '480p'],
+  speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
+};
+
 const btnControlsRender = () => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
 
@@ -284,24 +327,7 @@ const btnControlsRender = () => {
   const subtitleSoundPopup = createElement('div', {
     class: 'controls-popup subtitle-sound-popup',
   });
-  const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
-    'sound',
-    'language',
-    'subtitle',
-  ];
-  enum ControlsPopupSubtitleSoundText {
-    sound = 'Sound',
-    language = 'Language',
-    subtitle = 'Subtitle',
-  }
-  const defaultSound = 'stereo';
-  const defaultLanguage = 'english';
-  const defaultSubtitle = 'off';
-  const subSettingSubtitleSound = {
-    sound: ['stereo', '5.1'],
-    language: ['english', 'russian'],
-    subtitle: ['off', 'on'],
-  };
+
   subtitleSoundItemsName.forEach((item) => {
     const subtitleSoundItem = createElement('div', {
       class: 'controls-popup-item',
@@ -355,14 +381,6 @@ const btnControlsRender = () => {
   const settingsPopup = createElement('div', {
     class: 'controls-popup settings-popup',
   });
-
-  const subSettingSettings: {
-    [key in TVideoControlsSettingsItems]: string[];
-  } = {
-    size: ['small', 'standard', 'large'],
-    quality: ['auto', '1440p', '1080p', '720p', '480p'],
-    speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
-  };
 
   settingsItemsName.forEach((item) => {
     const settingsItem = createElement('div', {

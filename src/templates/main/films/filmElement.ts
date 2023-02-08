@@ -1,9 +1,9 @@
 import createElement from '../../../helpers/createElement';
 import createStar from '../../../components/ratingStarElement';
-import { StarColor } from '../../../types/star';
+import { StarColor } from '../../../types/starColors';
 import openFilmPage from './functions/openFilmPage';
 import createFavourites from '../../../components/favouritesElement';
-import { FavoritesColor } from '../../../types/favorite';
+import { FavoritesColor } from '../../../types/favoritesColors';
 
 const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
   const bigElement = createElement('div', { class: 'big-element', 'data-id': id });

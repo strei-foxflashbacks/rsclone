@@ -1,4 +1,4 @@
-import clearElement from '../../../../pages/clearElement';
+import clearElement from '../../../../helpers/clearElement';
 import { filmPageController } from '../../../../components/controllers/filmPageController';
 
 const openFilmPage = (event: Event): void => {

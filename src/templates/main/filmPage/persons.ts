@@ -1,9 +1,10 @@
 import createElement from '../../../helpers/createElement';
 import showPersons from './functions/showPersons';
+import getPerson from './person';
 
 const getPersons = (): HTMLElement => {
   const container = createElement('div', { class: 'persons' });
-  const titleActors = createElement('div', { class: 'persons__title', id: 'actors' }, 'в ролях');
+  const titleActors = createElement('div', { class: 'persons__title open', id: 'actors' }, 'в ролях');
   const titleDirectors = createElement('div', { class: 'persons__title', id: 'directors' }, 'режиссеры');
   const titleProducers = createElement('div', { class: 'persons__title', id: 'producers' }, 'продюсеры');
   const containerTitles = createElement('div', { class: 'persons__titles' });
@@ -17,6 +18,7 @@ const getPersons = (): HTMLElement => {
   titleActors.addEventListener('click', showPersons);
   titleDirectors.addEventListener('click', showPersons);
   titleProducers.addEventListener('click', showPersons);
+  containerPersons.append(getPerson('actors'));
   return container;
 };
 

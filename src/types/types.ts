@@ -2,4 +2,4 @@ export interface Attribute {
   [key: string]: string;
 }
 
-export type PersonsType = 'producers' | 'directors' | 'actors';
+//export type PersonsType = 'producers' | 'directors' | 'actors';

@@ -74,9 +74,43 @@
 
   &__title {
     @include title;
-    color: $dark-text;
+    color: $light-dark-text;
+  }
+}
+
+.container-persons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin: 30px 0 40px;
+}
+
+.person {
+  &__item {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    background-position: center;
+    background-size: cover;
   }
 
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__real-name {
+    font-size: 17px;
+  }
+
+  &__film-name {
+    font-size: 11px;
+    margin-top: 5px;
+  }
+}
+.open {
+  color: $dark-text;
 }
 
 

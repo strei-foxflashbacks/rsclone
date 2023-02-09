@@ -506,7 +506,15 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
   });
 };
 
+const allBlurBtn = () => {
+  const allBtn = <NodeListOf<HTMLButtonElement>>(
+    videoPlayerElement.querySelectorAll('.controls-btn')
+  );
+  allBtn.forEach((btn) => btn.blur());
+};
+
 const pressHotKey = (e: KeyboardEvent) => {
+  allBlurBtn();
   switch (e.key.toLocaleLowerCase()) {
     case ' ':
     case 'k':
@@ -561,6 +569,7 @@ const videoPlayerRender = (film: Film) => {
   videoPlayer.append(videoPlayerIconCenter);
   videoPlayerElement = videoPlayer;
   videoPlayerElement.addEventListener('mousemove', hiddenInterface);
+  videoPlayerElement.addEventListener('dblclick', toggleFullscreen);
 
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: film.src })

@@ -1,4 +1,4 @@
-import { StarColor } from '../types/starColors';
+import { StarColor } from '../../types/starColors';
 
 const createStar = (color: StarColor): HTMLOrSVGElement => {
   const svgElem = document.createElementNS('http://www.w3.org/2000/svg', 'svg');

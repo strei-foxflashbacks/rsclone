@@ -95,6 +95,20 @@
   }
 }
 
+.film-name {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  padding: 20px 40px;
+  color: white;
+  font-size: 40px;
+  transition: all .5s ease;
+
+  &.hide-interface {
+    top: -100px;
+  }
+}
+
 .controls {
   width: 100%;
   position: absolute;

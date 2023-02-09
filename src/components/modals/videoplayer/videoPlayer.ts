@@ -356,17 +356,20 @@ const changeSettings = (e: Event) => {
 let timeoutHidden: string | number | NodeJS.Timeout | undefined;
 const hiddenInterface = () => {
   const close = videoPlayerElement.querySelector('.close');
+  const filmName = videoPlayerElement.querySelector('.film-name');
   const controls = videoPlayerElement.querySelector('.controls');
   if (timeoutHidden) {
     clearTimeout(timeoutHidden);
     videoPlayerElement.classList.remove('hide-interface');
     close!.classList.remove('hide-interface');
+    filmName!.classList.remove('hide-interface');
     controls!.classList.remove('hide-interface');
   }
   timeoutHidden = setTimeout(() => {
     if (!videoElement.paused) {
       videoPlayerElement.classList.add('hide-interface');
       close!.classList.add('hide-interface');
+      filmName!.classList.add('hide-interface');
       controls!.classList.add('hide-interface');
     }
   }, 5000);
@@ -682,6 +685,10 @@ const videoPlayerRender = (film: Film) => {
   const close = createElement('div', { class: 'close' });
   close.addEventListener('click', closeVideoplayer);
   videoPlayer.append(close);
+
+  const filmName = createElement('div', { class: 'film-name' });
+  filmName.innerText = film.name;
+  videoPlayer.append(filmName);
 
   const controls = createElement('div', { class: 'controls' });
   controls.append(timeLineRender(film.thumbnails));

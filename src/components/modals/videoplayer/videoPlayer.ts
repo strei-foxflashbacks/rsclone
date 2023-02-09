@@ -26,7 +26,23 @@ import {
   TSpeedVideo,
   TVideoControlsSettingsItems,
   TVideoControlsSubtitleSoundItems,
+  TSubtitleSize,
 } from '../../../types/types';
+import './../../assets/videos/video-en.vtt';
+import './../../assets/videos/video-ru.vtt';
+
+const subtitleSrcArray = [
+  {
+    src: './assets/video-en.vtt',
+    srclang: 'en',
+    label: 'English',
+  },
+  {
+    src: './assets/video-ru.vtt',
+    srclang: 'ru',
+    label: 'Russian',
+  },
+];
 
 const previewImg = [
   './assets/preview0.png',
@@ -45,6 +61,61 @@ const previewImg = [
   './assets/preview13.png',
   './assets/preview14.png',
 ];
+const settingsItemsName: TVideoControlsSettingsItems[] = [
+  'size',
+  'quality',
+  'speed',
+];
+enum ControlsPopupSettingsText {
+  size = 'Subtitle size',
+  quality = 'Quality video',
+  speed = 'Play speed',
+}
+const speedVideo: { [key in TSpeedVideo]: number } = {
+  '0.25x': 0.25,
+  '0.5x': 0.5,
+  '0.75x': 0.75,
+  normal: 1,
+  '1.25x': 1.25,
+  '1.5x': 1.5,
+  '1.75x': 1.75,
+  '2x': 2,
+};
+const defaultSubtitleSize = 'standard';
+const defaultQuality = 'auto';
+const defaultSpeedVideo = 'normal';
+
+enum SubtitleFontSize {
+  small = '80%',
+  standard = '100%',
+  large = '120%',
+}
+
+const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
+  'sound',
+  'language',
+  'subtitle',
+];
+enum ControlsPopupSubtitleSoundText {
+  sound = 'Sound',
+  language = 'Language',
+  subtitle = 'Subtitle',
+}
+const subSettingSubtitleSound = {
+  sound: ['stereo', '5.1'],
+  language: ['en', 'ru'],
+  subtitle: ['off', 'on'],
+};
+const defaultSound = 'stereo';
+const defaultLanguage = 'en';
+const defaultSubtitle = 'off';
+const subSettingSettings: {
+  [key in TVideoControlsSettingsItems]: string[];
+} = {
+  size: ['small', 'standard', 'large'],
+  quality: ['auto', '1440p', '1080p', '720p', '480p'],
+  speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
+};
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
@@ -130,30 +201,6 @@ const iconCenterAnimate = (className: string) => {
   }, 1000);
 };
 
-const settingsItemsName: TVideoControlsSettingsItems[] = [
-  'size',
-  'quality',
-  'speed',
-];
-enum ControlsPopupSettingsText {
-  size = 'Subtitle size',
-  quality = 'Quality video',
-  speed = 'Play speed',
-}
-const speedVideo: { [key in TSpeedVideo]: number } = {
-  '0.25x': 0.25,
-  '0.5x': 0.5,
-  '0.75x': 0.75,
-  normal: 1,
-  '1.25x': 1.25,
-  '1.5x': 1.5,
-  '1.75x': 1.75,
-  '2x': 2,
-};
-const defaultSubtitleSize = 'standard';
-const defaultQuality = 'auto';
-const defaultSpeedVideo = 'normal';
-
 const changeActiveSubSettings = (el: HTMLElement) => {
   const parentEl = el.parentElement;
   [...parentEl!.children].forEach((element) => {
@@ -167,29 +214,55 @@ const switchVideoSpeed = (speed: string) => {
   }
 };
 
-enum SubtitleFontSize {
-  small = '80%',
-  standard = '100%',
-  large = '120%',
+const offSubtitle = () => {
+  for (const sub of videoElement.textTracks) {
+    sub.mode = 'hidden';
+  }
+};
+
+// eslint-disable-next-line prefer-const
+let currentSubtitleLang = 'en';
+
+const onSubtitle = () => {
+  for (const sub of videoElement.textTracks) {
+    if (sub.language === currentSubtitleLang) sub.mode = 'showing';
+    else sub.mode = 'hidden';
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+enum subtitleLang {
+  en = 'english',
+  ru = 'russian',
 }
 
 const changeSettings = (e: Event) => {
   const target = <HTMLElement>e.target;
   if (target.className.includes('speed')) {
-    changeActiveSubSettings(target);
-    target.classList.add('active-subsettings');
     switchVideoSpeed(target.id);
   }
   if (target.className.includes('size')) {
-    changeActiveSubSettings(target);
-    target.classList.add('active-subsettings');
-    const size = <'small' | 'standard' | 'large'>target.id;
+    const size = <TSubtitleSize>target.id;
     videoElement.style.setProperty(
       '--subtitle-font-size',
       // eslint-disable-next-line @typescript-eslint/comma-dangle
       SubtitleFontSize[size]
     );
   }
+  if (target.className.includes('subtitle')) {
+    if (target.id === 'off') {
+      offSubtitle();
+    } else {
+      onSubtitle();
+    }
+  }
+  if (target.className.includes('language')) {
+    const lang = <'en' | 'ru'>target.id;
+    currentSubtitleLang = lang;
+    onSubtitle();
+  }
+  changeActiveSubSettings(target);
+  target.classList.add('active-subsettings');
 };
 
 let timeoutHidden: string | number | NodeJS.Timeout | undefined;
@@ -209,32 +282,6 @@ const hiddenInterface = () => {
       controls!.classList.add('hide-interface');
     }
   }, 5000);
-};
-
-const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
-  'sound',
-  'language',
-  'subtitle',
-];
-enum ControlsPopupSubtitleSoundText {
-  sound = 'Sound',
-  language = 'Language',
-  subtitle = 'Subtitle',
-}
-const defaultSound = 'stereo';
-const defaultLanguage = 'english';
-const defaultSubtitle = 'off';
-const subSettingSubtitleSound = {
-  sound: ['stereo', '5.1'],
-  language: ['english', 'russian'],
-  subtitle: ['off', 'on'],
-};
-const subSettingSettings: {
-  [key in TVideoControlsSettingsItems]: string[];
-} = {
-  size: ['small', 'standard', 'large'],
-  quality: ['auto', '1440p', '1080p', '720p', '480p'],
-  speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
 };
 
 const btnControlsRender = () => {
@@ -357,7 +404,12 @@ const btnControlsRender = () => {
           id: `${itemSubSettings}`,
         },
         // eslint-disable-next-line @typescript-eslint/comma-dangle
-        `${itemSubSettings}`
+        `${
+          item === 'language'
+            ? subtitleLang[<'en' | 'ru'>itemSubSettings]
+            : itemSubSettings
+          // eslint-disable-next-line @typescript-eslint/comma-dangle
+        }`
       );
       subSettingsItems.append(subSettingsItem);
     });
@@ -476,59 +528,18 @@ const updateTime = (video: HTMLVideoElement) => {
   time!.textContent = formatTime(duration - currentTime);
 };
 
-import './../../assets/videos/video-en.vtt';
-import './../../assets/videos/video-ru.vtt';
-
-const subtitleSrcArray = [
-  {
-    src: './assets/video-en.vtt',
-    srclang: 'en',
-    label: 'English',
-  },
-  {
-    src: './assets/video-ru.vtt',
-    srclang: 'ru',
-    label: 'Russian',
-  },
-];
-
-// const defaultSubtitleLang = 'en';
-
-const currentSubtitleLang = 'en';
-const switchSubtitleLang = () => {
-  const subs = videoElement.textTracks;
-  if (!subs.length) return;
-  for (const sub of subs) {
-    // const sub = subs[i];
-    // console.log('sub', sub);
-
-    sub.mode = 'hidden';
-    // console.log('sub', sub);
-
-    if (sub.language === currentSubtitleLang) sub.mode = 'showing';
-    // console.log(sub.mode);
-    // console.log('subs', subs);
-  }
-  // const s1 = videoElement.textTracks[0];
-  // console.log('change', videoElement.textTracks[0] === s1);
-  // console.log('change', videoElement.textTracks);
-};
-
 const addSubtitles = () => {
   if (!subtitleSrcArray.length) return;
   subtitleSrcArray.forEach((sub) => {
     const subtitleContainer = <HTMLTrackElement>createElement('track', {
       class: 'track-subtitle',
     });
-    subtitleContainer.default = sub.srclang === 'en';
     subtitleContainer.src = sub.src;
     subtitleContainer.srclang = sub.srclang;
     subtitleContainer.label = sub.label;
     subtitleContainer.track.mode = 'hidden';
     videoElement.append(subtitleContainer);
   });
-
-  switchSubtitleLang();
 };
 
 const videoPlayerRender = (src: string) => {
@@ -544,7 +555,9 @@ const videoPlayerRender = (src: string) => {
     createElement('video', { class: 'video', src: src })
   );
   videoElement = video;
+
   addSubtitles();
+
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');
     const duration = video.duration;

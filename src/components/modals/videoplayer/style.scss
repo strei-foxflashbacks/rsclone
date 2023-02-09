@@ -72,6 +72,11 @@
   &::-webkit-media-text-track-display {
     font-size: var(--subtitle-font-size);
   }
+
+  // &::-webkit-media-text-track-container {
+  //   position: absolute;
+  //   bottom: 90px;
+  // }
 }
 
 .close {

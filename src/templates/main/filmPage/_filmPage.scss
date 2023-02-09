@@ -67,6 +67,7 @@
   }
 }
 .persons {
+  margin-top: 50px;
   &__titles {
     display: flex;
     gap: 15px;
@@ -75,6 +76,7 @@
   &__title {
     @include title;
     color: $light-dark-text;
+    cursor: pointer;
   }
 }
 
@@ -87,11 +89,10 @@
 
 .person {
   &__item {
+    @include background-positioning;
     width: 100px;
     height: 100px;
     border-radius: 100px;
-    background-position: center;
-    background-size: cover;
   }
 
   &__container {
@@ -111,6 +112,53 @@
 }
 .open {
   color: $dark-text;
+}
+
+.recommendation {
+  @include background-positioning;
+  width: 100%;
+  height: 460px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  & > * {
+    z-index: 1;
+  }
+
+  &::before {
+    @include blackout;
+  }
+  &__title {
+    @include title;
+    font-size: 36px;
+  }
+  &__title-eng {
+    @include title;
+    font-size: 17px;
+  }
+  &__description {
+    font-size: 12px;
+    color: $light-title;
+  }
+}
+
+.recommendations {
+  margin-top: 70px;
+
+  &__title {
+    @include title;
+    color: $dark-text;
+    margin-bottom: 30px;
+  }
+ &__container {
+   display: flex;
+   flex-direction: column;
+   gap: 40px;
+ }
 }
 
 

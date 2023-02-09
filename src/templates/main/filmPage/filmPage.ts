@@ -5,6 +5,7 @@ import { createInfoTable } from './infoTable';
 import getGroupOfPosters from './groupOfPosters';
 import getSeason from './season';
 import getPersons from './persons';
+import getRecommendations from './recommendations';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });
@@ -16,9 +17,10 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const table = createInfoTable();
   const materials = getGroupOfPosters();
   const persons = getPersons();
+  const recommendations = getRecommendations();
 
 
-  container.append(filmElement, table, materials, getSeason(1), getSeason(2), persons);
+  container.append(filmElement, table, materials, getSeason(1), getSeason(2), persons, recommendations);
   return container;
 };
 

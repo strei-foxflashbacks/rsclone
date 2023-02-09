@@ -22,3 +22,25 @@ export type TVideoControlsSubtitleSoundItems =
   | 'sound'
   | 'language'
   | 'subtitle';
+
+export type SubtitlesData = {
+  src: string;
+  srclang: string;
+  label: string;
+};
+
+export type Film = {
+  id: number;
+  name: string;
+  src: string;
+  poster: string;
+  trailer: string;
+  thumbnails: string[];
+  description: string;
+  rating: number;
+  reviews: string;
+  subtitles: SubtitlesData[];
+  genre: string;
+  type: 'film' | 'serial';
+  // serial?: Serial
+};

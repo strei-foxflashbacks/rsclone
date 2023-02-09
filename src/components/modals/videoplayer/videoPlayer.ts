@@ -6,31 +6,118 @@ import {
   SKIP_BACKWARD,
   SKIP_FORWARD,
 } from '../../../types/constants';
-import './style.scss';
-import './../../assets/previews/preview0.png';
-import './../../assets/previews/preview1.png';
-import './../../assets/previews/preview2.png';
-import './../../assets/previews/preview3.png';
-import './../../assets/previews/preview4.png';
-import './../../assets/previews/preview5.png';
-import './../../assets/previews/preview6.png';
-import './../../assets/previews/preview7.png';
-import './../../assets/previews/preview8.png';
-import './../../assets/previews/preview9.png';
-import './../../assets/previews/preview10.png';
-import './../../assets/previews/preview11.png';
-import './../../assets/previews/preview12.png';
-import './../../assets/previews/preview13.png';
-import './../../assets/previews/preview14.png';
 import {
   TSpeedVideo,
   TVideoControlsSettingsItems,
   TVideoControlsSubtitleSoundItems,
   TSubtitleSize,
+  Film,
+  SubtitlesData,
 } from '../../../types/types';
-import './../../assets/videos/video-en.vtt';
-import './../../assets/videos/video-ru.vtt';
 
+import './style.scss';
+// import './../../assets/previews/preview0.png';
+// import './../../assets/previews/preview1.png';
+// import './../../assets/previews/preview2.png';
+// import './../../assets/previews/preview3.png';
+// import './../../assets/previews/preview4.png';
+// import './../../assets/previews/preview5.png';
+// import './../../assets/previews/preview6.png';
+// import './../../assets/previews/preview7.png';
+// import './../../assets/previews/preview8.png';
+// import './../../assets/previews/preview9.png';
+// import './../../assets/previews/preview10.png';
+// import './../../assets/previews/preview11.png';
+// import './../../assets/previews/preview12.png';
+// import './../../assets/previews/preview13.png';
+// import './../../assets/previews/preview14.png';
+
+// const films = [
+//   {
+//     id: 1,
+//     name: 'John Wick 4',
+//     src: './assets/video.mp4',
+//     poster: '',
+//     trailer: '',
+//     thumbnails: ['', '', ''],
+//     description: '',
+//     rating: 1,
+//     previews: [
+//       './assets/preview0.png',
+//       './assets/preview1.png',
+//       './assets/preview2.png',
+//       './assets/preview3.png',
+//       './assets/preview4.png',
+//       './assets/preview5.png',
+//       './assets/preview6.png',
+//       './assets/preview7.png',
+//       './assets/preview8.png',
+//       './assets/preview9.png',
+//       './assets/preview10.png',
+//       './assets/preview11.png',
+//       './assets/preview12.png',
+//       './assets/preview13.png',
+//       './assets/preview14.png',
+//     ],
+//     subtitles: [
+//       {
+//         src: './assets/video-en.vtt',
+//         srclang: 'en',
+//         label: 'English',
+//       },
+//       {
+//         src: './assets/video-ru.vtt',
+//         srclang: 'ru',
+//         label: 'Russian',
+//       },
+//     ],
+//     genre: '',
+//     type: 'film',
+//   },
+//   {
+//     id: 2,
+//     name: 'Avatar 2',
+//     src: './assets/video2.mp4',
+//     poster: '',
+//     trailer: '',
+//     thumbnails: ['', '', ''],
+//     description: '',
+//     rating: 1,
+//     previews: [
+//       './assets/preview0.png',
+//       './assets/preview1.png',
+//       './assets/preview2.png',
+//       './assets/preview3.png',
+//       './assets/preview4.png',
+//       './assets/preview5.png',
+//       './assets/preview6.png',
+//       './assets/preview7.png',
+//       './assets/preview8.png',
+//       './assets/preview9.png',
+//       './assets/preview10.png',
+//       './assets/preview11.png',
+//       './assets/preview12.png',
+//       './assets/preview13.png',
+//       './assets/preview14.png',
+//     ],
+//     subtitles: [
+//       {
+//         src: './assets/video-en.vtt',
+//         srclang: 'en',
+//         label: 'English',
+//       },
+//       {
+//         src: './assets/video-ru.vtt',
+//         srclang: 'ru',
+//         label: 'Russian',
+//       },
+//     ],
+//     genre: '',
+//     type: 'film',
+//   },
+// ];
+
+/*
 const subtitleSrcArray = [
   {
     src: './assets/video-en.vtt',
@@ -61,6 +148,7 @@ const previewImg = [
   './assets/preview13.png',
   './assets/preview14.png',
 ];
+*/
 const settingsItemsName: TVideoControlsSettingsItems[] = [
   'size',
   'quality',
@@ -137,7 +225,7 @@ const updateTimeLine = () => {
   timeLine!.style.setProperty('--timeline-position', positionPercent);
 };
 
-const timeLineRender = () => {
+const timeLineRender = (previews: string[]) => {
   const timeLineTime = createElement('timeline-time', {
     class: 'timeline-time',
   });
@@ -165,8 +253,8 @@ const timeLineRender = () => {
     const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
     const percent = (xClickMouse / widthTimeLine) * 100;
     timeLine.style.setProperty('--timeline-preview', `${percent}%`);
-    const imgNumber = Math.trunc(percent / (100 / previewImg.length));
-    previewImage.src = previewImg[imgNumber];
+    const imgNumber = Math.trunc(percent / (100 / previews.length));
+    previewImage.src = previews[imgNumber];
     previewImage.style.display = 'block';
   });
 
@@ -528,9 +616,9 @@ const updateTime = (video: HTMLVideoElement) => {
   time!.textContent = formatTime(duration - currentTime);
 };
 
-const addSubtitles = () => {
-  if (!subtitleSrcArray.length) return;
-  subtitleSrcArray.forEach((sub) => {
+const addSubtitles = (subtitles: SubtitlesData[]) => {
+  if (!subtitles.length) return;
+  subtitles.forEach((sub) => {
     const subtitleContainer = <HTMLTrackElement>createElement('track', {
       class: 'track-subtitle',
     });
@@ -542,7 +630,7 @@ const addSubtitles = () => {
   });
 };
 
-const videoPlayerRender = (src: string) => {
+const videoPlayerRender = (film: Film) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
   const videoPlayerIconCenter = createElement('div', {
     class: 'video-player-icon-center',
@@ -552,11 +640,11 @@ const videoPlayerRender = (src: string) => {
   videoPlayerElement.addEventListener('mousemove', hiddenInterface);
 
   const video = <HTMLVideoElement>(
-    createElement('video', { class: 'video', src: src })
+    createElement('video', { class: 'video', src: film.src })
   );
   videoElement = video;
 
-  addSubtitles();
+  addSubtitles(film.subtitles);
 
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');
@@ -589,7 +677,7 @@ const videoPlayerRender = (src: string) => {
   videoPlayer.append(close);
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(timeLineRender());
+  controls.append(timeLineRender(film.thumbnails));
   controls.append(btnControlsRender());
 
   videoPlayer.append(controls);

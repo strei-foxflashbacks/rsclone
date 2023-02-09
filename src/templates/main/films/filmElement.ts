@@ -1,9 +1,8 @@
 import createElement from '../../../helpers/createElement';
-import createStar from '../../../components/ratingStarElement';
-import { StarColor } from '../../../types/starColors';
 import openFilmPage from './functions/openFilmPage';
 import createFavourites from '../../../components/favouritesElement';
 import { FavoritesColor } from '../../../types/favoritesColors';
+import getRatingElement from '../../rating/getRatingElement';
 
 const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
   const bigElement = createElement('div', { class: 'big-element', 'data-id': id });
@@ -19,23 +18,8 @@ const getFilmElement = (path: string, title: string, titleEng: string, rating: n
   favorites.setAttribute('height', '30px');
 
 
-  const getStarsSet = () : HTMLElement => {
-    const ratingElem = createElement('div', { class: 'rating' });
-    for (let i = 0; i < rating; i++) {
-      const star = createStar(StarColor.yellow) as HTMLElement;
-      ratingElem.append(star);
-    }
-    if (rating < 5) {
-      for (let i = 0; i < (5 - rating); i++) {
-        const star = createStar(StarColor.grey) as HTMLElement;
-        ratingElem.append(star);
-      }
-    }
-    return ratingElem;
-  };
-
   const noteElem = createElement('p', { class: 'films__note' }, note);
-  container.append(titleElem, titleEngElem, getStarsSet(), noteElem);
+  container.append(titleElem, titleEngElem, getRatingElement(rating), noteElem);
   bigElement.append(container, favorites);
   bigElement.addEventListener('click', openFilmPage);
   return bigElement;

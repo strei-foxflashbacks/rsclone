@@ -16,139 +16,7 @@ import {
 } from '../../../types/types';
 
 import './style.scss';
-// import './../../assets/previews/preview0.png';
-// import './../../assets/previews/preview1.png';
-// import './../../assets/previews/preview2.png';
-// import './../../assets/previews/preview3.png';
-// import './../../assets/previews/preview4.png';
-// import './../../assets/previews/preview5.png';
-// import './../../assets/previews/preview6.png';
-// import './../../assets/previews/preview7.png';
-// import './../../assets/previews/preview8.png';
-// import './../../assets/previews/preview9.png';
-// import './../../assets/previews/preview10.png';
-// import './../../assets/previews/preview11.png';
-// import './../../assets/previews/preview12.png';
-// import './../../assets/previews/preview13.png';
-// import './../../assets/previews/preview14.png';
 
-// const films = [
-//   {
-//     id: 1,
-//     name: 'John Wick 4',
-//     src: './assets/video.mp4',
-//     poster: '',
-//     trailer: '',
-//     thumbnails: ['', '', ''],
-//     description: '',
-//     rating: 1,
-//     previews: [
-//       './assets/preview0.png',
-//       './assets/preview1.png',
-//       './assets/preview2.png',
-//       './assets/preview3.png',
-//       './assets/preview4.png',
-//       './assets/preview5.png',
-//       './assets/preview6.png',
-//       './assets/preview7.png',
-//       './assets/preview8.png',
-//       './assets/preview9.png',
-//       './assets/preview10.png',
-//       './assets/preview11.png',
-//       './assets/preview12.png',
-//       './assets/preview13.png',
-//       './assets/preview14.png',
-//     ],
-//     subtitles: [
-//       {
-//         src: './assets/video-en.vtt',
-//         srclang: 'en',
-//         label: 'English',
-//       },
-//       {
-//         src: './assets/video-ru.vtt',
-//         srclang: 'ru',
-//         label: 'Russian',
-//       },
-//     ],
-//     genre: '',
-//     type: 'film',
-//   },
-//   {
-//     id: 2,
-//     name: 'Avatar 2',
-//     src: './assets/video2.mp4',
-//     poster: '',
-//     trailer: '',
-//     thumbnails: ['', '', ''],
-//     description: '',
-//     rating: 1,
-//     previews: [
-//       './assets/preview0.png',
-//       './assets/preview1.png',
-//       './assets/preview2.png',
-//       './assets/preview3.png',
-//       './assets/preview4.png',
-//       './assets/preview5.png',
-//       './assets/preview6.png',
-//       './assets/preview7.png',
-//       './assets/preview8.png',
-//       './assets/preview9.png',
-//       './assets/preview10.png',
-//       './assets/preview11.png',
-//       './assets/preview12.png',
-//       './assets/preview13.png',
-//       './assets/preview14.png',
-//     ],
-//     subtitles: [
-//       {
-//         src: './assets/video-en.vtt',
-//         srclang: 'en',
-//         label: 'English',
-//       },
-//       {
-//         src: './assets/video-ru.vtt',
-//         srclang: 'ru',
-//         label: 'Russian',
-//       },
-//     ],
-//     genre: '',
-//     type: 'film',
-//   },
-// ];
-
-/*
-const subtitleSrcArray = [
-  {
-    src: './assets/video-en.vtt',
-    srclang: 'en',
-    label: 'English',
-  },
-  {
-    src: './assets/video-ru.vtt',
-    srclang: 'ru',
-    label: 'Russian',
-  },
-];
-
-const previewImg = [
-  './assets/preview0.png',
-  './assets/preview1.png',
-  './assets/preview2.png',
-  './assets/preview3.png',
-  './assets/preview4.png',
-  './assets/preview5.png',
-  './assets/preview6.png',
-  './assets/preview7.png',
-  './assets/preview8.png',
-  './assets/preview9.png',
-  './assets/preview10.png',
-  './assets/preview11.png',
-  './assets/preview12.png',
-  './assets/preview13.png',
-  './assets/preview14.png',
-];
-*/
 const settingsItemsName: TVideoControlsSettingsItems[] = [
   'size',
   'quality',
@@ -207,6 +75,7 @@ const subSettingSettings: {
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
+let lastVolume: number;
 
 const playPauseVideo = (): void => {
   if (videoElement.paused) {
@@ -375,16 +244,38 @@ const hiddenInterface = () => {
   }, 5000);
 };
 
+const toggleMute = () => {
+  if (videoElement.muted) {
+    videoElement.muted = false;
+    videoElement.volume = lastVolume;
+  } else {
+    lastVolume = videoElement.volume;
+    videoElement.muted = true;
+    videoElement.volume = 0;
+  }
+};
+
+const toggleFullscreen = () => {
+  const fullscreen = videoPlayerElement.querySelector('.fullscreen');
+  if (!document.fullscreenElement) {
+    videoPlayerElement.requestFullscreen();
+    fullscreen!.classList.add('fullscreen-exit');
+  } else {
+    document.exitFullscreen();
+    fullscreen!.classList.remove('fullscreen-exit');
+  }
+};
+
 const btnControlsRender = () => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
 
   const btnControlsLeft = createElement('div', {
     class: 'controls-buttons-left',
   });
-  const playPause = <HTMLButtonElement>(
-    createElement('button', { class: 'controls-btn play-pause' })
-  );
-  playPause.addEventListener('click', () => playPauseVideo());
+  const playPause = <HTMLButtonElement>createElement('button', {
+    class: 'controls-btn play-pause',
+  });
+  playPause.addEventListener('click', playPauseVideo);
 
   btnControlsLeft.append(playPause);
   const skipBackward = <HTMLButtonElement>(
@@ -423,17 +314,7 @@ const btnControlsRender = () => {
     videoElement.muted = false;
     videoElement.volume = +volumeRange.value;
   });
-  let lastVolume: number;
-  volumeBtn.addEventListener('click', () => {
-    if (videoElement.muted) {
-      videoElement.muted = false;
-      videoElement.volume = lastVolume;
-    } else {
-      lastVolume = videoElement.volume;
-      videoElement.muted = true;
-      videoElement.volume = 0;
-    }
-  });
+  volumeBtn.addEventListener('click', () => {});
   videoElement.addEventListener('volumechange', () => {
     volumeRange.value = `${videoElement.volume}`;
     if (!videoElement.volume || videoElement.muted) {
@@ -583,15 +464,7 @@ const btnControlsRender = () => {
   const fullscreen = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn fullscreen' })
   );
-  fullscreen.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      videoPlayerElement.requestFullscreen();
-      fullscreen.classList.add('fullscreen-exit');
-    } else {
-      document.exitFullscreen();
-      fullscreen.classList.remove('fullscreen-exit');
-    }
-  });
+  fullscreen.addEventListener('click', toggleFullscreen);
   btnControlsRight.append(fullscreen);
   btnControls.append(btnControlsRight);
 
@@ -633,13 +506,54 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
   });
 };
 
+const pressHotKey = (e: KeyboardEvent) => {
+  switch (e.key.toLocaleLowerCase()) {
+    case ' ':
+    case 'k':
+    case 'л':
+      playPauseVideo();
+      break;
+    case 'f':
+    case 'а':
+      toggleFullscreen();
+      break;
+    case 'm':
+    case 'ь':
+      toggleMute();
+      break;
+    case 'arrowleft':
+    case 'j':
+    case 'о':
+      skip(SKIP_BACKWARD);
+      break;
+    case 'arrowright':
+    case 'l':
+    case 'д':
+      skip(SKIP_FORWARD);
+      break;
+    case 'arrowdown':
+      if (videoElement.volume >= 0.1) videoElement.volume -= 0.1;
+      else videoElement.volume = 0;
+      break;
+    case 'arrowup':
+      if (videoElement.volume <= 0.9) videoElement.volume += 0.1;
+      else videoElement.volume = 1;
+      break;
+    default:
+      break;
+  }
+};
+
 const closeVideoplayer = () => {
   videoElement.pause();
+  document.removeEventListener('keydown', pressHotKey);
   const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   modalPlayer!.style.display = 'none';
 };
 
 const videoPlayerRender = (film: Film) => {
+  document.addEventListener('keydown', pressHotKey);
+
   const videoPlayer = createElement('div', { class: 'video-player' });
   const videoPlayerIconCenter = createElement('div', {
     class: 'video-player-icon-center',
@@ -695,6 +609,7 @@ const videoPlayerRender = (film: Film) => {
   controls.append(btnControlsRender());
 
   videoPlayer.append(controls);
+  video.play();
   hiddenInterface();
 
   return videoPlayer;

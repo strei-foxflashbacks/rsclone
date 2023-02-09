@@ -102,6 +102,7 @@ const films: Film[] = [
 
 const btn1 = createElement('button', { class: 'btn-film' }, `${films[0].name}`);
 const btn2 = createElement('button', { class: 'btn-film' }, `${films[1].name}`);
+
 document.body.append(btn1);
 document.body.append(btn2);
 
@@ -112,11 +113,13 @@ btn1.addEventListener('click', () => {
   modalPlayer.innerHTML = '';
   modalPlayer.append(videoPlayerRender(films[0]));
   modalPlayer.style.display = 'block';
+  btn1.blur();
 });
 btn2.addEventListener('click', () => {
   modalPlayer.innerHTML = '';
   modalPlayer.append(videoPlayerRender(films[1]));
   modalPlayer.style.display = 'block';
+  btn2.blur();
 });
 
 // const src = './assets/video.mp4';

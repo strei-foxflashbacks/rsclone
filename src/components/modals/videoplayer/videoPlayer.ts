@@ -630,6 +630,12 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
   });
 };
 
+const closeVideoplayer = () => {
+  videoElement.pause();
+  const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
+  modalPlayer!.style.display = 'none';
+};
+
 const videoPlayerRender = (film: Film) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
   const videoPlayerIconCenter = createElement('div', {
@@ -674,6 +680,7 @@ const videoPlayerRender = (film: Film) => {
   });
 
   const close = createElement('div', { class: 'close' });
+  close.addEventListener('click', closeVideoplayer);
   videoPlayer.append(close);
 
   const controls = createElement('div', { class: 'controls' });

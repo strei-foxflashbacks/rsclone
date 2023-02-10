@@ -1,7 +1,5 @@
 import createElement from '../../../helpers/createElement';
 import openFilmPage from './functions/openFilmPage';
-import createFavourites from '../../../components/favouritesElement';
-import { FavoritesColor } from '../../../types/favoritesColors';
 import getRatingElement from '../../rating/getRatingElement';
 
 const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
@@ -12,15 +10,14 @@ const getFilmElement = (path: string, title: string, titleEng: string, rating: n
   const titleElem  = createElement('div', { class: 'films__title' }, title);
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, titleEng);
 
-  const favorites = createFavourites(FavoritesColor.white) as HTMLElement;
-  favorites.classList.add('films__favorites');
-  favorites.setAttribute('width', '30px');
-  favorites.setAttribute('height', '30px');
-
+  const favorites = createElement('div', { class: 'films__favorites' });
+  const icon = createElement('img', { src: './assets/favorites.svg', width: '30', height: '30' });
+  favorites.append(icon);
 
   const noteElem = createElement('p', { class: 'films__note' }, note);
   container.append(titleElem, titleEngElem, getRatingElement(rating), noteElem);
   bigElement.append(container, favorites);
+  favorites.addEventListener('click', handleAddingToFavorites);
   bigElement.addEventListener('click', openFilmPage);
   return bigElement;
 };

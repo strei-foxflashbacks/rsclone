@@ -1,17 +1,18 @@
 .news {
   max-width: $news-width;
 }
+
 .title {
   background-color: $title-background;
-  min-height: 80px;
+  min-height: 30px;
   align-items: end;
   padding: 30px 40px 20px;
   border-bottom: 7px solid white;
   display: flex;
   gap: 10px;
 
-  &__icon {
-  }
+  &__icon {}
+
   &__text {
     @include title;
     position: relative;
@@ -20,7 +21,7 @@
 }
 
 .news-item {
-    overflow: hidden;
+  overflow: hidden;
 
   &__photo {
     width: $news-width;
@@ -29,24 +30,29 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+
   &__text {
     text-align: justify;
   }
+
   &__article {
     max-height: 269px;
     overflow: hidden;
     position: relative;
   }
+
   &__date {
     padding: 10px 0;
     margin: 0;
     font-size: 12px;
     color: $accent-color;
   }
+
   &:hover &__article {
     background-color: $shadow;
   }
-  &:hover > &__photo {
+
+  &:hover>&__photo {
     scale: 1.1;
     transition: all 0.1s ease-in;
   }
@@ -55,11 +61,8 @@
 .shadow {
   width: 100%;
   height: 100px;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7385547969187676) 60%, rgba(255,255,255,1) 80%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7385547969187676) 60%, rgba(255, 255, 255, 1) 80%);
   position: absolute;
   bottom: 0;
 }
-
-
-

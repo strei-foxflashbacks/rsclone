@@ -9,7 +9,11 @@ import getRecommendations from './recommendations';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });
-  //добавить компонент крошек
+  const navigation = createElement('div', { class: 'navigation' });
+  const elementNavigation = createElement('a', { class: 'navigation__item', href: '#' }, 'Главная');
+  const elementNavigation2 = createElement('a', { class: 'navigation__item', href: '#' }, 'Страница фильма');
+  navigation.append(elementNavigation, elementNavigation2);
+
 
   const filmElement = getFilmElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
   filmElement.classList.add('film-page__header-margin');

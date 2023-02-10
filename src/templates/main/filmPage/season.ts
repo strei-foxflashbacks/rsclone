@@ -3,9 +3,10 @@ import getSerialEpisode from './serialEpisode';
 import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
 import getAddOrRemoveButton from './getAddOrRemoveButton';
 import { AddToPlayListValue } from '../../../types/types';
+import handleShowAll from './functions/handleShowAll';
 
 const getSeason = (order: number): HTMLElement => {
-  const season = createElement('div', { class: 'season' });
+  const season = createElement('div', { class: 'season collapsed' });
   const titleContainer = createElement('div', { class: 'season__title-container' });
   const title = createElement('div', { class: 'season__title' }, `сезон ${order}`);
   const addingButton = getAddOrRemoveButton('./assets/plus.svg', AddToPlayListValue.add);
@@ -20,6 +21,7 @@ const getSeason = (order: number): HTMLElement => {
   const backForArrow = createElement('div', { class: 'season__back-arrow' });
   season.append(titleContainer, seriesContainer, showMore, backForArrow);
 
+  showMore.addEventListener('click', handleShowAll);
   addingButton.addEventListener('click', handleAddingToPlaylist);
 
 

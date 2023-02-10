@@ -6,10 +6,10 @@ const openFilmPage = (event: Event): void => {
   if (!main) {
     throw new Error('main is not found!');
   }
+  const target = event.target as HTMLElement;
+
   clearElement(main);
 
-
-  const target = event.target as HTMLElement;
   if (target.closest('.big-element')) {
     const general = target.closest('.big-element');
     if (!general) {

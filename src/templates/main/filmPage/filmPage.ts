@@ -6,6 +6,7 @@ import getGroupOfPosters from './groupOfPosters';
 import getSeason from './season';
 import getPersons from './persons';
 import getRecommendations from './recommendations';
+import openFilmPage from '../films/functions/openFilmPage';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });
@@ -23,8 +24,10 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const persons = getPersons();
   const recommendations = getRecommendations();
 
+  filmElement.removeEventListener('click', openFilmPage);
 
-  container.append(filmElement, table, materials, getSeason(1), getSeason(2), persons, recommendations);
+
+  container.append(navigation, filmElement, table, materials, getSeason(1), getSeason(2), persons, recommendations);
   return container;
 };
 

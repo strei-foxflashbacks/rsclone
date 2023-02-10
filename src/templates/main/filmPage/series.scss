@@ -86,14 +86,6 @@
     color: $dark-text;
   }
 
-  &__button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: none;
-    border: none;
-  }
-
   &__show-more {
     position: absolute;
     bottom: 0;
@@ -110,5 +102,17 @@
     bottom: 0;
     background-color: white;
     z-index: 1;
+  }
+}
+
+.adding-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  &__icon {
+    width: 30px;
+    height: 30px;
   }
 }

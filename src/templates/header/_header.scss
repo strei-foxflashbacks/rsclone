@@ -8,6 +8,7 @@
   position: fixed;
   z-index: 100;
 }
+
 .content-container {
   @include content-container;
   display: flex;
@@ -22,18 +23,28 @@
 
 .sections {
   display: flex;
-  gap: 50px;
+  gap: 40px;
   align-items: center;
+  justify-content: flex-end;
+
   &__item {
     text-decoration: none;
     color: #6b6b6b;
   }
+
   &__item:hover {
     color: $title-background;
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
   }
 }
 
 .form {
+  position: relative;
+
   &__input {
     border: none;
     background-color: #eaeaea;
@@ -41,14 +52,31 @@
     padding: 7px;
     width: 290px;
   }
+
   &__search-button {
     border: none;
     background: none;
-    position: relative;
-    left: -45px;
+    position: absolute;
+    right: 8px;
+    top: 3px;
     padding: 5px;
   }
+
   &__search-button img {
     width: 13px;
+  }
+}
+
+.user {
+  &-name {
+    display: none;
+    align-items: center;
+    color: $user-name-color;
+  }
+
+  &-avatar {
+    height: 30px;
+    width: 30px;
+    margin: 0 20px;
   }
 }

@@ -5,6 +5,7 @@ $light-title: white;
 $dark-text: #252525;
 $light-dark-text: #9b9b9b;
 $accent-color: #5ac2f1;
+$user-name-color: #00abce;
 
 //fonts
 $main-font: 400 16px 'Raleway', sans-serif;
@@ -22,12 +23,14 @@ $gap: 7px;
   margin: auto;
   padding: 0 15px;
 }
+
 @mixin title {
   color: $light-title;
   font: $title-font;
   font-size: 26px;
   text-transform: uppercase;
 }
+
 @mixin subtitle {
   color: $title-background;
   font: $title-font;

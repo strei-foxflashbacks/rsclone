@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/comma-dangle */
 import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
+import openUserPage from './functions/openUserPage';
 
 const getHeader = (): HTMLElement => {
   const header = createElement('header', { class: 'header-container' });
@@ -51,7 +52,7 @@ const getHeader = (): HTMLElement => {
 
   const isAuth = true;
 
-  const userProfilePageBtn = createElement(
+  const userPageBtn = createElement(
     'a',
     {
       class: 'sections__item user-name',
@@ -64,16 +65,18 @@ const getHeader = (): HTMLElement => {
     alt: 'User avatar',
     src: `${user.avatarSrc || './assets/smallAvatar.svg'}`,
   });
-  userProfilePageBtn.append(userAvatar);
+  userPageBtn.append(userAvatar);
 
-  if (isAuth) userProfilePageBtn.style.display = 'flex';
+  userPageBtn.addEventListener('click', openUserPage);
+
+  if (isAuth) userPageBtn.style.display = 'flex';
 
   const signIn = createElement(
     'button',
     { type: 'button', id: 'signInButton', class: 'button' },
     `${isAuth ? 'Выйти' : 'Войти'}`
   );
-  authContainer.append(userProfilePageBtn, signIn);
+  authContainer.append(userPageBtn, signIn);
 
   containerSections.append(feed, serials, searchForm, authContainer);
 

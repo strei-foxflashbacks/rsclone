@@ -1,5 +1,5 @@
 import getHeader from '../templates/header/header';
-import clearElement from './clearElement';
+import clearElement from './../helpers/clearElement';
 import getFooter from '../templates/footer/footer';
 import createElement from '../helpers/createElement';
 
@@ -11,7 +11,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   clearElement(body);
 
   const main = createElement('main', { class: 'wrapper' });
-  mainElements.forEach(element => {
+  mainElements.forEach((element) => {
     main.append(element);
   });
   const header = getHeader();

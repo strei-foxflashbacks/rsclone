@@ -9,6 +9,7 @@
 body {
   font: $main-font;
 }
+
 .button {
   border: none;
   background-color: $accent-color;
@@ -16,9 +17,12 @@ body {
   border-radius: $border-radius;
   min-width: 70px;
   color: $light-title;
+  cursor: pointer;
+
   &:hover {
     background-color: #59bcee;
   }
+
   &:active {
     scale: 1.1;
     background-color: $accent-color;
@@ -32,6 +36,5 @@ body {
 }
 
 .subtitle {
-@include subtitle;
+  @include subtitle;
 }
-

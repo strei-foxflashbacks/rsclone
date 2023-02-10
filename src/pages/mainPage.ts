@@ -1,9 +1,9 @@
 import createElement from '../helpers/createElement';
-import clearElement from './clearElement';
+import clearElement from './../helpers/clearElement';
 import getNews from '../templates/main/news/news';
 import getMainContent from '../templates/main/films/films';
 
-export const getMainPage = () :HTMLElement => {
+export const getMainPage = (): HTMLElement => {
   let main = document.querySelector('main');
 
   if (main) {

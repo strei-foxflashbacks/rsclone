@@ -1,5 +1,5 @@
 import getHeader from '../templates/header/header';
-import clearElement from './clearElement';
+import clearElement from '../helpers/clearElement';
 import getFooter from '../templates/footer/footer';
 import createElement from '../helpers/createElement';
 

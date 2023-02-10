@@ -1,7 +1,7 @@
 import createElement from '../../../helpers/createElement';
 import getSerialEpisode from './serialEpisode';
 import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
-import getAddOrRemoveButton from './getAddOrRemoveButton';
+import getAddOrRemoveButton from './addOrRemoveButton';
 import { AddToPlayListValue } from '../../../types/types';
 import handleShowAll from './functions/handleShowAll';
 

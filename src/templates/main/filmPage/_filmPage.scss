@@ -161,4 +161,28 @@
  }
 }
 
+.comments {
+  margin-top: 50px;
+  &__title {
+    @include title;
+    color: $dark-text;
+    margin-bottom: 15px;
+  }
+  &__form {
+    margin-top: 10px;
+  }
+  &__textarea {
+    padding: 15px;
+    background-color: #eaeaea;
+    border: none;
+    min-width: 70%;
+  }
+  &__button {
+    border: none;
+    padding: 0 10px;
+    display: block;
+    margin-top: 10px;
+  }
+}
+
 

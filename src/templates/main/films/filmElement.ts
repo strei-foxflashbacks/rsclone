@@ -1,6 +1,7 @@
 import createElement from '../../../helpers/createElement';
 import openFilmPage from './functions/openFilmPage';
 import getRatingElement from '../../rating/getRatingElement';
+import handleAddingToFavorites from '../filmPage/functions/handleAddingToFavorites';
 
 const getFilmElement = (path: string, title: string, titleEng: string, rating: number, note: string, id: string): HTMLElement => {
   const bigElement = createElement('div', { class: 'big-element', 'data-id': id });

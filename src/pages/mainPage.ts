@@ -1,5 +1,5 @@
 import createElement from '../helpers/createElement';
-import clearElement from './../helpers/clearElement';
+import clearElement from '../helpers/clearElement';
 import getNews from '../templates/main/news/news';
 import getMainContent from '../templates/main/films/films';
 

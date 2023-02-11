@@ -51,3 +51,20 @@ button {
 .navigation {
   padding: 20px 0 15px 20px;
 }
+
+.nav {
+  &__titles {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__title {
+    @include title;
+    color: $light-dark-text;
+    cursor: pointer;
+  }
+}
+
+.open {
+  color: $dark-text;
+}

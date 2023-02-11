@@ -1,39 +1,28 @@
 /* eslint-disable @typescript-eslint/comma-dangle */
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
+import renderContest from './functions/renderContent';
+import renderPlaylist from './functions/renderPlaylist';
 import './_user-page.scss';
 
-// enum InfoNavigation {
-//   playlist = 'Плейлист',
-//   serials = 'Сериалы',
-//   films = 'Фильмы',
-//   persons = 'Актеры',
-//   profile = 'Профиль',
-// }
+enum UserPageTitles {
+  playlist = 'Плейлист',
+  films = 'Фильмы',
+  serials = 'Сериалы',
+  persons = 'Актеры',
+  profile = 'Профиль',
+}
 
-// type InfoNavigationArray =
-//   | 'playlist'
-//   | 'serials'
-//   | 'films'
-//   | 'persons'
-//   | 'profile';
-
-// const infoNavigationArray: InfoNavigationArray[] = [
-//   'playlist',
-//   'serials',
-//   'films',
-//   'persons',
-//   'profile',
-// ];
-
-const userPage = () => {
+const getUserPage = () => {
   const main = document.querySelector('main');
   if (!main) {
     throw new Error('main is not found!');
   }
   clearElement(main);
 
-  const userPageContainer = createElement('div', { class: 'user-page' });
+  const userPageContainer = createElement('div', {
+    class: 'user-page__container',
+  });
   const navigation = createElement('div', { class: 'navigation' });
   const elementNavigation = createElement(
     'a',
@@ -43,26 +32,59 @@ const userPage = () => {
   const elementNavigation2 = createElement(
     'a',
     { class: 'navigation__item', href: '#' },
-    'Мой контент'
+    'Мой контент и профиль'
   );
   navigation.append(elementNavigation, elementNavigation2);
 
-  const infoContainer = createElement('div', { class: 'user-page__info' });
-  // const infoNavigation = createElement('div', {
-  //   class: 'user-page__info-navigation',
-  // });
-  // infoNavigationArray.forEach((nav) => {
-  //   const infoNavigationItem = createElement(
-  //     'div',
-  //     { class: 'info-navigation__item' },
-  //     `${InfoNavigation[nav].toUpperCase()}`
-  //   );
-  //   infoNavigation.append(infoNavigationItem);
-  // });
-  // infoContainer.append(infoNavigation);
+  const userPage = createElement('div', { class: 'user-page' });
+  const userPageTitles = createElement('div', {
+    class: 'user-page__titles nav__titles',
+  });
 
-  userPageContainer.append(navigation, infoContainer);
+  const playlistTitle = createElement(
+    'div',
+    { class: 'user-page__title nav__title open', id: 'playlist' },
+    UserPageTitles.playlist
+  );
+  const filmsTitle = createElement(
+    'div',
+    { class: 'user-page__title nav__title', id: 'films' },
+    UserPageTitles.films
+  );
+  const serialsTitle = createElement(
+    'div',
+    { class: 'user-page__title nav__title', id: 'serials' },
+    UserPageTitles.serials
+  );
+  const personsTitle = createElement(
+    'div',
+    { class: 'user-page__title nav__title', id: 'persons' },
+    UserPageTitles.persons
+  );
+  const profileTitle = createElement(
+    'div',
+    { class: 'user-page__title nav__title', id: 'profile' },
+    UserPageTitles.profile
+  );
+  userPageTitles.append(
+    playlistTitle,
+    filmsTitle,
+    serialsTitle,
+    personsTitle,
+    profileTitle
+  );
+  playlistTitle.addEventListener('click', renderContest);
+  filmsTitle.addEventListener('click', renderContest);
+  serialsTitle.addEventListener('click', renderContest);
+  personsTitle.addEventListener('click', renderContest);
+  profileTitle.addEventListener('click', renderContest);
+
+  const userPageContent = createElement('div', { class: 'user-page__content' });
+  renderPlaylist(userPageContent);
+  userPage.append(userPageTitles, userPageContent);
+
+  userPageContainer.append(navigation, userPage);
   main.append(userPageContainer);
 };
 
-export default userPage;
+export default getUserPage;

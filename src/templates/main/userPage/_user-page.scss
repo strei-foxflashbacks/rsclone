@@ -1,8 +1,62 @@
 .user-page {
-  width: 100%;
+  padding: 30px 30px;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 36%);
 
-  &__info {
-    height: 300px;
-    box-shadow: 0 10px 24px rgb(0 0 0 / 36%);
+  &__container {
+    width: 100%;
+  }
+
+  .serial {
+    position: relative;
+
+    &__title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__carousel {
+      overflow: hidden;
+      position: relative;
+
+      &-arrows {
+        position: absolute;
+        top: 50%;
+        width: calc(100% + 40px);
+        left: -20px;
+        display: flex;
+        justify-content: space-between;
+
+        &-prev,
+        &-next {
+          width: 10px;
+          height: 25px;
+          background-color: inherit;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          border: none;
+        }
+
+        &-prev {
+          background-image: url(../../../components/assets/arrow-left.png);
+        }
+
+        &-next {
+          background-image: url(../../../components/assets/arrow-right.png);
+        }
+      }
+    }
+
+    &__series {
+      width: calc(8*375px);
+      gap: 10px;
+      display: flex;
+      flex-wrap: nowrap;
+
+      .episode {
+        width: 330px;
+      }
+    }
   }
 }

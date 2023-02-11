@@ -9,10 +9,15 @@
   .serial {
     position: relative;
 
+    &+.serial {
+      margin-top: 20px;
+    }
+
     &__title-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 10px;
     }
 
     &__carousel {
@@ -49,13 +54,14 @@
     }
 
     &__series {
-      width: calc(8*375px);
+      width: calc(340px * 8);
       gap: 10px;
       display: flex;
       flex-wrap: nowrap;
+      transition: all 0.5s ease;
 
       .episode {
-        width: 330px;
+        width: calc((1010px - 20px) / 3);
       }
     }
   }

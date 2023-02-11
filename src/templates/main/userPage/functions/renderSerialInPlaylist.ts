@@ -4,6 +4,7 @@ import { AddToPlayListValue, Film } from '../../../../types/types';
 import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
 import handleAddingToPlaylist from '../../filmPage/functions/handleAddingToPlaylist';
 import getSerialEpisode from '../../filmPage/serialEpisode';
+import scrollSlider from './scrollSlider';
 
 const renderSerialInPlaylist = (ser: Film) => {
   const serial = createElement('div', { class: 'serial' });
@@ -35,6 +36,8 @@ const renderSerialInPlaylist = (ser: Film) => {
     });
   });
 
+  // seriesContainer.style.width = `${getWidthCarousel()}px`;
+
   const serialCarouselArrows = createElement('div', {
     class: 'serial__carousel-arrows',
   });
@@ -45,7 +48,6 @@ const renderSerialInPlaylist = (ser: Film) => {
     class: 'serial__carousel-arrows-next',
   });
   serialCarouselArrows.append(serialCarouselArrowPrev, serialCarouselArrowNext);
-  // seriesContainer.append(serialCarouselArrows);
 
   const serialCarousel = createElement('div', { class: 'serial__carousel' });
   serialCarousel.append(seriesContainer);
@@ -53,6 +55,16 @@ const renderSerialInPlaylist = (ser: Film) => {
   serial.append(titleContainer, serialCarousel, serialCarouselArrows);
 
   addingButton.addEventListener('click', handleAddingToPlaylist);
+
+  let currentPos = 0;
+  serialCarouselArrowNext.addEventListener('click', () => {
+    if (currentPos > -340 * 6) currentPos -= 340;
+    scrollSlider(seriesContainer, currentPos);
+  });
+  serialCarouselArrowPrev.addEventListener('click', () => {
+    if (currentPos < 0) currentPos += 340;
+    scrollSlider(seriesContainer, currentPos);
+  });
 
   return serial;
 };

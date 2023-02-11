@@ -1,4 +1,5 @@
 import { Film } from '../../../../types/types';
+import renderFilmInPlaylist from './renderFilmInPlaylist';
 import renderSerialInPlaylist from './renderSerialInPlaylist';
 
 const ser: Film = {
@@ -39,11 +40,11 @@ const renderPlaylist = (parent: HTMLElement) => {
   //   serials: [1, 3],
   // };
 
-  const playlistArr = [ser, ser, ser, filmmm, filmmm, filmmm];
+  const playlistArr = [ser, filmmm, ser, ser, filmmm, filmmm];
 
   playlistArr.forEach((item) => {
     if (item.type === 'film') {
-      // parent.append(renderFilmInPlaylist());
+      parent.append(renderFilmInPlaylist(item));
     } else {
       parent.append(renderSerialInPlaylist(item));
     }

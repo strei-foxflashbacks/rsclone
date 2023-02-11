@@ -7,9 +7,13 @@
 @import "templates/main/filmPage/series";
 @import "./templates/footer/footer";
 
+// html {
+//   margin-right: calc(-1 * (100vw - 100%));
+// }
 
 body {
   font: $main-font;
+  padding: 0 calc(20px - (100vw - 100%)) 0 0;
 }
 
 button {

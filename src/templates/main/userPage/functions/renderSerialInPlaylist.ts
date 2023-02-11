@@ -29,14 +29,12 @@ const renderSerialInPlaylist = (ser: Film) => {
       seriesContainer.append(
         getSerialEpisode(
           ep,
-          `Лаура и тайная комната ${season}`,
+          `${ser.name} ${season}`,
           Math.random() <= 0.5 ? true : false
         )
       );
     });
   });
-
-  // seriesContainer.style.width = `${getWidthCarousel()}px`;
 
   const serialCarouselArrows = createElement('div', {
     class: 'serial__carousel-arrows',

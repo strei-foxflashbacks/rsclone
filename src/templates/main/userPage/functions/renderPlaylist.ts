@@ -1,37 +1,6 @@
-import { Film } from '../../../../types/types';
+import { filmmm, ser } from '../tempData';
 import renderFilmInPlaylist from './renderFilmInPlaylist';
 import renderSerialInPlaylist from './renderSerialInPlaylist';
-
-const ser: Film = {
-  id: 1,
-  name: 'Good doctor',
-  src: '',
-  poster: '',
-  trailer: '',
-  thumbnails: [''],
-  description: '',
-  rating: 5,
-  reviews: [''],
-  genre: '',
-  type: 'serial',
-  serial: {
-    season: [1, 2],
-    episode: [1, 2, 3, 4],
-  },
-};
-const filmmm: Film = {
-  id: 1,
-  name: 'Avatar',
-  src: '',
-  poster: '',
-  trailer: '',
-  thumbnails: [''],
-  description: '',
-  rating: 5,
-  reviews: [''],
-  genre: '',
-  type: 'film',
-};
 
 const renderPlaylist = (parent: HTMLElement) => {
   // const playlistArr = getPlaylistFromServer(id);

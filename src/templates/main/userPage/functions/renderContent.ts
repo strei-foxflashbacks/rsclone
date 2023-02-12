@@ -1,5 +1,6 @@
 import clearElement from '../../../../helpers/clearElement';
 import resetOpen from '../../../../helpers/resetOpen';
+import getCardsFavorite from './getCardsFavorite';
 import renderPlaylist from './renderPlaylist';
 
 const renderContest = (e: Event) => {
@@ -18,6 +19,7 @@ const renderContest = (e: Event) => {
       renderPlaylist(userPageContent);
       break;
     case 'films':
+      userPageContent.append(getCardsFavorite());
       break;
     case 'serials':
       break;

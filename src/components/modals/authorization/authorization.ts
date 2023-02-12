@@ -10,12 +10,12 @@ const getAuthorizationModal = (): HTMLElement => {
 
   title.append(cross);
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });
-  const text = createElement('p', { class: 'authorization__text' }, 'Введите телефон или e-mail и пароль');
+  const text = createElement('p', { class: 'authorization__text' }, 'Введите e-mail и пароль');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
 
 
-  const inputEmail = createElement('input', { type: 'text', placeholder: 'vasyaPupkin@mail.com / (+)000000000', class: 'authorization__input', id: 'emailOrNumber', required: '' });
-  inputEmail.setAttribute('pattern', '^\\+?\\d{9,}|[\\w-]{2,}@[a-z]{0,5}\\.[a-z]{2,5}$');
+  const inputEmail = createElement('input', { type: 'text', placeholder: 'vasyaPupkin@mail.com', class: 'authorization__input', id: 'email', required: '' });
+  inputEmail.setAttribute('pattern', '^[\\w\\-\\.]{1,}@[\\w]{1,}\\.[a-z]{2,}$');
   const inputPassword = createElement('input', { type: 'password', placeholder: 'от 5 до 10 букв и символов \'_\' и \'-\'', class: 'authorization__input', id: 'password', required: '' });
   inputPassword.setAttribute('pattern', '^[\\w-]{5,10}$');
   const inputs = createElement('div', { class: 'authorization__inputs' });

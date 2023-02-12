@@ -1,14 +1,11 @@
 
 const handleUserAccountInput = () => {
-  const emailOrNumberElem = document.querySelector('#emailOrNumber') as HTMLInputElement;
+  const emailElem = document.querySelector('#email') as HTMLInputElement;
   const password = document.querySelector('#password') as HTMLInputElement;
-  if (!emailOrNumberElem || !password) {
-    throw new Error('emailOrNumberElem or password is not found');
+  if (!emailElem || !password) {
+    throw new Error('emailElem or password is not found');
   }
-  const emailOrNumberValue = emailOrNumberElem.value;
-  const passwordValue = password.value;
-
-  console.log(emailOrNumberValue, passwordValue);
-
+  // const emailOrNumberValue = emailElem.value;
+  // const passwordValue = password.value;
 };
 export default handleUserAccountInput;

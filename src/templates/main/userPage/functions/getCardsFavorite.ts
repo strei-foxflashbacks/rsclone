@@ -1,17 +1,24 @@
 import createElement from '../../../../helpers/createElement';
-import { Film } from '../../../../types/types';
-import { filmmm } from '../tempData';
+import { Film, FilmType } from '../../../../types/types';
+import { filmmm, ser } from '../tempData';
 import getCardFavoriteFilmSerial from './getCardFavoriteFilmSerial';
 
-const getCardsFavorite = (): HTMLElement => {
-  const favorite: Film[] = [filmmm, filmmm, filmmm, filmmm, filmmm];
+const getCardsFavorite = (typeFilm: FilmType): HTMLElement => {
+  const favoriteFilm: Film[] = [filmmm, filmmm, filmmm, filmmm, filmmm];
+  const favoriteSerial: Film[] = [ser, ser, ser, ser, ser];
   const cardsContainer = <HTMLElement>(
     createElement('div', { class: 'favorite-container' })
   );
-
-  favorite.forEach((fav: Film) => {
-    cardsContainer.append(getCardFavoriteFilmSerial(fav));
-  });
+  if (typeFilm === 'film') {
+    favoriteFilm.forEach((fav: Film) => {
+      cardsContainer.append(getCardFavoriteFilmSerial(fav));
+    });
+  }
+  if (typeFilm === 'serial') {
+    favoriteSerial.forEach((fav: Film) => {
+      cardsContainer.append(getCardFavoriteFilmSerial(fav));
+    });
+  }
 
   return cardsContainer;
 };

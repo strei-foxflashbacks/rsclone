@@ -19,9 +19,10 @@ const renderContest = (e: Event) => {
       renderPlaylist(userPageContent);
       break;
     case 'films':
-      userPageContent.append(getCardsFavorite());
+      userPageContent.append(getCardsFavorite('film'));
       break;
     case 'serials':
+      userPageContent.append(getCardsFavorite('serial'));
       break;
     case 'persons':
       break;

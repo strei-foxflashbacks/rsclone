@@ -20,7 +20,7 @@ export type Film = {
   rating: number;
   reviews: string[];
   genre: string;
-  type: 'film' | 'serial';
+  type: FilmType;
   serial?: Serial;
 };
 
@@ -28,3 +28,5 @@ export type Serial = {
   season: number[];
   episode: number[];
 };
+
+export type FilmType = 'film' | 'serial';

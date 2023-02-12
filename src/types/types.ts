@@ -8,3 +8,8 @@ export enum AddToPlayListValue {
   'add' = 'Добавить в плейлист',
   'remove' = 'Удалить из плейлиста',
 }
+
+export enum Themes {
+  'dark' = 'dark',
+  'light' = 'light',
+}

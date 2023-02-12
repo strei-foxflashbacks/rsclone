@@ -1,9 +1,9 @@
-const getItemFromLS = (name: string): string[] => {
+const getItemFromLS = (name: string): string => {
   if (!localStorage.getItem(`${name}`)) {
-    localStorage.setItem(`${name}`, '[]');
+    localStorage.setItem(`${name}`, '');
   }
-  const item = localStorage.getItem(`${name}`);
+  const item = localStorage.getItem(`${name}`)!;
 
-  return JSON.parse(item!);
+  return item;
 };
 export default getItemFromLS;

@@ -5,7 +5,7 @@ import createElement from '../helpers/createElement';
 import getAuthorizationModal from '../components/modals/authorization/authorization';
 import closeModal from '../components/modals/functions/closeModal';
 import setThemeInLS from '../components/themes/functions/setThemeInLS';
-import { Themes } from '../types/types';
+import getItemFromLS from '../components/localStorage/getItemFromLS';
 
 const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
@@ -29,7 +29,8 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   body.insertAdjacentElement('afterbegin', authorization);
   body.append(header, main, footer);
 
-  setThemeInLS(Themes.light);
+  const currentTheme = getItemFromLS('themes');
+  setThemeInLS(currentTheme);
 
   return body;
 };

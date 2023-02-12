@@ -1,5 +1,5 @@
 import createElement from '../../helpers/createElement';
-import toggleTheme from '../../components/themes/toggleTheme';
+import toggleTheme from '../../components/themes/functions/toggleTheme';
 
 const getFooter = (): HTMLElement => {
   const containerFooter = createElement('footer', { class: 'footer-container' });

@@ -2,6 +2,7 @@ import clearElement from '../../../../helpers/clearElement';
 import resetOpen from '../../../../helpers/resetOpen';
 import getCardsFavorite from './getCardsFavorite';
 import { getCardsFavoritePersons } from './getCardsFavoritePersons';
+import { getProfileElement } from './getProfileElement';
 import renderPlaylist from './renderPlaylist';
 
 const renderContest = (e: Event) => {
@@ -29,6 +30,7 @@ const renderContest = (e: Event) => {
       userPageContent.append(getCardsFavoritePersons());
       break;
     case 'profile':
+      userPageContent.append(getProfileElement());
       break;
   }
 };

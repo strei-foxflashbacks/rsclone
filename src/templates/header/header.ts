@@ -1,4 +1,5 @@
 import createElement from '../../helpers/createElement';
+import handleLogInButton from './functions/handleLogInButton';
 
 const getHeader = () :HTMLElement => {
   const header = createElement('header', { class: 'header-container' } );
@@ -24,6 +25,8 @@ const getHeader = () :HTMLElement => {
 
 
   container.append(logoImg, containerSections);
+
+  signIn.addEventListener('click', handleLogInButton);
 
   header.append(container);
   return header;

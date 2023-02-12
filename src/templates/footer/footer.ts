@@ -19,6 +19,8 @@ const getFooter = (): HTMLElement => {
   container.append(date, schoolLink);
   const themeButton = createElement('div', { class: 'theme-element', id: 'theme' });
   const circle = createElement('div', { class: 'theme-element__circle' });
+  const icon = createElement('img', { src: './assets/moon.svg' });
+  circle.append(icon);
   themeButton.append(circle);
 
   footer.append(container, namesContainer, themeButton);

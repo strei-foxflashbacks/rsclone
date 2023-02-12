@@ -60,5 +60,12 @@ button {
   background-color: black;
   opacity: 60%;
   z-index: 102;
+  display: none;
+  & .active {
+    display: block;
+  }
+}
+.active {
+  display: block;
 }
 

@@ -7,6 +7,11 @@
   background-color: white;
   width: 500px;
   z-index: 103;
+  display: none;
+
+  & .active {
+    display: block;
+  }
 
   &__title {
     padding: 20px;
@@ -64,5 +69,6 @@
   position: absolute;
   top: 0;
   right: 0;
+  cursor: pointer;
 }
 

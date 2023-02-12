@@ -1,4 +1,4 @@
-import { Film } from '../../../types/types';
+import { Film, Person } from '../../../types/types';
 
 export const ser: Film = {
   id: 1,
@@ -29,4 +29,15 @@ export const filmmm: Film = {
   reviews: [''],
   genre: 'боевик, драма, фантастика',
   type: 'film',
+};
+
+export const person1: Person = {
+  id: 1234,
+  img: './assets/person.jpg',
+  imgMin: null,
+  nameRu: 'Хью Джекман',
+  nameEn: 'Hugh Jackman',
+  profession: 'actor, producer',
+  birth: '12 октября 1968',
+  filmIds: [12, 32, 34, 4534],
 };

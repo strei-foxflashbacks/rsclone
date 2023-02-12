@@ -1,6 +1,7 @@
 import clearElement from '../../../../helpers/clearElement';
 import resetOpen from '../../../../helpers/resetOpen';
 import getCardsFavorite from './getCardsFavorite';
+import { getCardsFavoritePersons } from './getCardsFavoritePersons';
 import renderPlaylist from './renderPlaylist';
 
 const renderContest = (e: Event) => {
@@ -25,6 +26,7 @@ const renderContest = (e: Event) => {
       userPageContent.append(getCardsFavorite('serial'));
       break;
     case 'persons':
+      userPageContent.append(getCardsFavoritePersons());
       break;
     case 'profile':
       break;

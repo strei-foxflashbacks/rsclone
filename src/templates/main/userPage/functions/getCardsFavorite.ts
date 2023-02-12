@@ -1,7 +1,7 @@
 import createElement from '../../../../helpers/createElement';
 import { Film, FilmType } from '../../../../types/types';
 import { filmmm, ser } from '../tempData';
-import getCardFavoriteFilmSerial from './getCardFavoriteFilmSerial';
+import getCardFavoriteFilmSerial from './getCardFilmSerial';
 
 const getCardsFavorite = (typeFilm: FilmType): HTMLElement => {
   const favoriteFilm: Film[] = [filmmm, filmmm, filmmm, filmmm, filmmm];

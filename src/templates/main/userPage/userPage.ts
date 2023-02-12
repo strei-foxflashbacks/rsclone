@@ -9,7 +9,7 @@ enum UserPageTitles {
   playlist = 'Плейлист',
   films = 'Фильмы',
   serials = 'Сериалы',
-  persons = 'Актеры',
+  persons = 'Персоны',
   profile = 'Профиль',
 }
 

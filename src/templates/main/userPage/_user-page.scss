@@ -84,17 +84,26 @@
   }
 }
 
-.card {
+.card-info {
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $card-font-color;
+
+  &__title {
+    font: $title-font-card;
+    text-transform: uppercase;
+  }
+}
+
+.card-film {
   width: calc(25% - 10px);
   aspect-ratio: 3/4;
-  position: relative;
-  color: $card-font-color;
 
   &__resolution {
     font-size: 12px;
     line-height: 20px;
-    display: inline-block;
-    height: 20px;
     padding: 0 10px;
     border-radius: 11px;
     background-color: $card-background;
@@ -136,14 +145,6 @@
 
   &__favorite {
     top: 70px;
-    background-image: url(../../../components/assets/icon_unlike.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 24px;
-
-    &.liked {
-      background-image: url(../../../components/assets/icon_like.svg);
-    }
   }
 
   &__limit {
@@ -162,10 +163,57 @@
     }
 
     &-title {
-      font: $title-font-card;
-      text-transform: uppercase;
       margin-bottom: 10px;
     }
+  }
+}
+
+.card-person {
+  width: 245px;
+  height: 325px;
+
+  &__count {
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 10px;
+    border-radius: 11px;
+    background-color: $card-background;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+
+  &__favorite {
+    top: 10px;
+    right: 10px;
+  }
+
+  &__desc {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+
+    &-name {
+      line-height: 32px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.favorite-icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: $card-background;
+  border: 2px solid rgba(255, 255, 255, .75);
+  background-image: url(../../../components/assets/icon_unlike.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+
+  &.liked {
+    background-image: url(../../../components/assets/icon_like.svg);
   }
 }
 

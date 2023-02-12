@@ -1,4 +1,5 @@
 import createElement from '../../helpers/createElement';
+import toggleTheme from '../../components/themes/toggleTheme';
 
 const getFooter = (): HTMLElement => {
   const containerFooter = createElement('footer', { class: 'footer-container' });
@@ -16,12 +17,15 @@ const getFooter = (): HTMLElement => {
   schoolLink.append(rsLogo);
   const container = createElement('div', { class: 'footer__end' });
   container.append(date, schoolLink);
-  const themeButton = createElement('div', { class: 'theme-element' });
+  const themeButton = createElement('div', { class: 'theme-element', id: 'theme' });
   const circle = createElement('div', { class: 'theme-element__circle' });
   themeButton.append(circle);
 
   footer.append(container, namesContainer, themeButton);
   containerFooter.append(footer);
+
+  themeButton.addEventListener('click', toggleTheme);
+
   return containerFooter;
 };
 export default getFooter;

@@ -35,21 +35,3 @@
   }
 }
 
-.theme-element {
-  width: 53px;
-  background-color: rgb(201, 201, 201);
-  border-radius: 30px;
-  position: relative;
-  height: 29px;
-  top: -3px;
-  &__circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
-    position: absolute;
-    top: 50%;
-    margin: -10px 4px 0;
-  }
-}
-

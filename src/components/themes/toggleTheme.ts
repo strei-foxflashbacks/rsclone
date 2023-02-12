@@ -9,6 +9,12 @@ const toggleTheme = (event: Event) => {
   if (!circle) {
     throw new Error('circle is not found');
   }
+
   circle.classList.toggle('dark');
+  button.classList.toggle('theme-active');
+  // if (circle.classList.contains('dark') && button.classList.contains('theme-active')) {
+  //
+  // }
+
 };
 export default toggleTheme;

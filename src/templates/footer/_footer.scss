@@ -6,22 +6,50 @@
   width: 100%;
   height: $header-size;
 
+  box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
+  -webkit-box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
+  -moz-box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
+
 }
 
 .footer {
+  @include content-container;
   display: flex;
   position: relative;
   top: 6px;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   gap: 20px;
   &__end {
-    position: absolute;
     display: flex;
     gap: 20px;
     right: 20px;
+  }
+  &__names {
+    display: flex;
+    gap: 15px;
   }
   &__item {
     color: $dark-text;
     text-decoration: none;
   }
 }
+
+.theme-element {
+  width: 53px;
+  background-color: rgb(201, 201, 201);
+  border-radius: 30px;
+  position: relative;
+  height: 29px;
+  top: -3px;
+  &__circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    margin: -10px 4px 0;
+  }
+}
+

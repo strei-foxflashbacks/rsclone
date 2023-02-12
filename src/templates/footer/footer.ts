@@ -3,9 +3,12 @@ import createElement from '../../helpers/createElement';
 const getFooter = (): HTMLElement => {
   const containerFooter = createElement('footer', { class: 'footer-container' });
   const footer = createElement('div', { class: 'footer' });
+
+  const namesContainer = createElement('div', { class: 'footer__names' });
   const name1 = createElement('a', { class: 'footer__item', href: 'https://github.com/BatBB' }, 'BatBB');
   const name2 = createElement('a', { class: 'footer__item', href: 'https://github.com/strei-foxflashbacks' }, 'strei-foxflashbacks');
   const name3 = createElement('a', { class: 'footer__item', href: 'https://github.com/inna1305' }, 'inna1305');
+  namesContainer.append(name1, name2, name3);
 
   const date = createElement('div', {}, '2023');
   const schoolLink = createElement('a', { href: 'https://rs.school/js/' });
@@ -13,8 +16,11 @@ const getFooter = (): HTMLElement => {
   schoolLink.append(rsLogo);
   const container = createElement('div', { class: 'footer__end' });
   container.append(date, schoolLink);
+  const themeButton = createElement('div', { class: 'theme-element' });
+  const circle = createElement('div', { class: 'theme-element__circle' });
+  themeButton.append(circle);
 
-  footer.append(name1, name2, name3, container);
+  footer.append(container, namesContainer, themeButton);
   containerFooter.append(footer);
   return containerFooter;
 };

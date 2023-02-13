@@ -68,7 +68,7 @@ button {
     @include title;
     color: $light-dark-text;
     cursor: pointer;
-    transition: all .3 ease;
+    transition: all .3s ease;
 
     &:hover {
       color: $user-name-color;

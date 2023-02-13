@@ -3,7 +3,6 @@
 
 .user-page {
   padding: 30px 30px;
-  box-shadow: 0 10px 24px rgb(0 0 0 / 36%);
 
   &__titles {
     margin-bottom: 32px;
@@ -132,7 +131,7 @@
         display: flex;
         align-items: center;
         padding-bottom: 6px;
-        transition: all 0.3 ease;
+        transition: all 0.3s ease;
 
         &:hover {
           border-bottom: 4px solid $user-name-color;

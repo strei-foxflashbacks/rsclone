@@ -11,6 +11,11 @@
   align-items: center;
   text-align: center;
   background-color: black;
+  z-index: 200;
+
+  button {
+    border: none;
+  }
 
   &.hide-interface {
     cursor: none;
@@ -80,7 +85,7 @@
   // }
 }
 
-.close {
+.close-video {
   position: absolute;
   left: 48px;
   top: 48px;

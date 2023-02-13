@@ -16,7 +16,7 @@ import {
 import { clickTimeline, mouseMoveTimeLine } from './functions/timeLineEvents';
 import { updateTimeLine } from './functions/updateTimeLine';
 
-import './style.scss';
+import './_videoplayer.scss';
 import {
   ControlsPopupSettingsText,
   ControlsPopupSubtitleSoundText,
@@ -90,8 +90,7 @@ const onSubtitle = () => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-enum subtitleLang {
+enum SubtitleLang {
   en = 'english',
   ru = 'russian',
 }
@@ -274,7 +273,7 @@ const btnControlsRender = () => {
         },
         `${
           item === 'language'
-            ? subtitleLang[<'en' | 'ru'>itemSubSettings]
+            ? SubtitleLang[<'en' | 'ru'>itemSubSettings]
             : itemSubSettings
         }`
       );
@@ -440,6 +439,7 @@ const closeVideoplayer = () => {
   document.removeEventListener('keydown', pressHotKey);
   const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   modalPlayer!.style.display = 'none';
+  document.body.style.overflowY = 'visible';
 };
 
 const videoPlayerRender = (film: Film) => {
@@ -490,7 +490,7 @@ const videoPlayerRender = (film: Film) => {
     iconCenterAnimate('pause');
   });
 
-  const close = createElement('div', { class: 'close' });
+  const close = createElement('div', { class: 'close-video' });
   close.addEventListener('click', closeVideoplayer);
   videoPlayer.append(close);
 

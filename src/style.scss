@@ -96,3 +96,8 @@ button {
 .open {
   color: $dark-text;
 }
+
+.dark-theme {
+  background-color: $dark-theme-background;
+  color: $dark-theme-font-color;
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../helpers/createElement';
 import {
   MIN_IN_HOUR,
@@ -6,93 +7,39 @@ import {
   SKIP_BACKWARD,
   SKIP_FORWARD,
 } from '../../../types/constants';
+import { TSubtitleSize, Film, SubtitlesData } from '../../../types/types';
 import {
-  TSpeedVideo,
-  TVideoControlsSettingsItems,
-  TVideoControlsSubtitleSoundItems,
-  TSubtitleSize,
-  Film,
-  SubtitlesData,
-} from '../../../types/types';
+  playPauseVideo,
+  skip,
+  switchVideoSpeed,
+} from './functions/videoplayerControls';
+import { clickTimeline, mouseMoveTimeLine } from './functions/timeLineEvents';
+import { updateTimeLine } from './functions/updateTimeLine';
 
 import './style.scss';
+import {
+  ControlsPopupSettingsText,
+  ControlsPopupSubtitleSoundText,
+  settingsItemsName,
+  subSettingSettings,
+  subSettingSubtitleSound,
+  SubtitleFontSize,
+  subtitleSoundItemsName,
+} from './functions/constants';
+import { iconCenterAnimate } from './functions/iconCenterAnimate';
+import { blurAllBtn } from './functions/blurAllBtn';
 
-const settingsItemsName: TVideoControlsSettingsItems[] = [
-  'size',
-  'quality',
-  'speed',
-];
-enum ControlsPopupSettingsText {
-  size = 'Subtitle size',
-  quality = 'Quality video',
-  speed = 'Play speed',
-}
-const speedVideo: { [key in TSpeedVideo]: number } = {
-  '0.25x': 0.25,
-  '0.5x': 0.5,
-  '0.75x': 0.75,
-  normal: 1,
-  '1.25x': 1.25,
-  '1.5x': 1.5,
-  '1.75x': 1.75,
-  '2x': 2,
-};
 const defaultSubtitleSize = 'standard';
 const defaultQuality = 'auto';
 const defaultSpeedVideo = 'normal';
 
-enum SubtitleFontSize {
-  small = '80%',
-  standard = '100%',
-  large = '120%',
-}
-
-const subtitleSoundItemsName: TVideoControlsSubtitleSoundItems[] = [
-  'sound',
-  'language',
-  'subtitle',
-];
-enum ControlsPopupSubtitleSoundText {
-  sound = 'Sound',
-  language = 'Language',
-  subtitle = 'Subtitle',
-}
-const subSettingSubtitleSound = {
-  sound: ['stereo', '5.1'],
-  language: ['en', 'ru'],
-  subtitle: ['off', 'on'],
-};
 const defaultSound = 'stereo';
 const defaultLanguage = 'en';
 const defaultSubtitle = 'off';
-const subSettingSettings: {
-  [key in TVideoControlsSettingsItems]: string[];
-} = {
-  size: ['small', 'standard', 'large'],
-  quality: ['auto', '1440p', '1080p', '720p', '480p'],
-  speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
-};
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
 let lastVolume: number;
-
-const playPauseVideo = (): void => {
-  if (videoElement.paused) {
-    videoElement.play();
-  } else {
-    videoElement.pause();
-  }
-};
-
-const updateTimeLine = () => {
-  const timeLine = <HTMLElement>document.querySelector('.timeline');
-
-  const positionPercent = `${
-    (videoElement.currentTime / videoElement.duration) * 100
-  }%`;
-  timeLine!.style.setProperty('--timeline-position', positionPercent);
-};
 
 const timeLineRender = (previews: string[]) => {
   const timeLineTime = createElement('timeline-time', {
@@ -102,60 +49,22 @@ const timeLineRender = (previews: string[]) => {
   const timeLineIndicator = createElement('div', {
     class: 'timeline-indicator',
   });
-  timeLine.append(timeLineIndicator);
 
   const previewImage = <HTMLImageElement>createElement('img', {
     class: 'timeline-preview-img',
     alt: 'preview image',
   });
-  timeLine.append(previewImage);
+  timeLine.append(timeLineIndicator, previewImage);
 
-  timeLine.addEventListener('click', (e: MouseEvent) => {
-    const xClickMouse = e.x - timeLine.getBoundingClientRect().x;
-    const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
-    const percent = xClickMouse / widthTimeLine;
-    videoElement.currentTime = videoElement.duration * percent;
-  });
+  timeLine.addEventListener('click', clickTimeline);
 
-  timeLine.addEventListener('mousemove', (e: MouseEvent) => {
-    const xClickMouse = e.x - timeLine.getBoundingClientRect().x;
-    const widthTimeLine = parseInt(window.getComputedStyle(timeLine).width);
-    const percent = (xClickMouse / widthTimeLine) * 100;
-    timeLine.style.setProperty('--timeline-preview', `${percent}%`);
-    const imgNumber = Math.trunc(percent / (100 / previews.length));
-    previewImage.src = previews[imgNumber];
-    previewImage.style.display = 'block';
-  });
-
-  document.addEventListener('mousemove', (e: Event) => {
-    const target = <HTMLElement>e.target;
-    if (!target.classList.contains('timeline')) {
-      timeLine.style.setProperty('--timeline-preview', '0%');
-      previewImage.style.display = 'none';
-    }
+  document.addEventListener('mousemove', (e: MouseEvent) => {
+    mouseMoveTimeLine(e, previews);
   });
 
   const time = createElement('div', { class: 'time' });
-
-  timeLineTime.append(timeLine);
-  timeLineTime.append(time);
+  timeLineTime.append(timeLine, time);
   return timeLineTime;
-};
-
-const skip = (skipTime: number) => {
-  videoElement.currentTime += skipTime;
-};
-
-const iconCenterAnimate = (className: string) => {
-  const videoPlayerIconCenter = <HTMLElement>(
-    videoPlayerElement.querySelector('.video-player-icon-center')
-  );
-  videoPlayerIconCenter!.classList.add(className);
-  videoPlayerIconCenter!.style.display = 'block';
-  setTimeout(() => {
-    videoPlayerIconCenter!.style.display = 'none';
-    videoPlayerIconCenter!.classList.remove(className);
-  }, 1000);
 };
 
 const changeActiveSubSettings = (el: HTMLElement) => {
@@ -163,12 +72,6 @@ const changeActiveSubSettings = (el: HTMLElement) => {
   [...parentEl!.children].forEach((element) => {
     element.classList.remove('active-subsettings');
   });
-};
-
-const switchVideoSpeed = (speed: string) => {
-  if (videoElement.playbackRate !== +speed) {
-    videoElement.playbackRate = speedVideo[<TSpeedVideo>speed];
-  }
 };
 
 const offSubtitle = () => {
@@ -196,13 +99,12 @@ enum subtitleLang {
 const changeSettings = (e: Event) => {
   const target = <HTMLElement>e.target;
   if (target.className.includes('speed')) {
-    switchVideoSpeed(target.id);
+    switchVideoSpeed(videoElement, target.id);
   }
   if (target.className.includes('size')) {
     const size = <TSubtitleSize>target.id;
     videoElement.style.setProperty(
       '--subtitle-font-size',
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
       SubtitleFontSize[size]
     );
   }
@@ -275,32 +177,30 @@ const btnControlsRender = () => {
   const playPause = <HTMLButtonElement>createElement('button', {
     class: 'controls-btn play-pause',
   });
-  playPause.addEventListener('click', playPauseVideo);
+  playPause.addEventListener('click', () => {
+    playPauseVideo(videoElement);
+  });
 
-  btnControlsLeft.append(playPause);
   const skipBackward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-btn skip-backward' })
   );
 
   skipBackward.addEventListener('click', () => {
     iconCenterAnimate('skip-backward');
-    skip(SKIP_BACKWARD);
+    skip(videoElement, SKIP_BACKWARD);
   });
-  btnControlsLeft.append(skipBackward);
   const skipForward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-btn skip-forward' })
   );
   skipForward.addEventListener('click', () => {
     iconCenterAnimate('skip-forward');
-    skip(SKIP_FORWARD);
+    skip(videoElement, SKIP_FORWARD);
   });
-  btnControlsLeft.append(skipForward);
 
   const volumeContainer = createElement('div', { class: 'volume-container' });
   const volumeBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn volume' })
   );
-  volumeContainer.append(volumeBtn);
   const volumeRange = <HTMLInputElement>createElement('input', {
     class: 'volume-range',
     type: 'range',
@@ -328,9 +228,8 @@ const btnControlsRender = () => {
       volumeBtn.classList.remove('half-volume');
     }
   });
-  volumeContainer.append(volumeRange);
-
-  btnControlsLeft.append(volumeContainer);
+  volumeContainer.append(volumeBtn, volumeRange);
+  btnControlsLeft.append(playPause, skipBackward, skipForward, volumeContainer);
   btnControls.append(btnControlsLeft);
 
   const btnControlsRight = createElement('div', {
@@ -342,7 +241,6 @@ const btnControlsRender = () => {
   const subtitleSound = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn subtitle-sound' })
   );
-  subtitleSoundContainer.append(subtitleSound);
   const subtitleSoundPopup = createElement('div', {
     class: 'controls-popup subtitle-sound-popup',
   });
@@ -354,7 +252,6 @@ const btnControlsRender = () => {
     const titleItem = createElement(
       'p',
       { class: 'controls-popup-item-title' },
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
       `${ControlsPopupSubtitleSoundText[item]}`
     );
     const subSettingsItems = createElement('ul', {
@@ -375,12 +272,10 @@ const btnControlsRender = () => {
           class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
           id: `${itemSubSettings}`,
         },
-        // eslint-disable-next-line @typescript-eslint/comma-dangle
         `${
           item === 'language'
             ? subtitleLang[<'en' | 'ru'>itemSubSettings]
             : itemSubSettings
-          // eslint-disable-next-line @typescript-eslint/comma-dangle
         }`
       );
       subSettingsItems.append(subSettingsItem);
@@ -391,9 +286,7 @@ const btnControlsRender = () => {
     subSettingsItems.addEventListener('click', changeSettings);
     subtitleSoundPopup.append(subtitleSoundItem);
   });
-
-  subtitleSoundContainer.append(subtitleSoundPopup);
-  btnControlsRight.append(subtitleSoundContainer);
+  subtitleSoundContainer.append(subtitleSound, subtitleSoundPopup);
 
   const settingsContainer = createElement('div', {
     class: 'settings-container',
@@ -401,7 +294,6 @@ const btnControlsRender = () => {
   const settingsBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn settings' })
   );
-  settingsContainer.append(settingsBtn);
   const settingsPopup = createElement('div', {
     class: 'controls-popup settings-popup',
   });
@@ -419,12 +311,9 @@ const btnControlsRender = () => {
     const titleItem = createElement(
       'p',
       { class: 'controls-popup-item-title' },
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
       `${ControlsPopupSettingsText[item]}`
     );
-    titleContainer.append(iconItem);
-    titleContainer.append(titleItem);
-    settingsItem.append(titleContainer);
+    titleContainer.append(iconItem, titleItem);
 
     const subSettingsItems = createElement('ul', {
       class: 'subsettings-items',
@@ -444,19 +333,17 @@ const btnControlsRender = () => {
           class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
           id: `${itemSubSettings}`,
         },
-        // eslint-disable-next-line @typescript-eslint/comma-dangle
         `${itemSubSettings}`
       );
       subSettingsItems.append(subSettingsItem);
     });
 
     subSettingsItems.addEventListener('click', changeSettings);
-    settingsItem.append(subSettingsItems);
+    settingsItem.append(titleContainer, subSettingsItems);
     settingsPopup.append(settingsItem);
   });
+  settingsContainer.append(settingsBtn, settingsPopup);
 
-  settingsContainer.append(settingsPopup);
-  btnControlsRight.append(settingsContainer);
   const streaming = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn streaming' })
   );
@@ -465,7 +352,11 @@ const btnControlsRender = () => {
     createElement('button', { class: 'controls-btn fullscreen' })
   );
   fullscreen.addEventListener('click', toggleFullscreen);
-  btnControlsRight.append(fullscreen);
+  btnControlsRight.append(
+    subtitleSoundContainer,
+    settingsContainer,
+    fullscreen
+  );
   btnControls.append(btnControlsRight);
 
   return btnControls;
@@ -480,7 +371,6 @@ const formatTime = (time: number) => {
   const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
   const hour = Math.floor(time / SEC_IN_HOUR);
   return `-${convertNumToString(hour)}:${convertNumToString(
-    // eslint-disable-next-line @typescript-eslint/comma-dangle
     min
   )}:${convertNumToString(sec)}`;
 };
@@ -506,20 +396,13 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
   });
 };
 
-const allBlurBtn = () => {
-  const allBtn = <NodeListOf<HTMLButtonElement>>(
-    videoPlayerElement.querySelectorAll('.controls-btn')
-  );
-  allBtn.forEach((btn) => btn.blur());
-};
-
 const pressHotKey = (e: KeyboardEvent) => {
-  allBlurBtn();
+  blurAllBtn();
   switch (e.key.toLocaleLowerCase()) {
     case ' ':
     case 'k':
     case 'л':
-      playPauseVideo();
+      playPauseVideo(videoElement);
       break;
     case 'f':
     case 'а':
@@ -532,12 +415,12 @@ const pressHotKey = (e: KeyboardEvent) => {
     case 'arrowleft':
     case 'j':
     case 'о':
-      skip(SKIP_BACKWARD);
+      skip(videoElement, SKIP_BACKWARD);
       break;
     case 'arrowright':
     case 'l':
     case 'д':
-      skip(SKIP_FORWARD);
+      skip(videoElement, SKIP_FORWARD);
       break;
     case 'arrowdown':
       if (videoElement.volume >= 0.1) videoElement.volume -= 0.1;
@@ -586,12 +469,14 @@ const videoPlayerRender = (film: Film) => {
 
   video.addEventListener('timeupdate', () => {
     updateTime(video);
-    updateTimeLine();
+    updateTimeLine(video);
   });
 
   videoPlayer.append(video);
 
-  video.addEventListener('click', playPauseVideo);
+  video.addEventListener('click', () => {
+    playPauseVideo(video);
+  });
 
   video.addEventListener('play', () => {
     const btnPlayPause = document.querySelector('.play-pause');

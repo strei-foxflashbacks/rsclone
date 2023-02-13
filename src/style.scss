@@ -1,7 +1,7 @@
 @import "./baseStyles/normalize.css";
 @import "./baseStyles/variables";
 @import "./templates/header/header";
-//@import "components/modals/authorization/authorization";
+@import "components/modals/authorization/authorization";
 @import "templates/main/news/news";
 @import "./templates/main/films/films";
 @import "./templates/main/filmPage/filmPage";

@@ -1,7 +1,3 @@
-export interface IAttribute {
-  [key: string]: string;
-}
-
 export type TVideoControlsSettingsItems = 'size' | 'quality' | 'speed';
 
 export type TSubtitleSize = 'small' | 'standard' | 'large';
@@ -28,6 +24,7 @@ export type SubtitlesData = {
   srclang: string;
   label: string;
 };
+
 export interface Attribute {
   [key: string]: string;
 }
@@ -51,6 +48,7 @@ export type Film = {
   reviews: string[];
   genre: string;
   type: FilmType;
+  subtitles: SubtitlesData[];
   serial?: Serial;
 };
 

@@ -1,6 +1,7 @@
 @import "./baseStyles/normalize.css";
 @import "./baseStyles/variables";
 @import "./templates/header/header";
+//@import "components/modals/authorization/authorization";
 @import "templates/main/news/news";
 @import "./templates/main/films/films";
 @import "./templates/main/filmPage/filmPage";
@@ -14,6 +15,7 @@
 body {
   font: $main-font;
   padding: 0 calc(20px - (100vw - 100%)) 0 0;
+  position: relative;
 }
 
 button {
@@ -73,6 +75,22 @@ button {
     }
   }
 }
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 60%;
+  z-index: 102;
+  display: none;
+  & .active {
+    display: block;
+  }
+}
+.active {
+  display: block;
+}
+
 
 .open {
   color: $dark-text;

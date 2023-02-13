@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/comma-dangle */
 import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
+import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
 
 const getHeader = (): HTMLElement => {
@@ -82,9 +83,12 @@ const getHeader = (): HTMLElement => {
 
   container.append(logoImg, containerSections);
 
+  signIn.addEventListener('click', handleLogInButton);
+
   header.append(container);
   return header;
 
   // принимать из другой функции компонент кнопки авторизации (чтобы обновлять состояние)
+
 };
 export default getHeader;

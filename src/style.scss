@@ -1,11 +1,102 @@
-@import url('./baseStyles/normalize.css');
+@import "./baseStyles/normalize.css";
+@import "./baseStyles/variables";
+@import "./templates/header/header";
+@import "components/modals/authorization/authorization";
+@import "templates/main/news/news";
+@import "./templates/main/films/films";
+@import "./templates/main/filmPage/filmPage";
+@import "templates/main/filmPage/series";
+@import "./templates/footer/footer";
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+// html {
+//   margin-right: calc(-1 * (100vw - 100%));
+// }
+
+body {
+  font: $main-font;
+  padding: 0 calc(20px - (100vw - 100%)) 0 0;
+  position: relative;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button {
+  border: none;
+  background-color: $accent-color;
+  height: 30px;
+  border-radius: $border-radius;
+  min-width: 70px;
+  color: $light-title;
+
+  &:hover {
+    background-color: #59bcee;
+  }
+
+  &:active {
+    scale: 1.1;
+    background-color: $accent-color;
+  }
+}
+
+.wrapper {
+  @include content-container;
+  display: flex;
+  padding-top: $header-size;
+  gap: $gap;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(86, 86, 86, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(86, 86, 86, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(86, 86, 86, 0.2);
+}
+
+.subtitle {
+  @include subtitle;
+}
+
+.navigation {
+  padding: 20px 0 15px 20px;
+}
+
+.nav {
+  &__titles {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__title {
+    @include title;
+    color: $light-dark-text;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover {
+      color: $user-name-color;
+    }
+  }
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 60%;
+  z-index: 102;
+  display: none;
+
+  & .active {
+    display: block;
+  }
+}
+
+.active {
+  display: block;
+}
+
+
+.open {
+  color: $dark-text;
 }
 
 body {
@@ -13,15 +104,6 @@ body {
   height: 100vh;
 }
 
-button {
-  border: none;
-}
-
-.btn-film {
-  padding: 10px;
-  border: 1px solid black;
-  cursor: pointer;
-}
 
 .modal {
   display: none;

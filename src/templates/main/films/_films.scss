@@ -1,0 +1,57 @@
+.films {
+  flex-grow: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  gap: $gap;
+  // margin-top: $header-size;
+
+
+  &__big-element {
+    height: 550px;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  &__big-element::before {
+    @include blackout;
+  }
+
+  &__big-element>* {
+    position: absolute;
+    bottom: 20%;
+    margin-left: 10%;
+  }
+
+  &__title {
+    @include title;
+    font-size: 35px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+  }
+
+  &__title_eng {
+    @include title;
+  }
+
+  &__note {
+    color: $light-title;
+  }
+
+  &__favorites {
+    bottom: 10%;
+    right: 10%;
+    cursor: pointer;
+  }
+}
+
+.film {
+  overflow: hidden;
+  max-height: 550px;
+}

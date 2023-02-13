@@ -29,3 +29,14 @@ export const toggleMute = (video: HTMLVideoElement, lastVolume: number) => {
     video.volume = 0;
   }
 };
+
+export const toggleFullscreen = (videoPlayer: HTMLElement) => {
+  const fullscreen = document.querySelector('.fullscreen');
+  if (!document.fullscreenElement) {
+    videoPlayer.requestFullscreen();
+    fullscreen!.classList.add('fullscreen-exit');
+  } else {
+    document.exitFullscreen();
+    fullscreen!.classList.remove('fullscreen-exit');
+  }
+};

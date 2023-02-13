@@ -12,6 +12,8 @@ import {
   playPauseVideo,
   skip,
   switchVideoSpeed,
+  toggleFullscreen,
+  toggleMute,
 } from './functions/videoplayerControls';
 import { clickTimeline, mouseMoveTimeLine } from './functions/timeLineEvents';
 import { updateTimeLine } from './functions/updateTimeLine';
@@ -28,6 +30,7 @@ import {
 } from './functions/constants';
 import { iconCenterAnimate } from './functions/iconCenterAnimate';
 import { blurAllBtn } from './functions/blurAllBtn';
+import { hideControlsPanel } from './functions/hideControlsPanel';
 
 const defaultSubtitleSize = 'standard';
 const defaultQuality = 'auto';
@@ -121,50 +124,6 @@ const changeSettings = (e: Event) => {
   }
   changeActiveSubSettings(target);
   target.classList.add('active-subsettings');
-};
-
-let timeoutHidden: string | number | NodeJS.Timeout | undefined;
-const hiddenInterface = () => {
-  const close = videoPlayerElement.querySelector('.close');
-  const filmName = videoPlayerElement.querySelector('.film-name');
-  const controls = videoPlayerElement.querySelector('.controls');
-  if (timeoutHidden) {
-    clearTimeout(timeoutHidden);
-    videoPlayerElement.classList.remove('hide-interface');
-    close!.classList.remove('hide-interface');
-    filmName!.classList.remove('hide-interface');
-    controls!.classList.remove('hide-interface');
-  }
-  timeoutHidden = setTimeout(() => {
-    if (!videoElement.paused) {
-      videoPlayerElement.classList.add('hide-interface');
-      close!.classList.add('hide-interface');
-      filmName!.classList.add('hide-interface');
-      controls!.classList.add('hide-interface');
-    }
-  }, 5000);
-};
-
-const toggleMute = () => {
-  if (videoElement.muted) {
-    videoElement.muted = false;
-    videoElement.volume = lastVolume;
-  } else {
-    lastVolume = videoElement.volume;
-    videoElement.muted = true;
-    videoElement.volume = 0;
-  }
-};
-
-const toggleFullscreen = () => {
-  const fullscreen = videoPlayerElement.querySelector('.fullscreen');
-  if (!document.fullscreenElement) {
-    videoPlayerElement.requestFullscreen();
-    fullscreen!.classList.add('fullscreen-exit');
-  } else {
-    document.exitFullscreen();
-    fullscreen!.classList.remove('fullscreen-exit');
-  }
 };
 
 const btnControlsRender = () => {
@@ -350,7 +309,9 @@ const btnControlsRender = () => {
   const fullscreen = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn fullscreen' })
   );
-  fullscreen.addEventListener('click', toggleFullscreen);
+  fullscreen.addEventListener('click', () => {
+    toggleFullscreen(videoPlayerElement);
+  });
   btnControlsRight.append(
     subtitleSoundContainer,
     settingsContainer,
@@ -405,11 +366,11 @@ const pressHotKey = (e: KeyboardEvent) => {
       break;
     case 'f':
     case 'а':
-      toggleFullscreen();
+      toggleFullscreen(videoPlayerElement);
       break;
     case 'm':
     case 'ь':
-      toggleMute();
+      toggleMute(videoElement, lastVolume);
       break;
     case 'arrowleft':
     case 'j':
@@ -449,15 +410,18 @@ const videoPlayerRender = (film: Film) => {
   const videoPlayerIconCenter = createElement('div', {
     class: 'video-player-icon-center',
   });
-  videoPlayer.append(videoPlayerIconCenter);
-  videoPlayerElement = videoPlayer;
-  videoPlayerElement.addEventListener('mousemove', hiddenInterface);
-  videoPlayerElement.addEventListener('dblclick', toggleFullscreen);
-
   const video = <HTMLVideoElement>(
     createElement('video', { class: 'video', src: film.src })
   );
   videoElement = video;
+  videoPlayer.append(videoPlayerIconCenter);
+  videoPlayerElement = videoPlayer;
+  videoPlayerElement.addEventListener('mousemove', () => {
+    hideControlsPanel(video, videoPlayer);
+  });
+  videoPlayerElement.addEventListener('dblclick', () => {
+    toggleFullscreen(videoPlayerElement);
+  });
 
   addSubtitles(film.subtitles);
 
@@ -482,7 +446,7 @@ const videoPlayerRender = (film: Film) => {
     const btnPlayPause = document.querySelector('.play-pause');
     btnPlayPause!.classList.add('pause');
     iconCenterAnimate('play');
-    hiddenInterface();
+    hideControlsPanel(video, videoPlayer);
   });
   video.addEventListener('pause', () => {
     const btnPlayPause = document.querySelector('.play-pause');
@@ -504,7 +468,7 @@ const videoPlayerRender = (film: Film) => {
 
   videoPlayer.append(controls);
   video.play();
-  hiddenInterface();
+  hideControlsPanel(video, videoPlayer);
 
   return videoPlayer;
 };

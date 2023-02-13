@@ -10,14 +10,20 @@
 @import "components/themes/themes";
 @import "./templates/footer/footer";
 
+// html {
+//   margin-right: calc(-1 * (100vw - 100%));
+// }
 
 body {
   font: $main-font;
+  padding: 0 calc(20px - (100vw - 100%)) 0 0;
   position: relative;
 }
+
 button {
   cursor: pointer;
 }
+
 .button {
   border: none;
   background-color: $accent-color;
@@ -25,9 +31,11 @@ button {
   border-radius: $border-radius;
   min-width: 70px;
   color: $light-title;
+
   &:hover {
     background-color: #59bcee;
   }
+
   &:active {
     scale: 1.1;
     background-color: $accent-color;
@@ -37,6 +45,7 @@ button {
 .wrapper {
   @include content-container;
   display: flex;
+  padding-top: $header-size;
   gap: $gap;
   -webkit-box-shadow: 0px 5px 10px 2px rgba(86, 86, 86, 0.2);
   -moz-box-shadow: 0px 5px 10px 2px rgba(86, 86, 86, 0.2);
@@ -44,15 +53,28 @@ button {
 }
 
 .subtitle {
-@include subtitle;
+  @include subtitle;
 }
 
 .navigation {
-  display: flex;
-  gap: 10px;
-  margin-top: calc($header-size + 30px);
-  &__item {
+  padding: 20px 0 15px 20px;
+}
+
+.nav {
+  &__titles {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__title {
+    @include title;
+    color: $light-dark-text;
     cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover {
+      color: $user-name-color;
+    }
   }
 }
 .background {
@@ -71,3 +93,7 @@ button {
   display: block;
 }
 
+
+.open {
+  color: $dark-text;
+}

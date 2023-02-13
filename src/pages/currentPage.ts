@@ -14,7 +14,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
 
   const authorization = getAuthorizationModal();
   const main = createElement('main', { class: 'wrapper' });
-  mainElements.forEach(element => {
+  mainElements.forEach((element) => {
     main.append(element);
   });
   const header = getHeader();

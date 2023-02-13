@@ -4,7 +4,7 @@
   grid-template-columns: 1fr 1fr 1fr;
 
   gap: $gap;
-  margin-top: $header-size;
+  // margin-top: $header-size;
 
 
   &__big-element {
@@ -16,28 +16,34 @@
   }
 
   &__big-element::before {
-    	@include blackout;
+    @include blackout;
   }
-  &__big-element > * {
+
+  &__big-element>* {
     position: absolute;
     bottom: 20%;
     margin-left: 10%;
   }
+
   &__title {
-  @include title;
+    @include title;
     font-size: 35px;
   }
+
   &__container {
     display: flex;
     flex-direction: column;
     z-index: 99;
   }
+
   &__title_eng {
     @include title;
   }
+
   &__note {
     color: $light-title;
   }
+
   &__favorites {
     bottom: 10%;
     right: 10%;
@@ -49,5 +55,3 @@
   overflow: hidden;
   max-height: 550px;
 }
-
-

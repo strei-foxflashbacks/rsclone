@@ -1,4 +1,4 @@
-const getItemFromLS = (name: string): string => {
+const getValueFromLS = (name: string): string => {
   if (!localStorage.getItem(`${name}`)) {
     localStorage.setItem(`${name}`, '');
   }
@@ -6,4 +6,4 @@ const getItemFromLS = (name: string): string => {
 
   return item;
 };
-export default getItemFromLS;
+export default getValueFromLS;

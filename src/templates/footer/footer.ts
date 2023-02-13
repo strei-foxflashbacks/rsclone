@@ -1,6 +1,17 @@
 import createElement from '../../helpers/createElement';
 import toggleTheme from '../../components/themes/functions/toggleTheme';
 
+function updateThemeButton(circle: HTMLElement, themeButton: HTMLElement) {
+  if (localStorage.getItem('isDark') == 'true') {
+    circle.classList.add('dark');
+    themeButton.classList.add('theme-active');
+  } else {
+    circle.classList.remove('dark');
+    themeButton.classList.remove('theme-active');
+  }
+}
+
+
 const getFooter = (): HTMLElement => {
   const containerFooter = createElement('footer', { class: 'footer-container' });
   const footer = createElement('div', { class: 'footer' });
@@ -26,8 +37,14 @@ const getFooter = (): HTMLElement => {
   footer.append(container, namesContainer, themeButton);
   containerFooter.append(footer);
 
-  themeButton.addEventListener('click', toggleTheme);
+  themeButton.addEventListener('click', () => {
+    toggleTheme();
+    updateThemeButton(circle, themeButton);
+  });
+  updateThemeButton(circle, themeButton);
 
   return containerFooter;
 };
+
+
 export default getFooter;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
@@ -75,7 +74,7 @@ const getHeader = (): HTMLElement => {
   const signIn = createElement(
     'button',
     { type: 'button', id: 'signInButton', class: 'button' },
-    `${isAuth ? 'Выйти' : 'Войти'}`
+    `${isAuth ? 'Выйти' : 'Войти'}`,
   );
   authContainer.append(userPageBtn, signIn);
 

@@ -16,12 +16,12 @@ const getHeader = (): HTMLElement => {
   const feed = createElement(
     'a',
     { href: '#', class: 'sections__item' },
-    'Лента'
+    'Лента',
   );
   const serials = createElement(
     'a',
     { href: '#', class: 'sections__item' },
-    'Сериалы'
+    'Сериалы',
   );
 
   const searchForm = createElement('form', {
@@ -58,7 +58,7 @@ const getHeader = (): HTMLElement => {
       class: 'sections__item user-name',
       href: '#',
     },
-    `${user.name}`
+    `${user.name}`,
   );
   const userAvatar = createElement('img', {
     class: 'user-avatar',

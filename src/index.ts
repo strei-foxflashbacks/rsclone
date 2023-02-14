@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 //styles import
 
 import './style.scss';
@@ -8,7 +7,7 @@ import './style.scss';
 require.context(
   './components/assets',
   false,
-  /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav)$/i
+  /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav)$/i,
 );
 
 import setCurrentPage from './pages/currentPage';

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 let timeoutHidden: string | number | NodeJS.Timeout | undefined;
 export const hideControlsPanel = (
   video: HTMLVideoElement,
-  videoPlayer: HTMLElement
+  videoPlayer: HTMLElement,
 ) => {
   const close = document.querySelector('.close-video');
   const filmName = document.querySelector('.film-name');

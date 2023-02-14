@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../../helpers/createElement';
 import { Person } from '../../../../types/types';
 import { getFavoriteElement } from './getFavoriteElement';
@@ -12,7 +11,7 @@ export const getCardPerson = (person: Person): HTMLElement => {
   const countFilms = createElement(
     'div',
     { class: 'card-person__count' },
-    `Работы на Showjet: ${person.filmIds.length}`
+    `Работы на Showjet: ${person.filmIds.length}`,
   );
 
   const favorite = getFavoriteElement();
@@ -27,14 +26,14 @@ export const getCardPerson = (person: Person): HTMLElement => {
     {
       class: 'card-person__desc-name-rus',
     },
-    `${person.nameRu}`
+    `${person.nameRu}`,
   );
   const personNameEng = createElement(
     'div',
     {
       class: 'card-person__desc-name-eng',
     },
-    `${person.nameEn}`
+    `${person.nameEn}`,
   );
   personName.append(personNameRus, personNameEng);
 
@@ -43,7 +42,7 @@ export const getCardPerson = (person: Person): HTMLElement => {
     {
       class: 'card-person__desc-profession',
     },
-    `${person.profession}`
+    `${person.profession}`,
   );
   personDesc.append(personName, personProfession);
 

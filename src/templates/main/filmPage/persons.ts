@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../helpers/createElement';
 import showPersons from './functions/showPersons';
 import getPerson from './person';
@@ -8,17 +7,17 @@ const getPersons = (): HTMLElement => {
   const titleActors = createElement(
     'div',
     { class: 'persons__title nav__title open', id: 'actors' },
-    'в ролях'
+    'в ролях',
   );
   const titleDirectors = createElement(
     'div',
     { class: 'persons__title nav__title', id: 'directors' },
-    'режиссеры'
+    'режиссеры',
   );
   const titleProducers = createElement(
     'div',
     { class: 'persons__title nav__title', id: 'producers' },
-    'продюсеры'
+    'продюсеры',
   );
   const containerTitles = createElement('div', {
     class: 'persons__titles nav__titles',

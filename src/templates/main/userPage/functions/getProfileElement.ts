@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../../helpers/createElement';
 import { User } from '../../../../types/types';
 import { renderEditProfilePage } from '../../editProfile/editProfile';
@@ -28,7 +27,7 @@ export const getProfileElement = (): HTMLElement => {
   const userName = createElement(
     'div',
     { class: 'profile__name' },
-    `${user.name}`
+    `${user.name}`,
   );
   const btnEditProfile = createElement('button', { class: 'profile__edit' });
   btnEditProfile.addEventListener('click', renderEditProfilePage);
@@ -37,24 +36,24 @@ export const getProfileElement = (): HTMLElement => {
   const userId = createElement(
     'div',
     { class: 'profile__id' },
-    `Ваш идентификатор: ${user.id}`
+    `Ваш идентификатор: ${user.id}`,
   );
   const userKey = createElement(
     'div',
     { class: 'profile__key' },
-    `Ключ переноса: ${userData.key}`
+    `Ключ переноса: ${userData.key}`,
   );
   const userEmail = createElement(
     'div',
     { class: 'profile__email' },
-    `Ваш e-mail: ${user.email}`
+    `Ваш e-mail: ${user.email}`,
   );
 
   const bottomContainer = createElement('div', { class: 'profile__bottom' });
   const devices = createElement(
     'button',
     { class: 'profile__bottom-btn profile__devices' },
-    'Мои устройства'
+    'Мои устройства',
   );
   const imgDevices = createElement('img', {
     class: 'profile__bottom-img',
@@ -65,7 +64,7 @@ export const getProfileElement = (): HTMLElement => {
   const logout = createElement(
     'button',
     { class: 'profile__bottom-btn profile__logout' },
-    'Выход из аккаунта'
+    'Выход из аккаунта',
   );
   const imgLogout = createElement('img', {
     class: 'profile__bottom-img',
@@ -81,7 +80,7 @@ export const getProfileElement = (): HTMLElement => {
     userId,
     userKey,
     userEmail,
-    bottomContainer
+    bottomContainer,
   );
   return profileContainer;
 };

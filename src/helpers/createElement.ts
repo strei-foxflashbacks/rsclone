@@ -3,8 +3,7 @@ import { Attribute } from '../types/types';
 const createElement = (
   tagName: string,
   attributes: Attribute,
-  // eslint-disable-next-line @typescript-eslint/comma-dangle
-  textContent?: string
+  textContent?: string,
 ): HTMLElement => {
   const el: HTMLElement = document.createElement(tagName);
 

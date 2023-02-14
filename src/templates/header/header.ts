@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
@@ -17,12 +16,12 @@ const getHeader = (): HTMLElement => {
   const feed = createElement(
     'a',
     { href: '#', class: 'sections__item' },
-    'Лента'
+    'Лента',
   );
   const serials = createElement(
     'a',
     { href: '#', class: 'sections__item' },
-    'Сериалы'
+    'Сериалы',
   );
 
   const searchForm = createElement('form', {
@@ -59,7 +58,7 @@ const getHeader = (): HTMLElement => {
       class: 'sections__item user-name',
       href: '#',
     },
-    `${user.name}`
+    `${user.name}`,
   );
   const userAvatar = createElement('img', {
     class: 'user-avatar',
@@ -75,7 +74,7 @@ const getHeader = (): HTMLElement => {
   const signIn = createElement(
     'button',
     { type: 'button', id: 'signInButton', class: 'button' },
-    `${isAuth ? 'Выйти' : 'Войти'}`
+    `${isAuth ? 'Выйти' : 'Войти'}`,
   );
   authContainer.append(userPageBtn, signIn);
 

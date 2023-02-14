@@ -1,6 +1,7 @@
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import { User } from '../../../types/User';
+import './_editProfile.scss';
 
 export const renderEditProfilePage = () => {
   // const userData = getUser();
@@ -45,7 +46,7 @@ export const renderEditProfilePage = () => {
   );
   navigation.append(elementNavigation, elementNavigation2, elementNavigation3);
 
-  const title = createElement('h3', { class: 'edit-profile__title' }, 'ваш профиль');
+  const title = createElement('h3', { class: 'edit-profile__title nav__title' }, 'ваш профиль');
   
   const editProfile = createElement('div', { class: 'edit-profile' });
   
@@ -62,16 +63,16 @@ export const renderEditProfilePage = () => {
   const inputEmail = createElement('input', { class: 'edit-profile__form-input', type: 'email', placeholder: 'Ваш email', readonly: 'true' });
   const inputTelephone = createElement('input', { class: 'edit-profile__form-input', type: 'text', placeholder: 'Ваш номер телефона' });
   const radioGender = createElement('div', { class: 'edit-profile__form-gender' });
-  const labelMale = createElement('label', { class: 'edit-profile__form-gender-label', name: 'gender', value: 'male' });
-  const inputMale = createElement('input', { class: 'edit-profile__form-gender-radio', type: 'radio', name: 'gender', value: 'male' });
-  const textLabelMale = createElement('span', { class: 'edit-profile__form-gender-text' }, 'Мужчина');
-  labelMale.append(inputMale, textLabelMale);
-  const labelFemale = createElement('label', { class: 'edit-profile__form-gender-label', name: 'gender', value: 'male' });
-  const inputFemale = createElement('input', { class: 'edit-profile__form-gender-radio', type: 'radio', name: 'gender', value: 'female' });
-  const textLabelFemale = createElement('span', { class: 'edit-profile__form-gender-text' }, 'Женщина');
-  labelFemale.append(inputFemale, textLabelFemale);
-  radioGender.append(labelMale, labelFemale);
-  const btnForm = createElement('div', { class: 'edit-profile__form-btn-container' });
+  const inputMale = createElement('input', { class: 'edit-profile__form-gender-radio', type: 'radio', id: 'male', name: 'gender', value: 'male' });
+  const labelMale = createElement('label', { class: 'edit-profile__form-gender-label', for: 'male' }, 'Мужчина');
+  // const textLabelMale = createElement('span', { class: 'edit-profile__form-gender-text' }, 'Мужчина');
+  // labelMale.append(inputMale);
+  const inputFemale = createElement('input', { class: 'edit-profile__form-gender-radio', type: 'radio', id: 'female', name: 'gender', value: 'female' });
+  const labelFemale = createElement('label', { class: 'edit-profile__form-gender-label', for: 'female' }, 'Женщина');
+  // const textLabelFemale = createElement('span', { class: 'edit-profile__form-gender-text' }, 'Женщина');
+  // labelFemale.append(inputFemale);
+  radioGender.append(inputMale, labelMale, inputFemale,  labelFemale);
+  const btnForm = createElement('div', { class: 'edit-profile__form-buttons' });
   const btnSave = createElement('button', { class: 'edit-profile__form-btn button' }, 'Сохранить');
   const btnPassword = createElement('button', { class: 'edit-profile__form-btn button' }, 'Сменить пароль');
   btnForm.append(btnSave, btnPassword);

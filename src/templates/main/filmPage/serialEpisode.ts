@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../helpers/createElement';
 import { openVideoPlayer } from '../../../helpers/openVideoPlayer';
 
 const getSerialEpisode = (
   order: number,
   name: string,
-  rate: boolean
+  rate: boolean,
 ): HTMLElement => {
   const container = createElement('div', { class: 'episode' });
   container.style.backgroundImage = "url('./assets/poster.jpg')";
@@ -16,13 +15,13 @@ const getSerialEpisode = (
     const orderElem = createElement(
       'div',
       { class: 'episode__order' },
-      `серия ${order}`
+      `серия ${order}`,
     );
     const rateValue = rate ? 'бесплатно' : 'по подписке';
     const rateElem = createElement(
       'div',
       { class: 'episode__rate' },
-      rateValue
+      rateValue,
     );
     orderAndRate.append(orderElem, rateElem);
   }

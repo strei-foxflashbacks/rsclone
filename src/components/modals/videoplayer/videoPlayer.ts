@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../helpers/createElement';
 import {
   MIN_IN_HOUR,
@@ -83,7 +82,6 @@ const offSubtitle = () => {
   }
 };
 
-// eslint-disable-next-line prefer-const
 let currentSubtitleLang = 'en';
 
 const onSubtitle = () => {
@@ -107,7 +105,7 @@ const changeSettings = (e: Event) => {
     const size = <TSubtitleSize>target.id;
     videoElement.style.setProperty(
       '--subtitle-font-size',
-      SubtitleFontSize[size]
+      SubtitleFontSize[size],
     );
   }
   if (target.className.includes('subtitle')) {
@@ -210,7 +208,7 @@ const btnControlsRender = () => {
     const titleItem = createElement(
       'p',
       { class: 'controls-popup-item-title' },
-      `${ControlsPopupSubtitleSoundText[item]}`
+      `${ControlsPopupSubtitleSoundText[item]}`,
     );
     const subSettingsItems = createElement('ul', {
       class: 'subsettings-items',
@@ -234,7 +232,7 @@ const btnControlsRender = () => {
           item === 'language'
             ? SubtitleLang[<'en' | 'ru'>itemSubSettings]
             : itemSubSettings
-        }`
+        }`,
       );
       subSettingsItems.append(subSettingsItem);
     });
@@ -269,7 +267,7 @@ const btnControlsRender = () => {
     const titleItem = createElement(
       'p',
       { class: 'controls-popup-item-title' },
-      `${ControlsPopupSettingsText[item]}`
+      `${ControlsPopupSettingsText[item]}`,
     );
     titleContainer.append(iconItem, titleItem);
 
@@ -291,7 +289,7 @@ const btnControlsRender = () => {
           class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
           id: `${itemSubSettings}`,
         },
-        `${itemSubSettings}`
+        `${itemSubSettings}`,
       );
       subSettingsItems.append(subSettingsItem);
     });
@@ -315,7 +313,7 @@ const btnControlsRender = () => {
   btnControlsRight.append(
     subtitleSoundContainer,
     settingsContainer,
-    fullscreen
+    fullscreen,
   );
   btnControls.append(btnControlsRight);
 
@@ -331,7 +329,7 @@ const formatTime = (time: number) => {
   const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
   const hour = Math.floor(time / SEC_IN_HOUR);
   return `-${convertNumToString(hour)}:${convertNumToString(
-    min
+    min,
   )}:${convertNumToString(sec)}`;
 };
 

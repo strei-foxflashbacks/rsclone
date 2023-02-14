@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import renderContest from './functions/renderContent';
@@ -27,12 +26,12 @@ const getUserPage = () => {
   const elementNavigation = createElement(
     'a',
     { class: 'navigation__item', href: '#' },
-    'Главная'
+    'Главная',
   );
   const elementNavigation2 = createElement(
     'a',
     { class: 'navigation__item', href: '#' },
-    'Мой контент и профиль'
+    'Мой контент и профиль',
   );
   navigation.append(elementNavigation, elementNavigation2);
 
@@ -44,34 +43,34 @@ const getUserPage = () => {
   const playlistTitle = createElement(
     'div',
     { class: 'user-page__title nav__title open', id: 'playlist' },
-    UserPageTitles.playlist
+    UserPageTitles.playlist,
   );
   const filmsTitle = createElement(
     'div',
     { class: 'user-page__title nav__title', id: 'films' },
-    UserPageTitles.films
+    UserPageTitles.films,
   );
   const serialsTitle = createElement(
     'div',
     { class: 'user-page__title nav__title', id: 'serials' },
-    UserPageTitles.serials
+    UserPageTitles.serials,
   );
   const personsTitle = createElement(
     'div',
     { class: 'user-page__title nav__title', id: 'persons' },
-    UserPageTitles.persons
+    UserPageTitles.persons,
   );
   const profileTitle = createElement(
     'div',
     { class: 'user-page__title nav__title', id: 'profile' },
-    UserPageTitles.profile
+    UserPageTitles.profile,
   );
   userPageTitles.append(
     playlistTitle,
     filmsTitle,
     serialsTitle,
     personsTitle,
-    profileTitle
+    profileTitle,
   );
   playlistTitle.addEventListener('click', renderContest);
   filmsTitle.addEventListener('click', renderContest);

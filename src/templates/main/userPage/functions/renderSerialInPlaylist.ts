@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../../helpers/createElement';
 import { AddToPlayListValue, Film } from '../../../../types/types';
 import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
@@ -14,11 +13,11 @@ const renderSerialInPlaylist = (ser: Film) => {
   const title = createElement(
     'a',
     { class: 'serial__title', href: '#' },
-    `${ser.name}`
+    `${ser.name}`,
   );
   const addingButton = getAddOrRemoveButton(
     './assets/minus.svg',
-    AddToPlayListValue.remove
+    AddToPlayListValue.remove,
   );
   titleContainer.append(title, addingButton);
 
@@ -30,8 +29,8 @@ const renderSerialInPlaylist = (ser: Film) => {
         getSerialEpisode(
           ep,
           `${ser.name} ${season}`,
-          Math.random() <= 0.5 ? true : false
-        )
+          Math.random() <= 0.5 ? true : false,
+        ),
       );
     });
   });

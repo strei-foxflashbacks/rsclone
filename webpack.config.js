@@ -16,7 +16,7 @@ const baseConfig = {
         use: ['ts-loader'],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav)$/i,
+        test: /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav|mp4|vtt)$/i,
         type: 'asset/resource',
       },
       {
@@ -52,7 +52,11 @@ const baseConfig = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'assets', to: path.resolve(__dirname, './dist/assets'), noErrorOnMissing: true },
+        {
+          from: 'assets',
+          to: path.resolve(__dirname, './dist/assets'),
+          noErrorOnMissing: true,
+        },
       ],
     }),
     new MiniCssExtractPlugin({ filename: 'style.css' }),
@@ -61,7 +65,9 @@ const baseConfig = {
 
 module.exports = ({ mode }) => {
   const isProductionMode = mode === 'prod';
-  const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
+  const envConfig = isProductionMode
+    ? require('./webpack.prod.config')
+    : require('./webpack.dev.config');
 
   return merge(baseConfig, envConfig);
 };

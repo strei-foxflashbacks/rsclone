@@ -12,6 +12,18 @@ export const ser: Film = {
   reviews: [''],
   genre: 'драма',
   type: 'serial',
+  subtitles: [
+    {
+      src: './assets/video2-en.vtt',
+      srclang: 'en',
+      label: 'English',
+    },
+    {
+      src: './assets/video2-ru.vtt',
+      srclang: 'ru',
+      label: 'Russian',
+    },
+  ],
   serial: {
     season: [1, 2],
     episode: [1, 2, 3, 4],
@@ -29,6 +41,18 @@ export const filmmm: Film = {
   reviews: [''],
   genre: 'боевик, драма, фантастика',
   type: 'film',
+  subtitles: [
+    {
+      src: './assets/video2-en.vtt',
+      srclang: 'en',
+      label: 'English',
+    },
+    {
+      src: './assets/video2-ru.vtt',
+      srclang: 'ru',
+      label: 'Russian',
+    },
+  ],
 };
 
 export const person1: Person = {

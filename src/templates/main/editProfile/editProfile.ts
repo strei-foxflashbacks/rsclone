@@ -1,3 +1,7 @@
+// import { getFilms } from '../../../api/apiFilms';
+// import { loginUser } from '../../../api/apiLogin';
+import { registerUser } from '../../../api/apiRegister';
+// import { getUser } from '../../../api/apiUsers';
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import { User } from '../../../types/User';
@@ -19,8 +23,25 @@ const userData: User = {
   },
 };
 
-export const renderEditProfilePage = () => {
-  // const userData = getUser();
+export const renderEditProfilePage = async () => {
+  const userParam = {
+    name: 'User1234',
+    email: 'qwerty@qwerty.qw',
+    password: '12345678',
+  };
+  // const userLoginParam = {
+  //   email: 'abc@gmail.com',
+  //   password: '123',
+  // };
+  await registerUser(userParam);
+  // await loginUser(userLoginParam);
+  // const films = await getFilms();
+  // console.log('films', films);
+  
+  // const userData = await getUser();
+  // console.log(userData);
+  
+
   const main = document.querySelector('main');
   if (!main) {
     throw new Error('main is not found!');

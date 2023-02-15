@@ -2,9 +2,11 @@ import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
+import setThemeStyles from '../../components/themes/functions/setThemeStyles';
 
 const getHeader = (): HTMLElement => {
   const header = createElement('header', { class: 'header-container' });
+  setThemeStyles(header);
   const container = createElement('div', { class: 'content-container' });
 
   const logoImg = createElement('img', {

@@ -48,8 +48,3 @@ export type User = {
   email: string;
   password: string;
 };
-
-export enum Themes {
-  'dark' = 'dark',
-  'light' = 'light',
-}

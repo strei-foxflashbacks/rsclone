@@ -48,15 +48,20 @@
     color: $accent-color;
   }
 
-  &:hover &__article {
-    background-color: $shadow;
+  //&:hover &__article {
+  //  background-color: $shadow;
+  //}
+
+  &.dark-theme:hover {
+    @include dark-theme;
   }
 
-  &:hover>&__photo {
+  &:hover > &__photo {
     scale: 1.1;
     transition: all 0.1s ease-in;
   }
 }
+
 
 .shadow {
   width: 100%;
@@ -65,4 +70,12 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7385547969187676) 60%, rgba(255, 255, 255, 1) 80%);
   position: absolute;
   bottom: 0;
+  &.dark-theme {
+    background: linear-gradient(180deg, rgba(25, 25, 25, 0) 0%, rgb(25 25 25 / 78%) 60%, rgb(25 25 25 / 93%) 80%)
+  }
+  }
+
+.news-item.dark-theme:hover .news-item__article {
+  @include dark-theme;
 }
+

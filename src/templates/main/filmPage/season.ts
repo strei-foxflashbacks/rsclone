@@ -4,6 +4,7 @@ import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
 import getAddOrRemoveButton from './addOrRemoveButton';
 import { AddToPlayListValue } from '../../../types/types';
 import handleShowAll from './functions/handleShowAll';
+import setThemeStyles from '../../../components/themes/functions/setThemeStyles';
 
 const getSeason = (order: number): HTMLElement => {
   const season = createElement('div', { class: 'season collapsed' });
@@ -19,6 +20,7 @@ const getSeason = (order: number): HTMLElement => {
   }
   const showMore = createElement('button', { class: 'season__show-more' }, 'Показать все');
   const backForArrow = createElement('div', { class: 'season__back-arrow' });
+  setThemeStyles(backForArrow);
   season.append(titleContainer, seriesContainer, showMore, backForArrow);
 
   showMore.addEventListener('click', handleShowAll);

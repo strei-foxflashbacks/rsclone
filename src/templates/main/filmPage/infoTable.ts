@@ -1,5 +1,6 @@
 import createElement from '../../../helpers/createElement';
 import { temp } from '../../../components/controllers/filmPageController';
+import setThemeStyles from '../../../components/themes/functions/setThemeStyles';
 
 const createTitleRow = (title: string): HTMLElement => {
   const tRow = createElement('tr', { class: 'film-page__tr' });
@@ -21,6 +22,7 @@ export function createInfoTable(): HTMLElement {
   const infoBody = createElement('tbody', {});
 
   const tRow1 = createElement('tr', { class: 'film-page__tr' });
+  setThemeStyles(tRow1);
   const th1 = createElement('td', { class: 'film-page__th film-page__column' }, 'Жанры');
   const th2 = createElement('td', { class: 'film-page__title' }, 'описание');
   tRow1.append(th1, th2);

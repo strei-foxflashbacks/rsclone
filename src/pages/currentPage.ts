@@ -4,6 +4,7 @@ import getFooter from '../templates/footer/footer';
 import createElement from '../helpers/createElement';
 import getAuthorizationModal from '../components/modals/authorization/authorization';
 import closeModal from '../components/modals/functions/closeModal';
+import setThemeStyles from '../components/themes/functions/setThemeStyles';
 
 const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
@@ -26,7 +27,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
 
   body.insertAdjacentElement('afterbegin', authorization);
   body.append(header, main, footer);
-
+  setThemeStyles(body);
   return body;
 };
 export default setCurrentPage;

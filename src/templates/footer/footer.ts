@@ -1,5 +1,6 @@
 import createElement from '../../helpers/createElement';
 import toggleTheme from '../../components/themes/functions/toggleTheme';
+import setThemeStyles from '../../components/themes/functions/setThemeStyles';
 
 function updateThemeButton(circle: HTMLElement, themeButton: HTMLElement) {
   if (localStorage.getItem('isDark') == 'true') {
@@ -35,6 +36,7 @@ const getFooter = (): HTMLElement => {
   themeButton.append(circle);
 
   footer.append(container, namesContainer, themeButton);
+  setThemeStyles(containerFooter);
   containerFooter.append(footer);
 
   themeButton.addEventListener('click', () => {

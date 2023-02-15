@@ -1,15 +1,11 @@
 .footer-container {
+  @include shadow;
   position: fixed;
   top: calc((100vh - 35px));
   z-index: 101;
   background-color: white;
   width: 100%;
   height: $header-size;
-
-  box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
-  -webkit-box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
-  -moz-box-shadow: 0 0 12px 0 rgba(121, 121, 121, 0.6);
-
 }
 
 .footer {

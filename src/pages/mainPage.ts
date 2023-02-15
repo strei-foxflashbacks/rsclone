@@ -15,7 +15,6 @@ export const getMainPage = (): HTMLElement => {
   const containerMainPage = createElement('div', { class: 'news-and-films' });
   containerMainPage.append(getNews(), getMainContent());
   main.append(containerMainPage);
-
   return main;
 };
 export default getMainPage;

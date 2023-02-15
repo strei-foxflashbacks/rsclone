@@ -1,8 +1,7 @@
 .episode {
   @include background-positioning;
-  width: 32%;
+  width: 31%;
   height: 200px;
-  border-bottom: $light-dark-text solid 10px;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
@@ -38,7 +37,7 @@
     background-color: $light-dark-text;
     padding: 5px;
     border-radius: 2px;
-    color: $light-title;
+    color: black;
     font-size: 12px;
   }
 
@@ -67,9 +66,9 @@
   &__series {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 35px;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 13px;
   }
 
   &__icon {
@@ -83,41 +82,22 @@
 
   &__title {
     @include title;
-    color: $dark-text;
   }
 
   &__show-more {
     position: absolute;
-    bottom: 0;
+    bottom: -4px;
     right: 0;
     z-index: 2;
     background: none;
     border: none;
     cursor: pointer;
-  }
-  &__back-arrow {
-    width: 100%;
-    height: 23px;
-    position: absolute;
-    bottom: 0;
-    background-color: white;
-    z-index: 1;
+    color: gray;
   }
 }
 
-.adding-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: none;
-  border: none;
-  &__icon {
-    width: 30px;
-    height: 30px;
-  }
-}
 .collapsed {
-  max-height: 280px;
+  max-height: 260px;
 }
 .showed {
   max-height: 100%;

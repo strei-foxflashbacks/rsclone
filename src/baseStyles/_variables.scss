@@ -1,14 +1,17 @@
 //colors
 $title-background: black;
-$shadow: #eaeaea;
+$shadow: #000000;
 $light-title: white;
-$dark-text: #252525;
-$light-dark-text: #9b9b9b;
+$film-name: white;
+$dark-text: #000000;
+$light-dark-text: #ffffff;
 $accent-color: #5ac2f1;
-$neutral-light-color: #eaeaea;
+$neutral-light-color: #ffffff;
 $user-name-color: #00abce;
 $card-background: rgba(0, 0, 0, .4);
 $card-font-color: #f9f9f9;
+$dark-theme-background: #4f4f4f;
+$dark-theme-font-color: $light-dark-text;
 
 //fonts
 $main-font: 400 16px 'Raleway', sans-serif;
@@ -29,14 +32,12 @@ $gap: 7px;
 }
 
 @mixin title {
-  color: $light-title;
   font: $title-font;
   font-size: 26px;
   text-transform: uppercase;
 }
 
 @mixin subtitle {
-  color: $title-background;
   font: $title-font;
   font-size: 19px;
   text-transform: uppercase;
@@ -60,4 +61,13 @@ $gap: 7px;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, .2);
+}
+@mixin dark-theme {
+  background-color: $dark-theme-background;
+  color: $dark-theme-font-color;
+}
+@mixin shadow {
+  box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
 }

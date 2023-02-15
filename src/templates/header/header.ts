@@ -2,9 +2,11 @@ import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
+import setThemeStyles from '../../components/themes/functions/setThemeStyles';
 
 const getHeader = (): HTMLElement => {
   const header = createElement('header', { class: 'header-container' });
+  setThemeStyles(header);
   const container = createElement('div', { class: 'content-container' });
 
   const logoImg = createElement('img', {
@@ -13,16 +15,6 @@ const getHeader = (): HTMLElement => {
   });
 
   const containerSections = createElement('div', { class: 'sections' });
-  const feed = createElement(
-    'a',
-    { href: '#', class: 'sections__item' },
-    'Лента',
-  );
-  const serials = createElement(
-    'a',
-    { href: '#', class: 'sections__item' },
-    'Сериалы',
-  );
 
   const searchForm = createElement('form', {
     action: '',
@@ -78,7 +70,7 @@ const getHeader = (): HTMLElement => {
   );
   authContainer.append(userPageBtn, signIn);
 
-  containerSections.append(feed, serials, searchForm, authContainer);
+  containerSections.append(searchForm, authContainer);
 
   container.append(logoImg, containerSections);
 

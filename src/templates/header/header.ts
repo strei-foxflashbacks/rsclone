@@ -15,16 +15,6 @@ const getHeader = (): HTMLElement => {
   });
 
   const containerSections = createElement('div', { class: 'sections' });
-  const feed = createElement(
-    'a',
-    { href: '#', class: 'sections__item' },
-    'Лента',
-  );
-  const serials = createElement(
-    'a',
-    { href: '#', class: 'sections__item' },
-    'Сериалы',
-  );
 
   const searchForm = createElement('form', {
     action: '',
@@ -80,7 +70,7 @@ const getHeader = (): HTMLElement => {
   );
   authContainer.append(userPageBtn, signIn);
 
-  containerSections.append(feed, serials, searchForm, authContainer);
+  containerSections.append(searchForm, authContainer);
 
   container.append(logoImg, containerSections);
 

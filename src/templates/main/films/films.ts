@@ -3,7 +3,7 @@ import { mainPageController } from '../../../components/controllers/filmPageCont
 
 
 const getMainContent = () => {
-  const mainContent = createElement('main', { class: 'films' });
+  const mainContent = createElement('section', { class: 'films' });
   mainPageController(mainContent);
   return mainContent;
 };

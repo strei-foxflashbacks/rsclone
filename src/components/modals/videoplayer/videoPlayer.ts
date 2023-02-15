@@ -6,7 +6,6 @@ import {
   SKIP_BACKWARD,
   SKIP_FORWARD,
 } from '../../../types/constants';
-import { TSubtitleSize, Film, SubtitlesData } from '../../../types/types';
 import {
   playPauseVideo,
   skip,
@@ -14,7 +13,6 @@ import {
   toggleFullscreen,
   toggleMute,
 } from './functions/videoplayerControls';
-import { clickTimeline, mouseMoveTimeLine } from './functions/timeLineEvents';
 import { updateTimeLine } from './functions/updateTimeLine';
 
 import './_videoplayer.scss';
@@ -30,6 +28,10 @@ import {
 import { iconCenterAnimate } from './functions/iconCenterAnimate';
 import { blurAllBtn } from './functions/blurAllBtn';
 import { hideControlsPanel } from './functions/hideControlsPanel';
+import { Episode } from '../../../types/Episode';
+import { SubtitlesData } from '../../../types/SubtitlesData';
+import { TSubtitleSize } from '../../../types/types';
+import getTimelineElement from './functions/getTimelineElement';
 
 const defaultSubtitleSize = 'standard';
 const defaultQuality = 'auto';
@@ -43,31 +45,6 @@ let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
 let lastVolume: number;
 
-const timeLineRender = (previews: string[]) => {
-  const timeLineTime = createElement('timeline-time', {
-    class: 'timeline-time',
-  });
-  const timeLine = createElement('div', { class: 'timeline' });
-  const timeLineIndicator = createElement('div', {
-    class: 'timeline-indicator',
-  });
-
-  const previewImage = <HTMLImageElement>createElement('img', {
-    class: 'timeline-preview-img',
-    alt: 'preview image',
-  });
-  timeLine.append(timeLineIndicator, previewImage);
-
-  timeLine.addEventListener('click', clickTimeline);
-
-  document.addEventListener('mousemove', (e: MouseEvent) => {
-    mouseMoveTimeLine(e, previews);
-  });
-
-  const time = createElement('div', { class: 'time' });
-  timeLineTime.append(timeLine, time);
-  return timeLineTime;
-};
 
 const changeActiveSubSettings = (el: HTMLElement) => {
   const parentEl = el.parentElement;
@@ -347,7 +324,7 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
       class: 'track-subtitle',
     });
     subtitleContainer.src = sub.src;
-    subtitleContainer.srclang = sub.srclang;
+    subtitleContainer.srclang = sub.srcLang;
     subtitleContainer.label = sub.label;
     subtitleContainer.track.mode = 'hidden';
     videoElement.append(subtitleContainer);
@@ -401,16 +378,21 @@ const closeVideoplayer = () => {
   document.body.style.overflowY = 'visible';
 };
 
-const videoPlayerRender = (film: Film) => {
-  document.addEventListener('keydown', pressHotKey);
-
+const videoPlayerRender = (episode: Episode) => {
+  
   const videoPlayer = createElement('div', { class: 'video-player' });
   const videoPlayerIconCenter = createElement('div', {
     class: 'video-player-icon-center',
   });
   const video = <HTMLVideoElement>(
-    createElement('video', { class: 'video', src: film.src })
+    createElement('video', 
+      { 
+        class: 'video',
+        preload: 'metadata',
+        src: episode.src, 
+      })
   );
+  
   videoElement = video;
   videoPlayer.append(videoPlayerIconCenter);
   videoPlayerElement = videoPlayer;
@@ -421,7 +403,7 @@ const videoPlayerRender = (film: Film) => {
     toggleFullscreen(videoPlayerElement);
   });
 
-  addSubtitles(film.subtitles);
+  addSubtitles(episode.subtitles);
 
   video.addEventListener('loadeddata', () => {
     const time = document.querySelector('.time');
@@ -457,17 +439,17 @@ const videoPlayerRender = (film: Film) => {
   videoPlayer.append(close);
 
   const filmName = createElement('div', { class: 'film-name' });
-  filmName.innerText = film.name;
+  filmName.innerText = episode.name;
   videoPlayer.append(filmName);
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(timeLineRender(film.thumbnails));
+  controls.append(getTimelineElement());
   controls.append(btnControlsRender());
 
   videoPlayer.append(controls);
   video.play();
   hideControlsPanel(video, videoPlayer);
-
+  document.addEventListener('keydown', pressHotKey);
   return videoPlayer;
 };
 

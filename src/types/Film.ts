@@ -1,3 +1,4 @@
+import { Episode } from './Episode';
 import { Role } from './Role';
 import { Serial } from './Serial';
 import { Trailer } from './Trailer';
@@ -28,5 +29,5 @@ export type Film = {
   studio?: string[],
   wins?: string[],
   serial?: Serial
-  filmSrc?: string,
+  film?: Episode,
 };

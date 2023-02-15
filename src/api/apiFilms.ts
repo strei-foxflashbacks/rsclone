@@ -1,4 +1,4 @@
-import { URL_FILM, URL_FILMS } from '../types/constants';
+import { URL_FILMS } from '../types/constants';
 import { Film } from '../types/Film';
 
 export const getFilms = async (page?: number, limit?: number) => {
@@ -14,7 +14,7 @@ export const getFilms = async (page?: number, limit?: number) => {
 };
 
 export const getFilm = async (id: number) => {
-  const response = await fetch(`${URL_FILM}/${id}`);
+  const response = await fetch(`${URL_FILMS}/${id}`);
   const film: Film = await response.json();
   return film;
 };

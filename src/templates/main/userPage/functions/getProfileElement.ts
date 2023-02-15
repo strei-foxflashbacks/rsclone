@@ -50,7 +50,7 @@ export const getProfileElement = (): HTMLElement => {
   const bottomContainer = createElement('div', { class: 'profile__bottom' });
   const devices = createElement(
     'button',
-    { class: 'profile__bottom-btn profile__devices' },
+    { class: 'profile__bottom-btn profile__devices button' },
     'Мои устройства'
   );
   const imgDevices = createElement('img', {
@@ -70,6 +70,7 @@ export const getProfileElement = (): HTMLElement => {
     alt: 'logout img',
   });
   logout.prepend(imgLogout);
+  logout.classList.add('button');
   bottomContainer.append(devices, logout);
 
   profileContainer.append(

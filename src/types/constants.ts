@@ -8,7 +8,6 @@ export const SKIP_BACKWARD = -SKIP_FORWARD;
 // urls
 export const URL_BASE = 'http://localhost:3000';
 export const URL_FILMS = `${URL_BASE}/films`;
-export const URL_FILM = `${URL_BASE}/film`;
 export const URL_PERSONS = `${URL_BASE}/persons`;
 export const URL_USERS = `${URL_BASE}/users`;
 export const URL_REGISTER = `${URL_USERS}/register`;

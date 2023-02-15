@@ -28,7 +28,6 @@
 
   &__title {
     @include title;
-    color: $dark-text;
   }
 }
 
@@ -163,7 +162,6 @@
 
   &__title {
     @include title;
-    color: $dark-text;
     margin-bottom: 15px;
   }
 

@@ -2,6 +2,7 @@ import createElement from '../../../helpers/createElement';
 import handleUserAccountInput from './functions/handleUserAccountInput';
 import handleClosing from './functions/handleClosing';
 import closeModal from '../functions/closeModal';
+import setThemeStyles from '../../themes/functions/setThemeStyles';
 
 const getAuthorizationModal = (): HTMLElement => {
   const container = createElement('div', { class: 'authorization modal' });
@@ -10,6 +11,7 @@ const getAuthorizationModal = (): HTMLElement => {
 
   title.append(cross);
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });
+  setThemeStyles(innerContainer);
   const text = createElement('p', { class: 'authorization__text' }, 'Введите e-mail и пароль');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
 

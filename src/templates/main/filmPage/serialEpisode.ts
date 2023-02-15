@@ -1,4 +1,5 @@
 import createElement from '../../../helpers/createElement';
+import { openVideoPlayer } from '../../../helpers/openVideoPlayer';
 
 const getSerialEpisode = (
   order: number,
@@ -31,6 +32,7 @@ const getSerialEpisode = (
   });
 
   container.append(orderAndRate, playIcon, nameElem);
+  playIcon.addEventListener('click', openVideoPlayer);
   return container;
 };
 

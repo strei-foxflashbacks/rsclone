@@ -95,17 +95,6 @@
   }
 }
 
-.adding-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: none;
-  border: none;
-  &__icon {
-    width: 30px;
-    height: 30px;
-  }
-}
 .collapsed {
   max-height: 269px;
 }

@@ -1,7 +1,6 @@
 import createElement from '../../../helpers/createElement';
 import getSerialEpisode from './serialEpisode';
 import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
-import getAddOrRemoveButton from './addOrRemoveButton';
 import { AddToPlayListValue } from '../../../types/types';
 import handleShowAll from './functions/handleShowAll';
 import setThemeStyles from '../../../components/themes/functions/setThemeStyles';
@@ -10,7 +9,12 @@ const getSeason = (order: number): HTMLElement => {
   const season = createElement('div', { class: 'season collapsed' });
   const titleContainer = createElement('div', { class: 'season__title-container' });
   const title = createElement('div', { class: 'season__title' }, `сезон ${order}`);
-  const addingButton = getAddOrRemoveButton('./assets/plus.svg', AddToPlayListValue.add);
+
+  const addingButton = createElement('button', { class: 'adding-button button' });
+  const text = createElement('div', {});
+  text.innerText = AddToPlayListValue.add;
+  addingButton.append(text);
+
   titleContainer.append(title, addingButton);
 
   const seriesContainer = createElement('div', { class: 'season__series' });

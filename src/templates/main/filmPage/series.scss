@@ -37,7 +37,7 @@
     background-color: $light-dark-text;
     padding: 5px;
     border-radius: 2px;
-    color: $light-title;
+    color: black;
     font-size: 12px;
   }
 
@@ -68,7 +68,7 @@
     flex-wrap: wrap;
     gap: 35px;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 13px;
   }
 
   &__icon {
@@ -92,11 +92,12 @@
     background: none;
     border: none;
     cursor: pointer;
+    color: gray;
   }
 }
 
 .collapsed {
-  max-height: 269px;
+  max-height: 260px;
 }
 .showed {
   max-height: 100%;

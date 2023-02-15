@@ -20,6 +20,7 @@ const renderSerialInPlaylist = (ser: Film) => {
     './assets/minus.svg',
     AddToPlayListValue.remove
   );
+  addingButton.classList.add('button');
   titleContainer.append(title, addingButton);
 
   const seriesContainer = createElement('div', { class: 'serial__series' });

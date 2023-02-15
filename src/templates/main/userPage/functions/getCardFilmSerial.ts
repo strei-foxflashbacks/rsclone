@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import createElement from '../../../../helpers/createElement';
 import { Film } from '../../../../types/types';
 import { getDescText } from './getDescText';
@@ -13,7 +12,7 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const resolution = createElement(
     'div',
     { class: 'card-film__resolution' },
-    'FullHD 1080p'
+    'FullHD 1080p',
   );
 
   const ratingImbdContainer = createElement('div', {
@@ -23,12 +22,12 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingImbd = createElement(
     'span',
     { class: 'card-film__rating-imbd' },
-    `${film.rating.toFixed(1)}`
+    `${film.rating.toFixed(1)}`,
   );
   const ratingImbdText = createElement(
     'span',
     { class: 'card-film__rating-text' },
-    'IMBD'
+    'IMBD',
   );
   ratingImbdContainer.append(ratingImbd, ratingImbdText);
 
@@ -39,12 +38,12 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingKp = createElement(
     'span',
     { class: 'card-film__rating-kp' },
-    `${film.rating.toFixed(1)}`
+    `${film.rating.toFixed(1)}`,
   );
   const ratingKpText = createElement(
     'span',
     { class: 'card-film__rating-text' },
-    'KP'
+    'KP',
   );
   ratingKpContainer.append(ratingKp, ratingKpText);
 
@@ -59,12 +58,12 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const title = createElement(
     'div',
     { class: 'card-film__desc-title card-info__title' },
-    `${film.name}`
+    `${film.name}`,
   );
   const desc = createElement(
     'div',
     { class: 'card-film__desc' },
-    `${getDescText(film)}`
+    `${getDescText(film)}`,
   );
   descContainer.append(title, desc);
 
@@ -74,7 +73,7 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
     ratingKpContainer,
     favorite,
     ageLimit,
-    descContainer
+    descContainer,
   );
   return card;
 };

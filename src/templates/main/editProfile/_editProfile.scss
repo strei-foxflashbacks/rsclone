@@ -21,7 +21,7 @@
   }
 
   &__form {
-    width: 33%;
+    width: max(33%, 300px);
     display: flex;
     flex-direction: column;
     row-gap: 10px;
@@ -32,6 +32,7 @@
 
     &-gender {
       display: flex;
+      column-gap: 10px;
 
       &-label {
         width: 50%;
@@ -39,7 +40,7 @@
         line-height: 30px;
         cursor: pointer;
         color: $dark-text;
-        background-color: $light-dark-text;
+        border: 1px solid $card-background;
         transition: all 0.3s ease;
       }
 

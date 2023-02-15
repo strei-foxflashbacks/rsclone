@@ -9,10 +9,6 @@
 @import "components/themes/themeElement";
 @import "./templates/footer/footer";
 
-// html {
-//   margin-right: calc(-1 * (100vw - 100%));
-// }
-
 body {
   font: $main-font;
   padding: 0 calc(20px - (100vw - 100%)) 0 0;
@@ -93,12 +89,9 @@ button {
   display: block;
 }
 
-
 .open {
   color: $accent-color;
 }
-
-
 
 .dark-theme {
   background-color: $dark-theme-background;
@@ -116,15 +109,3 @@ main.dark-theme {
 .footer-container.dark-theme>a {
   color: white;
 }
-
-
-
-//body {
-//  width: 100vw;
-//  height: 100vh;
-//}
-
-
-//.modal {
-//  display: none;
-//}

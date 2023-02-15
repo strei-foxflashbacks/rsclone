@@ -92,7 +92,7 @@ export const renderEditProfilePage = () => {
     userData.phone,
   );
   const radioGender = createElement('div', { class: 'edit-profile__form-gender' });
-  const inputMale = createElement(
+  const inputMale = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-gender-radio', 
@@ -100,9 +100,9 @@ export const renderEditProfilePage = () => {
       id: 'male', 
       name: 'gender', 
       value: 'male', 
-      checked: `${userData.sex === 'Мужчина'}`, 
     },
   );
+  inputMale.checked = userData.sex === 'Мужчина';
   const labelMale = createElement(
     'label', 
     { 
@@ -111,7 +111,7 @@ export const renderEditProfilePage = () => {
     }, 
     'Мужчина',
   );
-  const inputFemale = createElement(
+  const inputFemale = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-gender-radio', 
@@ -122,6 +122,7 @@ export const renderEditProfilePage = () => {
       checked: `${userData.sex === 'Женщина'}`, 
     },
   );
+  inputFemale.checked = userData.sex === 'Женщина';
   const labelFemale = createElement(
     'label', 
     { 

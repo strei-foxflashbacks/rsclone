@@ -143,10 +143,10 @@
 
 .recommendations {
   margin-top: 70px;
+  color: white;
 
   &__title {
     @include title;
-    color: $dark-text;
     margin-bottom: 30px;
   }
 

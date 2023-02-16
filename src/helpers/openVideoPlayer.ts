@@ -8,18 +8,17 @@ export const openVideoPlayer = async () => {
   let modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   if (!modalPlayer)
     modalPlayer = createElement('div', { class: 'modal-player' });
-  body.style.overflowY = 'hidden';
   document.body.append(modalPlayer);
-  modalPlayer.style.display = 'block';
+
   const film = await getFilm(1);
   const season = 0;
   const episodeNumber = 0;
-  console.log('film', film);
   
   const episode: Episode = film.type === 'film' 
     ? film.film! 
     : film.serial!.seasons[season].episodes[episodeNumber];
-  console.log(episode);
-  
+    
+  body.style.overflowY = 'hidden';
+  modalPlayer.style.display = 'block';  
   modalPlayer.append(videoPlayerRender(episode));
 };

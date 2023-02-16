@@ -41,9 +41,14 @@ export enum ControlsPopupSubtitleSoundText {
   language = 'Language',
   subtitle = 'Subtitle',
 }
-export const subSettingSubtitleSound = {
-  sound: ['stereo', '5.1'],
-  language: ['en', 'ru'],
+type SubSettingSubtitleSound = {
+  sound: string[];
+  language: string[];
+  subtitle: string[];
+};
+export const subSettingSubtitleSound: SubSettingSubtitleSound = {
+  sound: ['stereo'],
+  language: [],
   subtitle: ['off', 'on'],
 };
 
@@ -51,6 +56,6 @@ export const subSettingSettings: {
   [key in TVideoControlsSettingsItems]: string[];
 } = {
   size: ['small', 'standard', 'large'],
-  quality: ['auto', '1440p', '1080p', '720p', '480p'],
+  quality: ['auto'], //, '1440p', '1080p', '720p', '480p'
   speed: ['0.25x', '0.5x', '0.75x', 'normal', '1.25x', '1.5x', '1.75x', '2x'],
 };

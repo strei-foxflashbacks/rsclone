@@ -57,6 +57,7 @@ export const closeVideoplayer = (video: HTMLVideoElement) => {
     pressHotKey(e, video);
   });
   const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
+  modalPlayer.remove();
   modalPlayer!.style.display = 'none';
   document.body.style.overflowY = 'visible';
 };

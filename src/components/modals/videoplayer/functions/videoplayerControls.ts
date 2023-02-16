@@ -1,5 +1,7 @@
 import { TSpeedVideo } from '../../../../types/types';
 import { speedVideo } from './constants';
+import formatTime from './formatTime';
+import pressHotKey from './hotKeysEvents';
 
 export const playPauseVideo = (video: HTMLVideoElement): void => {
   if (video.paused) {
@@ -19,7 +21,8 @@ export const switchVideoSpeed = (video: HTMLVideoElement, speed: string) => {
   }
 };
 
-export const toggleMute = (video: HTMLVideoElement, lastVolume: number) => {
+let lastVolume: number;
+export const toggleMute = (video: HTMLVideoElement) => {
   if (video.muted) {
     video.muted = false;
     video.volume = lastVolume;
@@ -39,4 +42,21 @@ export const toggleFullscreen = (videoPlayer: HTMLElement) => {
     document.exitFullscreen();
     fullscreen!.classList.remove('fullscreen-exit');
   }
+};
+
+export const updateTime = (video: HTMLVideoElement) => {
+  const time = document.querySelector('.time');
+  const duration = video.duration;
+  const currentTime = video.currentTime;
+  time!.textContent = formatTime(duration - currentTime);
+};
+
+export const closeVideoplayer = (video: HTMLVideoElement) => {
+  video.pause();
+  document.removeEventListener('keydown', (e: KeyboardEvent)=>{
+    pressHotKey(e, video);
+  });
+  const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
+  modalPlayer!.style.display = 'none';
+  document.body.style.overflowY = 'visible';
 };

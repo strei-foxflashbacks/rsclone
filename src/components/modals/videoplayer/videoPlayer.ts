@@ -1,17 +1,11 @@
 import createElement from '../../../helpers/createElement';
+import { SKIP_BACKWARD, SKIP_FORWARD } from '../../../types/constants';
 import {
-  MIN_IN_HOUR,
-  SEC_IN_HOUR,
-  SEC_IN_MINUTE,
-  SKIP_BACKWARD,
-  SKIP_FORWARD,
-} from '../../../types/constants';
-import {
+  closeVideoplayer,
   playPauseVideo,
   skip,
-  switchVideoSpeed,
   toggleFullscreen,
-  toggleMute,
+  updateTime,
 } from './functions/videoplayerControls';
 import { updateTimeLine } from './functions/updateTimeLine';
 
@@ -22,16 +16,16 @@ import {
   settingsItemsName,
   subSettingSettings,
   subSettingSubtitleSound,
-  SubtitleFontSize,
   subtitleSoundItemsName,
 } from './functions/constants';
 import { iconCenterAnimate } from './functions/iconCenterAnimate';
-import { blurAllBtn } from './functions/blurAllBtn';
 import { hideControlsPanel } from './functions/hideControlsPanel';
 import { Episode } from '../../../types/Episode';
 import { SubtitlesData } from '../../../types/SubtitlesData';
-import { TSubtitleSize } from '../../../types/types';
 import getTimelineElement from './functions/getTimelineElement';
+import formatTime from './functions/formatTime';
+import changeSettings from './functions/changeSettings';
+import pressHotKey from './functions/hotKeysEvents';
 
 const defaultSubtitleSize = 'standard';
 const defaultQuality = 'auto';
@@ -43,63 +37,11 @@ const defaultSubtitle = 'off';
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
-let lastVolume: number;
-
-
-const changeActiveSubSettings = (el: HTMLElement) => {
-  const parentEl = el.parentElement;
-  [...parentEl!.children].forEach((element) => {
-    element.classList.remove('active-subsettings');
-  });
-};
-
-const offSubtitle = () => {
-  for (const sub of videoElement.textTracks) {
-    sub.mode = 'hidden';
-  }
-};
-
-let currentSubtitleLang = 'en';
-
-const onSubtitle = () => {
-  for (const sub of videoElement.textTracks) {
-    if (sub.language === currentSubtitleLang) sub.mode = 'showing';
-    else sub.mode = 'hidden';
-  }
-};
 
 enum SubtitleLang {
   en = 'english',
   ru = 'russian',
 }
-
-const changeSettings = (e: Event) => {
-  const target = <HTMLElement>e.target;
-  if (target.className.includes('speed')) {
-    switchVideoSpeed(videoElement, target.id);
-  }
-  if (target.className.includes('size')) {
-    const size = <TSubtitleSize>target.id;
-    videoElement.style.setProperty(
-      '--subtitle-font-size',
-      SubtitleFontSize[size],
-    );
-  }
-  if (target.className.includes('subtitle')) {
-    if (target.id === 'off') {
-      offSubtitle();
-    } else {
-      onSubtitle();
-    }
-  }
-  if (target.className.includes('language')) {
-    const lang = <'en' | 'ru'>target.id;
-    currentSubtitleLang = lang;
-    onSubtitle();
-  }
-  changeActiveSubSettings(target);
-  target.classList.add('active-subsettings');
-};
 
 const btnControlsRender = () => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
@@ -216,7 +158,9 @@ const btnControlsRender = () => {
 
     subtitleSoundItem.append(titleItem);
     subtitleSoundItem.append(subSettingsItems);
-    subSettingsItems.addEventListener('click', changeSettings);
+    subSettingsItems.addEventListener('click', (e: Event) => {
+      changeSettings(e, videoElement);
+    });
     subtitleSoundPopup.append(subtitleSoundItem);
   });
   subtitleSoundContainer.append(subtitleSound, subtitleSoundPopup);
@@ -271,7 +215,9 @@ const btnControlsRender = () => {
       subSettingsItems.append(subSettingsItem);
     });
 
-    subSettingsItems.addEventListener('click', changeSettings);
+    subSettingsItems.addEventListener('click', (e: Event) => {
+      changeSettings(e, videoElement);
+    });
     settingsItem.append(titleContainer, subSettingsItems);
     settingsPopup.append(settingsItem);
   });
@@ -297,25 +243,7 @@ const btnControlsRender = () => {
   return btnControls;
 };
 
-const convertNumToString = (num: number): string =>
-  num.toString().padStart(2, '0');
 
-const formatTime = (time: number) => {
-  toString().padStart(2, '0');
-  const sec = Math.floor(time % SEC_IN_MINUTE);
-  const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
-  const hour = Math.floor(time / SEC_IN_HOUR);
-  return `-${convertNumToString(hour)}:${convertNumToString(
-    min,
-  )}:${convertNumToString(sec)}`;
-};
-
-const updateTime = (video: HTMLVideoElement) => {
-  const time = document.querySelector('.time');
-  const duration = video.duration;
-  const currentTime = video.currentTime;
-  time!.textContent = formatTime(duration - currentTime);
-};
 
 const addSubtitles = (subtitles: SubtitlesData[]) => {
   if (!subtitles.length) return;
@@ -331,52 +259,8 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
   });
 };
 
-const pressHotKey = (e: KeyboardEvent) => {
-  blurAllBtn();
-  switch (e.key.toLocaleLowerCase()) {
-    case ' ':
-    case 'k':
-    case 'л':
-      playPauseVideo(videoElement);
-      break;
-    case 'f':
-    case 'а':
-      toggleFullscreen(videoPlayerElement);
-      break;
-    case 'm':
-    case 'ь':
-      toggleMute(videoElement, lastVolume);
-      break;
-    case 'arrowleft':
-    case 'j':
-    case 'о':
-      skip(videoElement, SKIP_BACKWARD);
-      break;
-    case 'arrowright':
-    case 'l':
-    case 'д':
-      skip(videoElement, SKIP_FORWARD);
-      break;
-    case 'arrowdown':
-      if (videoElement.volume >= 0.1) videoElement.volume -= 0.1;
-      else videoElement.volume = 0;
-      break;
-    case 'arrowup':
-      if (videoElement.volume <= 0.9) videoElement.volume += 0.1;
-      else videoElement.volume = 1;
-      break;
-    default:
-      break;
-  }
-};
 
-const closeVideoplayer = () => {
-  videoElement.pause();
-  document.removeEventListener('keydown', pressHotKey);
-  const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
-  modalPlayer!.style.display = 'none';
-  document.body.style.overflowY = 'visible';
-};
+
 
 const videoPlayerRender = (episode: Episode) => {
   
@@ -435,7 +319,9 @@ const videoPlayerRender = (episode: Episode) => {
   });
 
   const close = createElement('div', { class: 'close-video' });
-  close.addEventListener('click', closeVideoplayer);
+  close.addEventListener('click', () => {
+    closeVideoplayer(video);
+  });
   videoPlayer.append(close);
 
   const filmName = createElement('div', { class: 'film-name' });
@@ -449,7 +335,9 @@ const videoPlayerRender = (episode: Episode) => {
   videoPlayer.append(controls);
   video.play();
   hideControlsPanel(video, videoPlayer);
-  document.addEventListener('keydown', pressHotKey);
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    pressHotKey(e, video);
+  });
   return videoPlayer;
 };
 

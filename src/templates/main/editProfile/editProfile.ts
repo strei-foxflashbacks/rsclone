@@ -1,10 +1,7 @@
-// import { getFilms } from '../../../api/apiFilms';
-// import { loginUser } from '../../../api/apiLogin';
-import { registerUser } from '../../../api/apiRegister';
-// import { getUser } from '../../../api/apiUsers';
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import { User } from '../../../types/User';
+import handlerChangePasswordBtn from './functions/handlerChangePasswordBtn';
 import './_editProfile.scss';
 
 const userData: User = {
@@ -24,24 +21,6 @@ const userData: User = {
 };
 
 export const renderEditProfilePage = async () => {
-  const userParam = {
-    name: 'User1234',
-    email: 'qwerty@qwerty.qw',
-    password: '12345678',
-  };
-  // const userLoginParam = {
-  //   email: 'abc@gmail.com',
-  //   password: '123',
-  // };
-  await registerUser(userParam);
-  // await loginUser(userLoginParam);
-  // const films = await getFilms();
-  // console.log('films', films);
-  
-  // const userData = await getUser();
-  // console.log(userData);
-  
-
   const main = document.querySelector('main');
   if (!main) {
     throw new Error('main is not found!');
@@ -85,13 +64,21 @@ export const renderEditProfilePage = async () => {
   );
   const inputName = createElement(
     'input', 
-    { class: 'edit-profile__form-input', type: 'text', placeholder: 'Ваш никнейм' }, 
-    userData.name,
+    { 
+      class: 'edit-profile__form-input', 
+      type: 'text', 
+      placeholder: 'Ваш никнейм',
+      value: userData.name, 
+    }, 
   );
   const inputBirthday = createElement(
     'input', 
-    { class: 'edit-profile__form-input', type: 'date', placeholder: 'День рождения' }, 
-    userData.birthday,
+    { 
+      class: 'edit-profile__form-input', 
+      type: 'date', 
+      placeholder: 'День рождения',
+      value: userData.birthday,
+    },
   );
   const inputEmail = createElement(
     'input', 
@@ -99,9 +86,9 @@ export const renderEditProfilePage = async () => {
       class: 'edit-profile__form-input', 
       type: 'email', 
       placeholder: 'Ваш email', 
-      readonly: 'true', 
+      readonly: 'true',
+      value: userData.email, 
     }, 
-    userData.email,
   );
   const inputTelephone = createElement(
     'input', 
@@ -109,8 +96,8 @@ export const renderEditProfilePage = async () => {
       class: 'edit-profile__form-input', 
       type: 'text', 
       placeholder: 'Ваш номер телефона', 
-    }, 
-    userData.phone,
+      value: userData.phone,
+    },    
   );
   const radioGender = createElement('div', { class: 'edit-profile__form-gender' });
   const inputMale = <HTMLInputElement>createElement(
@@ -169,7 +156,7 @@ export const renderEditProfilePage = async () => {
   editProfile.append(avatar, form);
 
   btnSave.addEventListener('click', ()=>{});
-  btnPassword.addEventListener('click', ()=>{});
+  btnPassword.addEventListener('click', handlerChangePasswordBtn);
   editProfilePage.append(navigation, title, editProfile);
   main.append(editProfilePage);
 };

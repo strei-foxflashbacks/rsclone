@@ -5,6 +5,7 @@ import createElement from '../helpers/createElement';
 import getAuthorizationModal from '../components/modals/authorization/authorization';
 import closeModal from '../components/modals/functions/closeModal';
 import setThemeStyles from '../components/themes/functions/setThemeStyles';
+import getChangePasswordModal from '../components/modals/changePassword/getChangePasswordModal';
 
 const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
@@ -14,6 +15,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   clearElement(body);
 
   const authorization = getAuthorizationModal();
+  const changePassword = getChangePasswordModal();
   const main = createElement('main', { class: 'wrapper' });
   mainElements.forEach((element) => {
     main.append(element);
@@ -26,6 +28,7 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   body.insertAdjacentElement('afterbegin', background);
 
   body.insertAdjacentElement('afterbegin', authorization);
+  body.insertAdjacentElement('afterbegin', changePassword);
   body.append(header, main, footer);
   setThemeStyles(body);
   return body;

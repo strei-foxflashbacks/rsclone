@@ -5,9 +5,9 @@ const convertNumToString = (num: number): string =>
 
 const formatTime = (time: number) => {
   toString().padStart(2, '0');
-  const sec = Math.floor(time % SEC_IN_MINUTE);
-  const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
-  const hour = Math.floor(time / SEC_IN_HOUR);
+  const sec = Math.floor(time % SEC_IN_MINUTE) || 0;
+  const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR || 0;
+  const hour = Math.floor(time / SEC_IN_HOUR) || 0;
   return `-${convertNumToString(hour)}:${convertNumToString(
     min,
   )}:${convertNumToString(sec)}`;

@@ -39,7 +39,6 @@
         text-align: center;
         line-height: 30px;
         cursor: pointer;
-        color: $dark-text;
         border: 1px solid $card-background;
         transition: all 0.3s ease;
       }
@@ -67,4 +66,8 @@
     }
   }
 
+}
+
+body.dark-theme .edit-profile__form-gender-label {
+  border-color: $light-dark-text;
 }

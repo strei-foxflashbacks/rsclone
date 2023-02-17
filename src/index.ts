@@ -11,7 +11,6 @@ require.context(
 );
 
 import setCurrentPage from './pages/currentPage';
-import getNews from './templates/main/news/news';
-import getMainContent from './templates/main/films/films';
+import getMainPage from './pages/mainPage';
 
-setCurrentPage([getNews(), getMainContent()]);
+setCurrentPage([getMainPage()]);

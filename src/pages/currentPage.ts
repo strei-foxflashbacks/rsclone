@@ -14,7 +14,13 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   clearElement(body);
 
   const authorization = getAuthorizationModal();
-  const main = createElement('main', { class: 'wrapper' });
+  let main = document.querySelector('#main') as HTMLElement;
+
+  if (main) {
+    clearElement(main);
+  } else {
+    main = createElement('main', { id: 'main' });
+  }
   mainElements.forEach((element) => {
     main.append(element);
   });

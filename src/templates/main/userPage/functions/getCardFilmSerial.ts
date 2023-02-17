@@ -1,5 +1,5 @@
 import createElement from '../../../../helpers/createElement';
-import { Film } from '../../../../types/types';
+import { Film } from '../../../../types/Film';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
 
@@ -22,7 +22,7 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingImbd = createElement(
     'span',
     { class: 'card-film__rating-imbd' },
-    `${film.rating.toFixed(1)}`,
+    `${film.ratings[0].toFixed(1) || '-'}`,
   );
   const ratingImbdText = createElement(
     'span',
@@ -38,20 +38,17 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingKp = createElement(
     'span',
     { class: 'card-film__rating-kp' },
-    `${film.rating.toFixed(1)}`,
+    `${film.ratings[1].toFixed(1) || '-'}`,
   );
   const ratingKpText = createElement(
     'span',
     { class: 'card-film__rating-text' },
-    'KP',
+    'КП',
   );
   ratingKpContainer.append(ratingKp, ratingKpText);
-
   const favorite = getFavoriteElement();
   favorite.classList.add('card-film__favorite');
-
   const ageLimit = createElement('div', { class: 'card-film__limit' }, '16+');
-
   const descContainer = createElement('div', {
     class: 'card-film__desc-container',
   });

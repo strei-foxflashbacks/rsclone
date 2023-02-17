@@ -168,8 +168,8 @@
     border-radius: 11px;
     background-color: $card-background;
     position: absolute;
-    top: 30px;
-    left: 20px;
+    top: 16px;
+    left: 16px;
   }
 
   &__rating {
@@ -180,14 +180,14 @@
     }
 
     &-container {
-      left: 20px;
+      left: 16px;
 
       &-imbd {
-        top: 70px;
+        top: 50px;
       }
 
       &-kp {
-        top: 140px;
+        top: 120px;
       }
     }
   }
@@ -198,17 +198,17 @@
     width: 40px;
     border-radius: 50%;
     position: absolute;
-    right: 20px;
+    right: 16px;
     background-color: $card-background;
     border: 2px solid rgba(255, 255, 255, .75);
   }
 
   &__favorite {
-    top: 70px;
+    top: 50px;
   }
 
   &__limit {
-    top: 120px;
+    top: 100px;
     text-align: center;
     line-height: 40px;
   }
@@ -218,12 +218,15 @@
 
     &-container {
       position: absolute;
-      left: 20px;
-      bottom: 40px;
+      bottom: 0px;
+      padding: 10px 20px;
+      background-color: $card-background;
+      width: 100%;
     }
 
     &-title {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      line-height: 32px;
     }
   }
 }

@@ -63,8 +63,6 @@ export const films: IFilmResponse[] = [{ 'path': './assets/losMisteriosDeLaura.j
 },
 ];
 
-//заменить на передачу колбеков в один контроллер
-//добавить случай ненайденных в базе фильмов(ну вдруг)
 export const filmPageController = (id: string): void => {
   const main = document.querySelector('main');
   if (!main) {
@@ -77,12 +75,5 @@ export const filmPageController = (id: string): void => {
 
       main.append(filmPage);
     }
-  });
-};
-
-export const mainPageController = (main: HTMLElement): void => {
-  films.forEach(elem => {
-    const film = getFilmElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
-    main.append(film);
   });
 };

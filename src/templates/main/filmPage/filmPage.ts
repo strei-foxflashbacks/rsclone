@@ -8,13 +8,15 @@ import getPersons from './persons';
 import getRecommendations from './recommendations';
 import openFilmPage from '../films/functions/openFilmPage';
 import getComments from './comments';
+import getMainPage from '../../../pages/mainPage';
+import clearElement from '../../../helpers/clearElement';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const wrapper = createElement('div', { class: 'wrapper' });
   const container = createElement('div', { class: 'film-page' });
   const navigation = createElement('div', { class: 'navigation' });
-  const elementNavigation = createElement('a', { class: 'navigation__item', href: '#' }, 'Главная');
-  const elementNavigation2 = createElement('a', { class: 'navigation__item', href: '#' }, 'Страница фильма');
+  const elementNavigation = createElement('span', { class: 'navigation__item', id: 'mainNav' }, 'Главная');
+  const elementNavigation2 = createElement('span', { class: 'navigation__item' }, 'Страница фильма');
   navigation.append(elementNavigation, elementNavigation2);
 
 
@@ -32,6 +34,13 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
 
   container.append(navigation, filmElement, table, materials, getSeason(1), getSeason(2), persons, comments, recommendations);
   wrapper.append(container);
+  elementNavigation.addEventListener('click', () => {
+    const main = document.querySelector('main') as HTMLElement;
+    if (!main) { throw new Error('main is not found'); }
+    clearElement(main);
+    main.append(getMainPage());
+    //router.navigateTo('/main/film');
+  });
   return wrapper;
 };
 

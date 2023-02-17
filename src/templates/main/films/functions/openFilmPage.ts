@@ -16,7 +16,7 @@ const openFilmPage = (event: Event): void => {
       throw new Error('film container is not found');
     }
 
-    const id = general.getAttribute('data-id');
+    const id = Number(general.getAttribute('data-id'));
     if (!id) {
       throw new Error('film\'s id is not found!');
     }

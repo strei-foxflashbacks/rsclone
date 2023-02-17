@@ -1,5 +1,4 @@
 import createElement from '../../../helpers/createElement';
-import { IFilmResponse } from '../../../types/IFilmResponse';
 import getFilmElement from '../films/filmElement';
 import { createInfoTable } from './infoTable';
 import getGroupOfPosters from './groupOfPosters';
@@ -8,8 +7,9 @@ import getPersons from './persons';
 import getRecommendations from './recommendations';
 import openFilmPage from '../films/functions/openFilmPage';
 import getComments from './comments';
+import { Film } from '../../../types/Film';
 
-const getFilmPage = (elem: IFilmResponse): HTMLElement => {
+const getFilmPage = (film: Film): HTMLElement => {
   const container = createElement('div', { class: 'film-page' });
   const navigation = createElement('div', { class: 'navigation' });
   const elementNavigation = createElement('a', { class: 'navigation__item', href: '#' }, 'Главная');
@@ -17,10 +17,10 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   navigation.append(elementNavigation, elementNavigation2);
 
 
-  const filmElement = getFilmElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
+  const filmElement = getFilmElement(film);
   filmElement.classList.add('film-page__header-margin');
 
-  const table = createInfoTable();
+  const table = createInfoTable(film);
   const materials = getGroupOfPosters();
   const persons = getPersons();
   const comments = getComments();

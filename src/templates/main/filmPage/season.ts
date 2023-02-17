@@ -1,5 +1,5 @@
 import createElement from '../../../helpers/createElement';
-import getSerialEpisode from './serialEpisode';
+// import getSerialEpisode from './serialEpisode';
 import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
 import { AddToPlayListValue } from '../../../types/types';
 import handleShowAll from './functions/handleShowAll';
@@ -19,9 +19,9 @@ const getSeason = (order: number): HTMLElement => {
 
   const seriesContainer = createElement('div', { class: 'season__series' });
 
-  for (let i = 1; i < 11; i++) {
-    seriesContainer.append(getSerialEpisode(i, `Лаура и тайная комната ${i}`, true));
-  }
+  // for (let i = 1; i < 11; i++) {
+  //   seriesContainer.append(getSerialEpisode(i, `Лаура и тайная комната ${i}`, true));
+  // }
   const showMore = createElement('button', { class: 'season__show-more' }, 'Показать все');
   const backForArrow = createElement('div', { class: 'season__back-arrow' });
   setThemeStyles(backForArrow);

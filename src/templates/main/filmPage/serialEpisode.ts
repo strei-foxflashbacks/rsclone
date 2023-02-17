@@ -5,7 +5,7 @@ import { Episode } from '../../../types/Episode';
 const getSerialEpisode = (episode: Episode, season?: number, order?: number): HTMLElement => {
   const rate = true;
   const container = createElement('div', { class: 'episode' });
-  container.style.backgroundImage = `url(${episode.thumbnail[0]})`;
+  container.style.backgroundImage = `url(${episode.thumbnail})`;
   const orderAndRate = createElement('div', {
     class: 'episode__order-and-rate',
   });

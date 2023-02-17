@@ -1,21 +1,19 @@
 import createElement from '../../../helpers/createElement';
 import { openVideoPlayer } from '../../../helpers/openVideoPlayer';
+import { Episode } from '../../../types/Episode';
 
-const getSerialEpisode = (
-  order: number,
-  name: string,
-  rate: boolean,
-): HTMLElement => {
+const getSerialEpisode = (episode: Episode, season?: number, order?: number): HTMLElement => {
+  const rate = true;
   const container = createElement('div', { class: 'episode' });
-  container.style.backgroundImage = "url('./assets/poster.jpg')";
+  container.style.backgroundImage = `url(${episode.thumbnail[0]})`;
   const orderAndRate = createElement('div', {
     class: 'episode__order-and-rate',
   });
-  if (order) {
+  if (season && order) {
     const orderElem = createElement(
       'div',
       { class: 'episode__order' },
-      `серия ${order}`,
+      `Сезон ${season} / серия ${order}`,
     );
     const rateValue = rate ? 'бесплатно' : 'по подписке';
     const rateElem = createElement(
@@ -25,7 +23,7 @@ const getSerialEpisode = (
     );
     orderAndRate.append(orderElem, rateElem);
   }
-  const nameElem = createElement('div', { class: 'episode__name' }, name);
+  const nameElem = createElement('div', { class: 'episode__name' }, episode.name);
   const playIcon = createElement('img', {
     class: 'episode__play',
     src: './assets/playTrailer.svg',

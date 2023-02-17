@@ -1,7 +1,7 @@
 @import './../../../baseStyles/variables';
 
 .user-page {
-  padding: 0px 30px;
+  padding: 30px 30px;
 
   &__titles {
     margin-bottom: 32px;
@@ -61,7 +61,7 @@
     }
 
     &__series {
-      width: calc(340px * 8);
+      width: calc(340px * var(--count-slide));
       gap: 10px;
       display: flex;
       flex-wrap: nowrap;
@@ -88,6 +88,17 @@
 
       &>div {
         margin-bottom: 10px;
+      }
+    }
+
+    &__avatar {
+      width: 170px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto;
+
+      &-img {
+        width: 100%;
       }
     }
 
@@ -130,17 +141,6 @@
         margin-right: 10px;
       }
     }
-  }
-}
-
-.profile__avatar {
-  width: 170px;
-  height: 200px;
-  border-radius: 50%;
-  margin: 0 auto;
-
-  &-img {
-    width: 100%;
   }
 }
 

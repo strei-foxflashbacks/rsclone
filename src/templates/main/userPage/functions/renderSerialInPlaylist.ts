@@ -1,8 +1,10 @@
 import createElement from '../../../../helpers/createElement';
-import { AddToPlayListValue, Film } from '../../../../types/types';
+import { Film } from '../../../../types/Film';
+import { AddToPlayListValue } from '../../../../types/types';
 import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
 import handleAddingToPlaylist from '../../filmPage/functions/handleAddingToPlaylist';
 import getSerialEpisode from '../../filmPage/serialEpisode';
+import getCountEpisodes from './getCountEpisodes';
 import scrollSlider from './scrollSlider';
 
 const renderSerialInPlaylist = (ser: Film) => {
@@ -22,16 +24,14 @@ const renderSerialInPlaylist = (ser: Film) => {
   addingButton.classList.add('button');
   titleContainer.append(title, addingButton);
 
-  const seriesContainer = createElement('div', { class: 'serial__series' });
+  const seriesContainer = <HTMLElement>createElement('div', { class: 'serial__series' });
+  const countEpisodes = getCountEpisodes(ser);
+  seriesContainer.style.setProperty('--count-slide', `${countEpisodes}`);
 
-  ser.serial!.season.forEach((season) => {
-    ser.serial!.episode.forEach((ep) => {
+  ser.serial!.seasons.forEach((season, seasonNumber) => {
+    season.episodes.forEach((episode, episodeNumber) => {
       seriesContainer.append(
-        getSerialEpisode(
-          ep,
-          `${ser.name} ${season}`,
-          Math.random() <= 0.5 ? true : false,
-        ),
+        getSerialEpisode(episode, seasonNumber + 1, episodeNumber + 1),
       );
     });
   });
@@ -56,7 +56,7 @@ const renderSerialInPlaylist = (ser: Film) => {
 
   let currentPos = 0;
   serialCarouselArrowNext.addEventListener('click', () => {
-    if (currentPos > -340 * 6) currentPos -= 340;
+    if (currentPos > -340 * (countEpisodes - 2)) currentPos -= 340;
     scrollSlider(seriesContainer, currentPos);
   });
   serialCarouselArrowPrev.addEventListener('click', () => {

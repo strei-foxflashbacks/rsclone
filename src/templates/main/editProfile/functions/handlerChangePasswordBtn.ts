@@ -1,11 +1,12 @@
-const handleLogInButton = (): void => {
+
+const handlerChangePasswordBtn = (): void => {
   const body = document.querySelector('body');
   if (!body) {
     throw new Error('body is not found');
   }
   body.style.overflow = 'hidden';
 
-  const modal = document.querySelector('.authorization');
+  const modal = document.querySelector('.change-password');
   const background = document.querySelector('.background');
   if (!modal || !background) {
     throw new Error('modal or background is not found');
@@ -13,4 +14,4 @@ const handleLogInButton = (): void => {
   modal.classList.add('active');
   background.classList.add('active');
 };
-export default handleLogInButton;
+export default handlerChangePasswordBtn;

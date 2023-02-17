@@ -9,6 +9,12 @@
 @import "components/themes/themeElement";
 @import "./templates/footer/footer";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font: $main-font;
   padding: 0 calc(20px - (100vw - 100%)) 0 0;

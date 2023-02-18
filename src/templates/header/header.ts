@@ -3,6 +3,7 @@ import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
 import setThemeStyles from '../../components/themes/functions/setThemeStyles';
+import router from '../../components/router/router';
 
 const getHeader = (): HTMLElement => {
   const header = createElement('header', { class: 'header-container' });
@@ -12,6 +13,9 @@ const getHeader = (): HTMLElement => {
   const logoImg = createElement('img', {
     src: '/assets/showjet.png',
     class: 'logo',
+  });
+  logoImg.addEventListener('click', () => {
+    router.navigateTo(router.root);
   });
 
   const containerSections = createElement('div', { class: 'sections' });
@@ -45,10 +49,9 @@ const getHeader = (): HTMLElement => {
   const isAuth = true;
 
   const userPageBtn = createElement(
-    'a',
+    'div',
     {
       class: 'sections__item user-name',
-      href: '#',
     },
     `${user.name}`,
   );

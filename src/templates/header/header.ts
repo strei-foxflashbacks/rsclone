@@ -42,7 +42,7 @@ const getHeader = (): HTMLElement => {
     class: 'sections__item sections__auth',
   });
 
-  const isAuth = true;
+  const isAuth = false;
 
   const userPageBtn = createElement(
     'a',

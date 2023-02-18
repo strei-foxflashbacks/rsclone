@@ -2,7 +2,7 @@ import { INewsRecord } from '../types/INewsRecord';
 
 const newsData: INewsRecord[] = [
   {
-    photoPath: './assets/news1.jpg',
+    photoPath: '/assets/news1.jpg',
     date: '4 февраля',
     title: '5 неожиданных европейских сериалов, которые стоит посмотреть',
     text: 'Собрали пять сериалов из Европы с самыми необычными сюжетами, локациями и героями.' +
@@ -33,7 +33,7 @@ const newsData: INewsRecord[] = [
       'но исход всегда один: преступник за решёткой, а эти двое всё ещё на службе.',
   },
   {
-    photoPath: './assets/news2.jpg',
+    photoPath: '/assets/news2.jpg',
     date: '2 февраля',
     title: 'Фиби Дайневор не появится в 3 сезоне «Бриджертонов»',
     text: 'Английская актриса Фиби Дайневор («Деревня»), ' +
@@ -52,7 +52,7 @@ const newsData: INewsRecord[] = [
       'Точная дата премьеры пока не сообщается.',
   },
   {
-    photoPath: './assets/news3.jpg',
+    photoPath: '/assets/news3.jpg',
     date: '1 февраля',
     title: 'Звезда «Миниатюриста» и «Я могу уничтожить тебя» сыграет в новой комедии Ричарда Кёртиса',
     text: 'Номинант на премии «Эмми» и BAFTA Паапа Эссьеду («Миниатюрист», «Я могу уничтожить тебя») ' +

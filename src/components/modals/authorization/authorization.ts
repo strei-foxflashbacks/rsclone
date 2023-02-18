@@ -7,7 +7,7 @@ import setThemeStyles from '../../themes/functions/setThemeStyles';
 const getAuthorizationModal = (): HTMLElement => {
   const container = createElement('div', { class: 'authorization modal' });
   const title = createElement('div', { class: 'authorization__title' }, 'Добро пожаловать!');
-  const cross = createElement('img', { src: './assets/cross.svg', width: '30', height: '30', class: 'close' });
+  const cross = createElement('img', { src: '/assets/cross.svg', width: '30', height: '30', class: 'close' });
 
   title.append(cross);
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });

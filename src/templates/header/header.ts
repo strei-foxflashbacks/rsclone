@@ -3,6 +3,7 @@ import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
 import setThemeStyles from '../../components/themes/functions/setThemeStyles';
+import router from '../../components/router/router';
 
 const getHeader = (): HTMLElement => {
   const header = createElement('header', { class: 'header-container' });
@@ -10,8 +11,11 @@ const getHeader = (): HTMLElement => {
   const container = createElement('div', { class: 'content-container' });
 
   const logoImg = createElement('img', {
-    src: './assets/showjet.png',
+    src: '/assets/showjet.png',
     class: 'logo',
+  });
+  logoImg.addEventListener('click', () => {
+    router.navigateTo(router.root);
   });
 
   const containerSections = createElement('div', { class: 'sections' });
@@ -32,7 +36,7 @@ const getHeader = (): HTMLElement => {
     class: 'form__search-button',
   });
   const searchIcon = createElement('img', {
-    src: './assets/search.svg',
+    src: '/assets/search.svg',
     alt: '',
   });
   searchButton.append(searchIcon);
@@ -45,17 +49,16 @@ const getHeader = (): HTMLElement => {
   const isAuth = true;
 
   const userPageBtn = createElement(
-    'a',
+    'div',
     {
       class: 'sections__item user-name',
-      href: '#',
     },
     `${user.name}`,
   );
   const userAvatar = createElement('img', {
     class: 'user-avatar',
     alt: 'User avatar',
-    src: `${user.avatarSrc || './assets/smallAvatar.svg'}`,
+    src: `${user.avatarSrc || '/assets/smallAvatar.svg'}`,
   });
   userPageBtn.append(userAvatar);
 

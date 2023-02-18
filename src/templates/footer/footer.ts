@@ -25,13 +25,13 @@ const getFooter = (): HTMLElement => {
 
   const date = createElement('div', {}, '2023');
   const schoolLink = createElement('a', { href: 'https://rs.school/js/' });
-  const rsLogo = createElement('img', { src: './assets/rs_school_js.svg', alt: '', width: '70' });
+  const rsLogo = createElement('img', { src: '/assets/rs_school_js.svg', alt: '', width: '70' });
   schoolLink.append(rsLogo);
   const container = createElement('div', { class: 'footer__end' });
   container.append(date, schoolLink);
   const themeButton = createElement('div', { class: 'theme-element', id: 'theme' });
   const circle = createElement('div', { class: 'theme-element__circle' });
-  const icon = createElement('img', { src: './assets/moon.svg' });
+  const icon = createElement('img', { src: '/assets/moon.svg' });
   circle.append(icon);
   themeButton.append(circle);
 

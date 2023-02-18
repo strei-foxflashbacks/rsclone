@@ -1,14 +1,10 @@
-import clearElement from '../../../../helpers/clearElement';
-import { filmPageController } from '../../../../components/controllers/filmPageController';
+import router from '../../../../components/router/router';
+import getFilmById from '../../../../components/controllers/filmPageController';
+import setCurrentPage from '../../../../pages/currentPage';
+import getFilmPage from '../../filmPage/filmPage';
 
 const openFilmPage = (event: Event): void => {
-  const main = document.querySelector('main');
-  if (!main) {
-    throw new Error('main is not found!');
-  }
   const target = event.target as HTMLElement;
-
-  clearElement(main);
 
   if (target.closest('.big-element')) {
     const general = target.closest('.big-element');
@@ -20,7 +16,16 @@ const openFilmPage = (event: Event): void => {
     if (!id) {
       throw new Error('film\'s id is not found!');
     }
-    filmPageController(id);
+
+    router.add('/film/(:any)', (idFilm: string) => {
+      const filmById = getFilmById(Number(idFilm));
+      if (filmById) {
+        setCurrentPage(getFilmPage(filmById));
+      }
+    });
+
+    router.navigateTo(`/film/${id}`);
+
   }
 };
 

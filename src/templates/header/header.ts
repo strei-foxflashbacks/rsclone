@@ -10,7 +10,7 @@ const getHeader = (): HTMLElement => {
   const container = createElement('div', { class: 'content-container' });
 
   const logoImg = createElement('img', {
-    src: './assets/showjet.png',
+    src: '/assets/showjet.png',
     class: 'logo',
   });
 
@@ -32,7 +32,7 @@ const getHeader = (): HTMLElement => {
     class: 'form__search-button',
   });
   const searchIcon = createElement('img', {
-    src: './assets/search.svg',
+    src: '/assets/search.svg',
     alt: '',
   });
   searchButton.append(searchIcon);
@@ -55,7 +55,7 @@ const getHeader = (): HTMLElement => {
   const userAvatar = createElement('img', {
     class: 'user-avatar',
     alt: 'User avatar',
-    src: `${user.avatarSrc || './assets/smallAvatar.svg'}`,
+    src: `${user.avatarSrc || '/assets/smallAvatar.svg'}`,
   });
   userPageBtn.append(userAvatar);
 

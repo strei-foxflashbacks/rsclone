@@ -12,7 +12,7 @@ const getFilmElement = (path: string, title: string, titleEng: string, rating: n
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, titleEng);
 
   const favorites = createElement('div', { class: 'films__favorites' });
-  const icon = createElement('img', { src: './assets/favorites.svg', width: '30', height: '30' });
+  const icon = createElement('img', { src: '/assets/favorites.svg', width: '30', height: '30' });
   favorites.append(icon);
 
   const noteElem = createElement('p', { class: 'films__note' }, note);

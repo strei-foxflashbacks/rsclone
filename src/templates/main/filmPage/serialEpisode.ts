@@ -7,7 +7,7 @@ const getSerialEpisode = (
   rate: boolean,
 ): HTMLElement => {
   const container = createElement('div', { class: 'episode' });
-  container.style.backgroundImage = "url('./assets/poster.jpg')";
+  container.style.backgroundImage = "url('/assets/poster.jpg')";
   const orderAndRate = createElement('div', {
     class: 'episode__order-and-rate',
   });
@@ -28,7 +28,7 @@ const getSerialEpisode = (
   const nameElem = createElement('div', { class: 'episode__name' }, name);
   const playIcon = createElement('img', {
     class: 'episode__play',
-    src: './assets/playTrailer.svg',
+    src: '/assets/playTrailer.svg',
   });
 
   container.append(orderAndRate, playIcon, nameElem);

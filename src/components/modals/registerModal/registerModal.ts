@@ -41,7 +41,7 @@ const getRegisterModal = () => {
       type: 'password', 
       placeholder: 'от 5 до 10 букв и символов \'_\' и \'-\'', 
       class: 'authorization__input', 
-      id: 'password', 
+      id: 'register-password', 
       required: '',
       pattern: '^[\\w-]{5,10}$',
     });

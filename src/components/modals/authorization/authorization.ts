@@ -37,7 +37,7 @@ const getAuthorizationModal = (): HTMLElement => {
     });
   const buttonRegister = createElement(
     'div', 
-    { class: 'button authorization__button', id: 'register' },
+    { class: 'button authorization__button' },
     `${TextButtons.register}`);
   buttons.append(buttonRegister, buttonLogIn);
 

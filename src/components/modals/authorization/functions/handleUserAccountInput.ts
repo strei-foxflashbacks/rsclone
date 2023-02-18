@@ -1,17 +1,27 @@
+import { loginUser } from '../../../../api/apiLogin';
+import { registerUser } from '../../../../api/apiRegister';
+import isValidEmail from './isValidEmail';
 
 const handleUserAccountInput = (e: Event) => {
   e.preventDefault();
-  const emailElem = document.querySelector('#email') as HTMLInputElement;
-  const password = document.querySelector('#password') as HTMLInputElement;
-  if (!emailElem || !password) {
+  const target = <HTMLButtonElement>e.target;
+  const emailElem = document.querySelector('#register-email') as HTMLInputElement;
+  const nameElem = document.querySelector('#register-name') as HTMLInputElement;
+  const passwordElem = document.querySelector('#register-password') as HTMLInputElement;
+  if (!emailElem || !passwordElem || !nameElem) {
     throw new Error('emailElem or password is not found');
   }
-  const target = <HTMLElement>e.target;
-  if (target.id === 'register') {
-    console.log(target);
-    
+  const email = emailElem.value;
+  const name = nameElem.value;
+  const password = passwordElem.value;
+  if (target.id === 'register' && isValidEmail(email) && (name.length > 2) && (password.length > 5)) {
+    registerUser({
+      email,
+      name,
+      password, 
+    });
+  } else if (target.id === 'logIn') {
+    loginUser({ email, password });
   }
-  // const emailOrNumberValue = emailElem.value;
-  // const passwordValue = password.value;
 };
 export default handleUserAccountInput;

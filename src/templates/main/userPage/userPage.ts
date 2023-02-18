@@ -1,8 +1,8 @@
-import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import renderContest from './functions/renderContent';
 import renderPlaylist from './functions/renderPlaylist';
 import './_user-page.scss';
+import { getNavigation } from '../navigation';
 
 enum UserPageTitles {
   playlist = 'Плейлист',
@@ -12,28 +12,13 @@ enum UserPageTitles {
   profile = 'Профиль',
 }
 
-const getUserPage = () => {
-  const main = document.querySelector('main');
-  if (!main) {
-    throw new Error('main is not found!');
-  }
-  clearElement(main);
-
+const getUserPage = (): HTMLElement => {
+  const container = createElement('div', { class: 'wrapper' });
   const userPageContainer = createElement('div', {
     class: 'user-page__container',
   });
-  const navigation = createElement('div', { class: 'navigation' });
-  const elementNavigation = createElement(
-    'a',
-    { class: 'navigation__item', href: '#' },
-    'Главная',
-  );
-  const elementNavigation2 = createElement(
-    'a',
-    { class: 'navigation__item', href: '#' },
-    'Мой контент и профиль',
-  );
-  navigation.append(elementNavigation, elementNavigation2);
+
+  const navigation = getNavigation('Мой профиль');
 
   const userPage = createElement('div', { class: 'user-page' });
   const userPageTitles = createElement('div', {
@@ -83,7 +68,8 @@ const getUserPage = () => {
   userPage.append(userPageTitles, userPageContent);
 
   userPageContainer.append(navigation, userPage);
-  main.append(userPageContainer);
+  container.append(userPageContainer);
+  return container;
 };
 
 export default getUserPage;

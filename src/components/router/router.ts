@@ -3,6 +3,7 @@ import setCurrentPage from '../../pages/currentPage';
 import getMainPage from '../../pages/mainPage';
 import getFilmPage from '../../templates/main/filmPage/filmPage';
 import getFilmById from '../controllers/filmPageController';
+import userPage from '../../templates/main/userPage/userPage';
 
 const router = new Router({
   mode: 'history',
@@ -11,7 +12,6 @@ const router = new Router({
     alert('"/' + path + '" Page not found');
   },
 });
-console.log('init');
 export default router;
 
 router.add(router.root, () => {
@@ -23,12 +23,7 @@ router.add('/film/(:any)', (id: string) => {
     setCurrentPage(getFilmPage(filmById));
   }
 });
+router.add('/account', () => {
+  setCurrentPage(userPage());
+});
 
-export function goBack() {
-  const back = document.querySelector('#back');
-  if (back) {
-    back.addEventListener('click', () => {
-      router.back();
-    });
-  }
-}

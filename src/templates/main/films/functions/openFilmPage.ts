@@ -1,14 +1,7 @@
-import clearElement from '../../../../helpers/clearElement';
-import { filmPageController } from '../../../../components/controllers/filmPageController';
+import router from '../../../../components/router/router';
 
 const openFilmPage = (event: Event): void => {
-  const main = document.querySelector('main');
-  if (!main) {
-    throw new Error('main is not found!');
-  }
   const target = event.target as HTMLElement;
-
-  clearElement(main);
 
   if (target.closest('.big-element')) {
     const general = target.closest('.big-element');
@@ -20,7 +13,10 @@ const openFilmPage = (event: Event): void => {
     if (!id) {
       throw new Error('film\'s id is not found!');
     }
-    filmPageController(id);
+    // Поменять локацию
+    // Добавить переход в историю хрома
+    router.navigateTo(`/film/${id}`);
+
   }
 };
 

@@ -6,7 +6,7 @@ import getAuthorizationModal from '../components/modals/authorization/authorizat
 import closeModal from '../components/modals/functions/closeModal';
 import setThemeStyles from '../components/themes/functions/setThemeStyles';
 
-const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
+const setCurrentPage = (container: HTMLElement): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
   if (!body) {
     throw new Error('body is not found!');
@@ -21,9 +21,8 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   } else {
     main = createElement('main', { id: 'main' });
   }
-  mainElements.forEach((element) => {
-    main.append(element);
-  });
+  main.append(container);
+
   const header = getHeader();
   const footer = getFooter();
   const background = createElement('div', { class: 'background' });

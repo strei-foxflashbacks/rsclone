@@ -8,8 +8,7 @@ import getPersons from './persons';
 import getRecommendations from './recommendations';
 import openFilmPage from '../films/functions/openFilmPage';
 import getComments from './comments';
-import getMainPage from '../../../pages/mainPage';
-import clearElement from '../../../helpers/clearElement';
+import router from '../../../components/router/router';
 
 const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   const wrapper = createElement('div', { class: 'wrapper' });
@@ -35,15 +34,10 @@ const getFilmPage = (elem: IFilmResponse): HTMLElement => {
   container.append(navigation, filmElement, table, materials, getSeason(1), getSeason(2), persons, comments, recommendations);
   wrapper.append(container);
   elementNavigation.addEventListener('click', () => {
-    const main = document.querySelector('main') as HTMLElement;
-    if (!main) { throw new Error('main is not found'); }
-    clearElement(main);
-    main.append(getMainPage());
-    //router.navigateTo('/main/film');
+    router.navigateTo(router.root);
   });
   return wrapper;
 };
-
 
 
 export default getFilmPage;

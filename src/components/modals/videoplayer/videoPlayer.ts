@@ -1,21 +1,11 @@
 import createElement from '../../../helpers/createElement';
+import { SKIP_BACKWARD, SKIP_FORWARD } from '../../../types/constants';
 import {
-  MIN_IN_HOUR,
-  SEC_IN_HOUR,
-  SEC_IN_MINUTE,
-  SKIP_BACKWARD,
-  SKIP_FORWARD,
-} from '../../../types/constants';
-import { TSubtitleSize, Film, SubtitlesData } from '../../../types/types';
-import {
+  closeVideoplayer,
   playPauseVideo,
   skip,
-  switchVideoSpeed,
   toggleFullscreen,
-  toggleMute,
 } from './functions/videoplayerControls';
-import { clickTimeline, mouseMoveTimeLine } from './functions/timeLineEvents';
-import { updateTimeLine } from './functions/updateTimeLine';
 
 import './_videoplayer.scss';
 import {
@@ -24,12 +14,15 @@ import {
   settingsItemsName,
   subSettingSettings,
   subSettingSubtitleSound,
-  SubtitleFontSize,
   subtitleSoundItemsName,
 } from './functions/constants';
 import { iconCenterAnimate } from './functions/iconCenterAnimate';
-import { blurAllBtn } from './functions/blurAllBtn';
 import { hideControlsPanel } from './functions/hideControlsPanel';
+import { Episode } from '../../../types/Episode';
+import { SubtitlesData } from '../../../types/SubtitlesData';
+import getTimelineElement from './functions/getTimelineElement';
+import changeSettings from './functions/changeSettings';
+import videoPlayerEvents from './functions/events';
 
 const defaultSubtitleSize = 'standard';
 const defaultQuality = 'auto';
@@ -41,118 +34,28 @@ const defaultSubtitle = 'off';
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
-let lastVolume: number;
 
-const timeLineRender = (previews: string[]) => {
-  const timeLineTime = createElement('timeline-time', {
-    class: 'timeline-time',
-  });
-  const timeLine = createElement('div', { class: 'timeline' });
-  const timeLineIndicator = createElement('div', {
-    class: 'timeline-indicator',
-  });
-
-  const previewImage = <HTMLImageElement>createElement('img', {
-    class: 'timeline-preview-img',
-    alt: 'preview image',
-  });
-  timeLine.append(timeLineIndicator, previewImage);
-
-  timeLine.addEventListener('click', clickTimeline);
-
-  document.addEventListener('mousemove', (e: MouseEvent) => {
-    mouseMoveTimeLine(e, previews);
-  });
-
-  const time = createElement('div', { class: 'time' });
-  timeLineTime.append(timeLine, time);
-  return timeLineTime;
-};
-
-const changeActiveSubSettings = (el: HTMLElement) => {
-  const parentEl = el.parentElement;
-  [...parentEl!.children].forEach((element) => {
-    element.classList.remove('active-subsettings');
+const getSubtitlesInfo = (episode: Episode) => {
+  subSettingSubtitleSound.language = [];
+  episode.subtitles.forEach((sub) => {
+    subSettingSubtitleSound.language.push(sub.srcLang);
   });
 };
 
-const offSubtitle = () => {
-  for (const sub of videoElement.textTracks) {
-    sub.mode = 'hidden';
-  }
-};
-
-let currentSubtitleLang = 'en';
-
-const onSubtitle = () => {
-  for (const sub of videoElement.textTracks) {
-    if (sub.language === currentSubtitleLang) sub.mode = 'showing';
-    else sub.mode = 'hidden';
-  }
-};
-
-enum SubtitleLang {
-  en = 'english',
-  ru = 'russian',
-}
-
-const changeSettings = (e: Event) => {
-  const target = <HTMLElement>e.target;
-  if (target.className.includes('speed')) {
-    switchVideoSpeed(videoElement, target.id);
-  }
-  if (target.className.includes('size')) {
-    const size = <TSubtitleSize>target.id;
-    videoElement.style.setProperty(
-      '--subtitle-font-size',
-      SubtitleFontSize[size],
-    );
-  }
-  if (target.className.includes('subtitle')) {
-    if (target.id === 'off') {
-      offSubtitle();
-    } else {
-      onSubtitle();
-    }
-  }
-  if (target.className.includes('language')) {
-    const lang = <'en' | 'ru'>target.id;
-    currentSubtitleLang = lang;
-    onSubtitle();
-  }
-  changeActiveSubSettings(target);
-  target.classList.add('active-subsettings');
-};
-
-const btnControlsRender = () => {
+const btnControlsRender = (episode: Episode) => {
   const btnControls = createElement('div', { class: 'controls-buttons' });
-
   const btnControlsLeft = createElement('div', {
     class: 'controls-buttons-left',
   });
   const playPause = <HTMLButtonElement>createElement('button', {
     class: 'controls-btn play-pause',
-  });
-  playPause.addEventListener('click', () => {
-    playPauseVideo(videoElement);
-  });
-
+  });  
   const skipBackward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-btn skip-backward' })
-  );
-
-  skipBackward.addEventListener('click', () => {
-    iconCenterAnimate('skip-backward');
-    skip(videoElement, SKIP_BACKWARD);
-  });
+  );  
   const skipForward = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn skip-btn skip-forward' })
-  );
-  skipForward.addEventListener('click', () => {
-    iconCenterAnimate('skip-forward');
-    skip(videoElement, SKIP_FORWARD);
-  });
-
+    );
   const volumeContainer = createElement('div', { class: 'volume-container' });
   const volumeBtn = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn volume' })
@@ -166,27 +69,8 @@ const btnControlsRender = () => {
     value: '0.5',
   });
   videoElement.volume = +volumeRange.value;
-  volumeRange.addEventListener('input', () => {
-    videoElement.muted = false;
-    videoElement.volume = +volumeRange.value;
-  });
-  volumeBtn.addEventListener('click', () => {});
-  videoElement.addEventListener('volumechange', () => {
-    volumeRange.value = `${videoElement.volume}`;
-    if (!videoElement.volume || videoElement.muted) {
-      volumeBtn.classList.add('muted');
-      volumeBtn.classList.remove('half-volume');
-    } else if (videoElement.volume <= 0.5) {
-      volumeBtn.classList.remove('muted');
-      volumeBtn.classList.add('half-volume');
-    } else {
-      volumeBtn.classList.remove('muted');
-      volumeBtn.classList.remove('half-volume');
-    }
-  });
   volumeContainer.append(volumeBtn, volumeRange);
   btnControlsLeft.append(playPause, skipBackward, skipForward, volumeContainer);
-  btnControls.append(btnControlsLeft);
 
   const btnControlsRight = createElement('div', {
     class: 'controls-buttons-right',
@@ -200,7 +84,6 @@ const btnControlsRender = () => {
   const subtitleSoundPopup = createElement('div', {
     class: 'controls-popup subtitle-sound-popup',
   });
-
   subtitleSoundItemsName.forEach((item) => {
     const subtitleSoundItem = createElement('div', {
       class: 'controls-popup-item',
@@ -213,6 +96,7 @@ const btnControlsRender = () => {
     const subSettingsItems = createElement('ul', {
       class: 'subsettings-items',
     });
+    getSubtitlesInfo(episode);
     subSettingSubtitleSound[item].forEach((itemSubSettings) => {
       const activeSubSettingsItem = [
         defaultSound,
@@ -228,18 +112,15 @@ const btnControlsRender = () => {
           class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
           id: `${itemSubSettings}`,
         },
-        `${
-          item === 'language'
-            ? SubtitleLang[<'en' | 'ru'>itemSubSettings]
-            : itemSubSettings
-        }`,
+        `${itemSubSettings}`,
       );
       subSettingsItems.append(subSettingsItem);
     });
 
-    subtitleSoundItem.append(titleItem);
-    subtitleSoundItem.append(subSettingsItems);
-    subSettingsItems.addEventListener('click', changeSettings);
+    subtitleSoundItem.append(titleItem, subSettingsItems);
+    subSettingsItems.addEventListener('click', (e: Event) => {
+      changeSettings(e, videoElement);
+    });
     subtitleSoundPopup.append(subtitleSoundItem);
   });
   subtitleSoundContainer.append(subtitleSound, subtitleSoundPopup);
@@ -294,7 +175,9 @@ const btnControlsRender = () => {
       subSettingsItems.append(subSettingsItem);
     });
 
-    subSettingsItems.addEventListener('click', changeSettings);
+    subSettingsItems.addEventListener('click', (e: Event) => {
+      changeSettings(e, videoElement);
+    });
     settingsItem.append(titleContainer, subSettingsItems);
     settingsPopup.append(settingsItem);
   });
@@ -307,37 +190,47 @@ const btnControlsRender = () => {
   const fullscreen = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn fullscreen' })
   );
-  fullscreen.addEventListener('click', () => {
-    toggleFullscreen(videoPlayerElement);
-  });
+ 
   btnControlsRight.append(
     subtitleSoundContainer,
     settingsContainer,
     fullscreen,
   );
-  btnControls.append(btnControlsRight);
+  btnControls.append(btnControlsLeft, btnControlsRight);
 
+  playPause.addEventListener('click', () => {
+    playPauseVideo(videoElement);
+  });
+  skipBackward.addEventListener('click', () => {
+    iconCenterAnimate('skip-backward');
+    skip(videoElement, SKIP_BACKWARD);
+  });
+  skipForward.addEventListener('click', () => {
+    iconCenterAnimate('skip-forward');
+    skip(videoElement, SKIP_FORWARD);
+  });
+  volumeRange.addEventListener('input', () => {
+    videoElement.muted = false;
+    videoElement.volume = +volumeRange.value;
+  });
+  volumeBtn.addEventListener('click', () => {});
+  videoElement.addEventListener('volumechange', () => {
+    volumeRange.value = `${videoElement.volume}`;
+    if (!videoElement.volume || videoElement.muted) {
+      volumeBtn.classList.add('muted');
+      volumeBtn.classList.remove('half-volume');
+    } else if (videoElement.volume <= 0.5) {
+      volumeBtn.classList.remove('muted');
+      volumeBtn.classList.add('half-volume');
+    } else {
+      volumeBtn.classList.remove('muted');
+      volumeBtn.classList.remove('half-volume');
+    }
+  });
+  fullscreen.addEventListener('click', () => {
+    toggleFullscreen(videoPlayerElement);
+  });
   return btnControls;
-};
-
-const convertNumToString = (num: number): string =>
-  num.toString().padStart(2, '0');
-
-const formatTime = (time: number) => {
-  toString().padStart(2, '0');
-  const sec = Math.floor(time % SEC_IN_MINUTE);
-  const min = Math.floor(time / SEC_IN_MINUTE) % MIN_IN_HOUR;
-  const hour = Math.floor(time / SEC_IN_HOUR);
-  return `-${convertNumToString(hour)}:${convertNumToString(
-    min,
-  )}:${convertNumToString(sec)}`;
-};
-
-const updateTime = (video: HTMLVideoElement) => {
-  const time = document.querySelector('.time');
-  const duration = video.duration;
-  const currentTime = video.currentTime;
-  time!.textContent = formatTime(duration - currentTime);
 };
 
 const addSubtitles = (subtitles: SubtitlesData[]) => {
@@ -347,127 +240,45 @@ const addSubtitles = (subtitles: SubtitlesData[]) => {
       class: 'track-subtitle',
     });
     subtitleContainer.src = sub.src;
-    subtitleContainer.srclang = sub.srclang;
+    subtitleContainer.srclang = sub.srcLang;
     subtitleContainer.label = sub.label;
     subtitleContainer.track.mode = 'hidden';
     videoElement.append(subtitleContainer);
   });
 };
 
-const pressHotKey = (e: KeyboardEvent) => {
-  blurAllBtn();
-  switch (e.key.toLocaleLowerCase()) {
-    case ' ':
-    case 'k':
-    case 'л':
-      playPauseVideo(videoElement);
-      break;
-    case 'f':
-    case 'а':
-      toggleFullscreen(videoPlayerElement);
-      break;
-    case 'm':
-    case 'ь':
-      toggleMute(videoElement, lastVolume);
-      break;
-    case 'arrowleft':
-    case 'j':
-    case 'о':
-      skip(videoElement, SKIP_BACKWARD);
-      break;
-    case 'arrowright':
-    case 'l':
-    case 'д':
-      skip(videoElement, SKIP_FORWARD);
-      break;
-    case 'arrowdown':
-      if (videoElement.volume >= 0.1) videoElement.volume -= 0.1;
-      else videoElement.volume = 0;
-      break;
-    case 'arrowup':
-      if (videoElement.volume <= 0.9) videoElement.volume += 0.1;
-      else videoElement.volume = 1;
-      break;
-    default:
-      break;
-  }
-};
-
-const closeVideoplayer = () => {
-  videoElement.pause();
-  document.removeEventListener('keydown', pressHotKey);
-  const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
-  modalPlayer!.style.display = 'none';
-  document.body.style.overflowY = 'visible';
-};
-
-const videoPlayerRender = (film: Film) => {
-  document.addEventListener('keydown', pressHotKey);
-
+const videoPlayerRender = (episode: Episode) => {
   const videoPlayer = createElement('div', { class: 'video-player' });
   const videoPlayerIconCenter = createElement('div', {
     class: 'video-player-icon-center',
   });
   const video = <HTMLVideoElement>(
-    createElement('video', { class: 'video', src: film.src })
+    createElement('video', 
+      { 
+        class: 'video',
+        preload: 'metadata',
+        src: episode.src, 
+      })
   );
   videoElement = video;
-  videoPlayer.append(videoPlayerIconCenter);
   videoPlayerElement = videoPlayer;
-  videoPlayerElement.addEventListener('mousemove', () => {
-    hideControlsPanel(video, videoPlayer);
-  });
-  videoPlayerElement.addEventListener('dblclick', () => {
-    toggleFullscreen(videoPlayerElement);
-  });
-
-  addSubtitles(film.subtitles);
-
-  video.addEventListener('loadeddata', () => {
-    const time = document.querySelector('.time');
-    const duration = video.duration;
-    time!.textContent = formatTime(duration);
-  });
-
-  video.addEventListener('timeupdate', () => {
-    updateTime(video);
-    updateTimeLine(video);
-  });
-
-  videoPlayer.append(video);
-
-  video.addEventListener('click', () => {
-    playPauseVideo(video);
-  });
-
-  video.addEventListener('play', () => {
-    const btnPlayPause = document.querySelector('.play-pause');
-    btnPlayPause!.classList.add('pause');
-    iconCenterAnimate('play');
-    hideControlsPanel(video, videoPlayer);
-  });
-  video.addEventListener('pause', () => {
-    const btnPlayPause = document.querySelector('.play-pause');
-    btnPlayPause!.classList.remove('pause');
-    iconCenterAnimate('pause');
-  });
-
   const close = createElement('div', { class: 'close-video' });
-  close.addEventListener('click', closeVideoplayer);
-  videoPlayer.append(close);
-
+  close.addEventListener('click', () => {
+    closeVideoplayer(video);
+  });
+  
   const filmName = createElement('div', { class: 'film-name' });
-  filmName.innerText = film.name;
-  videoPlayer.append(filmName);
+  filmName.innerText = episode.name;
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(timeLineRender(film.thumbnails));
-  controls.append(btnControlsRender());
+  controls.append(getTimelineElement());
+  controls.append(btnControlsRender(episode));
 
-  videoPlayer.append(controls);
-  video.play();
+  addSubtitles(episode.subtitles);
   hideControlsPanel(video, videoPlayer);
-
+  videoPlayerEvents(videoPlayer, video);
+  videoPlayer.append(videoPlayerIconCenter, video, close, filmName, controls);
+  video.play();
   return videoPlayer;
 };
 

@@ -1,5 +1,6 @@
 import createElement from '../../../../helpers/createElement';
 import { User } from '../../../../types/types';
+import { renderEditProfilePage } from '../../editProfile/editProfile';
 
 export const getProfileElement = (): HTMLElement => {
   const user: User = {
@@ -29,6 +30,8 @@ export const getProfileElement = (): HTMLElement => {
     `${user.name}`,
   );
   const btnEditProfile = createElement('button', { class: 'profile__edit' });
+  btnEditProfile.addEventListener('click', renderEditProfilePage);
+
   userName.append(btnEditProfile);
   const userId = createElement(
     'div',

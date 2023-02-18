@@ -1,5 +1,5 @@
 import createElement from '../../../../helpers/createElement';
-import { Person } from '../../../../types/types';
+import { Person } from '../../../../types/Person';
 import { getFavoriteElement } from './getFavoriteElement';
 
 export const getCardPerson = (person: Person): HTMLElement => {

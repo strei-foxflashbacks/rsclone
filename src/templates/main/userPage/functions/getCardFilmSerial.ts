@@ -48,7 +48,7 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   ratingKpContainer.append(ratingKp, ratingKpText);
   const favorite = getFavoriteElement();
   favorite.classList.add('card-film__favorite');
-  const ageLimit = createElement('div', { class: 'card-film__limit' }, '16+');
+  const ageLimit = createElement('div', { class: 'card-film__limit' }, `${film.age}`);
   const descContainer = createElement('div', {
     class: 'card-film__desc-container',
   });

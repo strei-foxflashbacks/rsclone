@@ -2,8 +2,8 @@ import createElement from '../../../helpers/createElement';
 import getFilmElement from '../films/filmElement';
 import { createInfoTable } from './infoTable';
 import getGroupOfPosters from './groupOfPosters';
-import getSeason from './season';
-import getPersons from './persons';
+import { getSeason, getFilm } from './season';
+import getPersonsElement from './persons';
 import getRecommendations from './recommendations';
 import openFilmPage from '../films/functions/openFilmPage';
 import getComments from './comments';
@@ -21,18 +21,24 @@ const getFilmPage = (film: Film): HTMLElement => {
   filmElement.classList.add('film-page__header-margin');
 
   const table = createInfoTable(film);
-  const materials = getGroupOfPosters();
-  const persons = getPersons();
+  const materials = getGroupOfPosters(film);
+  const persons = getPersonsElement(film);
   const comments = getComments();
   const recommendations = getRecommendations();
+  container.append(navigation, filmElement, table, materials);
+
+  if (film.type === 'film') {
+    container.append(getFilm(film));
+  } else {
+    for (let i = 0; i < film.serial!.seasonsQty; i++) {
+      container.append(getSeason(film, i));
+    }
+  }
+  container.append(persons, comments, recommendations);
 
   filmElement.removeEventListener('click', openFilmPage);
 
-
-  container.append(navigation, filmElement, table, materials, getSeason(1), getSeason(2), persons, comments, recommendations);
   return container;
 };
-
-
 
 export default getFilmPage;

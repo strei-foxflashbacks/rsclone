@@ -1,30 +1,23 @@
 import createElement from '../../../helpers/createElement';
+import { Film } from '../../../types/Film';
 
-const getGroupOfPosters = (): HTMLElement => {
+const getGroupOfPosters = (film: Film): HTMLElement => {
   const materials = createElement('div', { class: 'materials' });
   const trailer = createElement('div', { class: 'materials__trailer' });
-  trailer.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
+  trailer.style.backgroundImage = `url(${film.trailer[0].thumbnail})`;
 
   const middlePoster = createElement('div', { class: 'materials__middle' });
-  middlePoster.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
+  middlePoster.style.backgroundImage = `url(${film.thumbnails[0]})`;
 
   const materialsMiniGroup = createElement('div', { class: 'materials__group' });
-  const miniPoster1 = createElement('div', { class: 'materials__mini' });
-  miniPoster1.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-
-  const miniPoster2 = createElement('div', { class: 'materials__mini' });
-  miniPoster2.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-
-  const miniPoster3 = createElement('div', { class: 'materials__mini' });
-  miniPoster3.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-
-  const miniPoster4 = createElement('div', { class: 'materials__mini' });
-  miniPoster4.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-  materialsMiniGroup.append(miniPoster1, miniPoster2, miniPoster3, miniPoster4);
+  for (let i = 1; i < 5; i++) {
+    const miniPoster = createElement('div', { class: 'materials__mini' });
+    miniPoster.style.backgroundImage = `url(${film.thumbnails[i]})`;
+    materialsMiniGroup.append(miniPoster);
+  }
 
   const bigPoster = createElement('div', { class: 'materials__big' });
-  bigPoster.style.backgroundImage = 'url(\'./assets/poster.jpg\')';
-
+  bigPoster.style.backgroundImage = `url(${film.thumbnails[5]})`;
 
   materials.append(trailer, middlePoster, materialsMiniGroup, bigPoster);
 

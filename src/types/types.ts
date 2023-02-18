@@ -36,39 +36,9 @@ export enum AddToPlayListValue {
   'remove' = 'Удалить из плейлиста',
 }
 
-export type Film = {
-  id: number;
-  name: string;
-  src: string;
-  poster: string;
-  trailer: string;
-  thumbnails: string[];
-  description: string;
-  rating: number;
-  reviews: string[];
-  genre: string;
-  type: FilmType;
-  subtitles: SubtitlesData[];
-  serial?: Serial;
-};
-
-export type Serial = {
-  season: number[];
-  episode: number[];
-};
-
 export type FilmType = 'film' | 'serial';
 
-export type Person = {
-  id: number;
-  img: string | null;
-  imgMin: string | null;
-  nameRu: string;
-  nameEn: string;
-  profession: string;
-  birth: string | null;
-  filmIds: number[];
-};
+export type FilmCrew = 'actors' | 'director' | 'producers';
 
 export type User = {
   id: string;

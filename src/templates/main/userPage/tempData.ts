@@ -4,7 +4,7 @@ export const ser: Film = {
   id: 1,
   name: 'Good doctor',
   src: '',
-  poster: './assets/poster.jpg',
+  poster: '/assets/poster.jpg',
   trailer: '',
   thumbnails: [''],
   description: '2019-',
@@ -14,12 +14,12 @@ export const ser: Film = {
   type: 'serial',
   subtitles: [
     {
-      src: './assets/video2-en.vtt',
+      src: '/assets/video2-en.vtt',
       srclang: 'en',
       label: 'English',
     },
     {
-      src: './assets/video2-ru.vtt',
+      src: '/assets/video2-ru.vtt',
       srclang: 'ru',
       label: 'Russian',
     },
@@ -33,7 +33,7 @@ export const filmmm: Film = {
   id: 1,
   name: 'Avatar',
   src: '',
-  poster: './assets/poster.jpg',
+  poster: '/assets/poster.jpg',
   trailer: '',
   thumbnails: [''],
   description: '2012',
@@ -43,12 +43,12 @@ export const filmmm: Film = {
   type: 'film',
   subtitles: [
     {
-      src: './assets/video2-en.vtt',
+      src: '/assets/video2-en.vtt',
       srclang: 'en',
       label: 'English',
     },
     {
-      src: './assets/video2-ru.vtt',
+      src: '/assets/video2-ru.vtt',
       srclang: 'ru',
       label: 'Russian',
     },
@@ -57,7 +57,7 @@ export const filmmm: Film = {
 
 export const person1: Person = {
   id: 1234,
-  img: './assets/person.jpg',
+  img: '/assets/person.jpg',
   imgMin: null,
   nameRu: 'Хью Джекман',
   nameEn: 'Hugh Jackman',

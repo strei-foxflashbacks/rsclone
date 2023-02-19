@@ -26,7 +26,7 @@ const getSerialEpisode = (episode: Episode, season?: number, order?: number): HT
   const nameElem = createElement('div', { class: 'episode__name' }, episode.name);
   const playIcon = createElement('img', {
     class: 'episode__play',
-    src: './assets/playTrailer.svg',
+    src: '/assets/playTrailer.svg',
   });
 
   container.append(orderAndRate, playIcon, nameElem);

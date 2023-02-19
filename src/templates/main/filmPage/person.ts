@@ -4,7 +4,7 @@ const getPerson = (type: string): HTMLElement => {
   const containerActor = createElement('div', { class: 'person__container' });
   const person = createElement('div', { class: 'person__item' });
 
-  const portraitUrl = 'url(\'./assets/person.jpg\')';
+  const portraitUrl = 'url(\'/assets/person.jpg\')';
   const name = 'Василий Иванович Петров';
   const filmNameValue = 'Петр Васильевич Иванов';
 

@@ -1,5 +1,6 @@
 import createElement from '../../../../helpers/createElement';
-import { AddToPlayListValue, Film } from '../../../../types/types';
+import { Film } from '../../../../types/Film';
+import { AddToPlayListValue } from '../../../../types/types';
 import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
 import getSerialEpisode from '../../filmPage/serialEpisode';
 
@@ -22,7 +23,7 @@ const renderFilmInPlaylist = (filmData: Film): HTMLElement => {
 
   const filmContainer = createElement('div', { class: 'serial__series' });
   filmContainer.append(
-    getSerialEpisode(0, `${filmData.name}`, Math.random() <= 0.5 ? true : false),
+    getSerialEpisode(filmData.film!),
   );
 
   film.append(titleContainer, filmContainer);

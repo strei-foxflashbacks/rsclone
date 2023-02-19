@@ -1,21 +1,18 @@
-import { filmmm, ser } from '../tempData';
+import { getFilm } from '../../../../api/apiFilms';
+import { userData } from '../tempData';
 import renderFilmInPlaylist from './renderFilmInPlaylist';
 import renderSerialInPlaylist from './renderSerialInPlaylist';
 
 const renderPlaylist = (parent: HTMLElement) => {
-  // const playlistArr = getPlaylistFromServer(id);
-  // const playlist = {
-  //   films: [1, 4],
-  //   serials: [1, 3],
-  // };
+  const playlistIdsArr = userData.collection.playlist;
 
-  const playlistArr = [ser, filmmm, ser, ser, filmmm, filmmm];
+  playlistIdsArr.forEach(async (id) => {
+    const film = await getFilm(id);
 
-  playlistArr.forEach((item) => {
-    if (item.type === 'film') {
-      parent.append(renderFilmInPlaylist(item));
+    if (film.type === 'film') {
+      parent.append(renderFilmInPlaylist(film));
     } else {
-      parent.append(renderSerialInPlaylist(item));
+      parent.append(renderSerialInPlaylist(film));
     }
   });
 };

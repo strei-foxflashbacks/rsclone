@@ -1,8 +1,10 @@
 import createElement from '../../../helpers/createElement';
+import { Film } from '../../../types/Film';
+import { Role } from '../../../types/Role';
 import showPersons from './functions/showPersons';
-import getPerson from './person';
+import getPersonData from './person';
 
-const getPersons = (): HTMLElement => {
+const getPersonsElement = (film: Film): HTMLElement => {
   const container = createElement('div', { class: 'persons' });
   const titleActors = createElement(
     'div',
@@ -11,7 +13,7 @@ const getPersons = (): HTMLElement => {
   );
   const titleDirectors = createElement(
     'div',
-    { class: 'persons__title nav__title', id: 'directors' },
+    { class: 'persons__title nav__title', id: 'director' },
     'режиссеры',
   );
   const titleProducers = createElement(
@@ -29,11 +31,20 @@ const getPersons = (): HTMLElement => {
 
   container.append(containerTitles, containerPersons);
 
-  titleActors.addEventListener('click', showPersons);
-  titleDirectors.addEventListener('click', showPersons);
-  titleProducers.addEventListener('click', showPersons);
-  containerPersons.append(getPerson('actors'));
+  titleActors.addEventListener('click', (e: Event) => {
+    showPersons(e, film);
+  });
+  titleDirectors.addEventListener('click', (e: Event) => {
+    showPersons(e, film);
+  });
+  titleProducers.addEventListener('click', (e: Event) => {
+    showPersons(e, film);
+  });
+  const persons: Role[] = film.actors;
+  persons.forEach(async person => {
+    containerPersons.append(await getPersonData('actors', person));
+  });
   return container;
 };
 
-export default getPersons;
+export default getPersonsElement;

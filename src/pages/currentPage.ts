@@ -8,7 +8,7 @@ import setThemeStyles from '../components/themes/functions/setThemeStyles';
 import getChangePasswordModal from '../components/modals/changePassword/getChangePasswordModal';
 import getRegisterModal from '../components/modals/registerModal/registerModal';
 
-const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
+const setCurrentPage = (container: HTMLElement): HTMLElement => {
   const body = document.querySelector('body') as HTMLElement;
   if (!body) {
     throw new Error('body is not found!');
@@ -18,10 +18,16 @@ const setCurrentPage = (mainElements: HTMLElement[]): HTMLElement => {
   const authorization = getAuthorizationModal();
   const register = getRegisterModal();
   const changePassword = getChangePasswordModal();
-  const main = createElement('main', { class: 'wrapper' });
-  mainElements.forEach((element) => {
-    main.append(element);
-  });
+
+  let main = document.querySelector('#main') as HTMLElement;
+
+  if (main) {
+    clearElement(main);
+  } else {
+    main = createElement('main', { id: 'main' });
+  }
+  main.append(container);
+
   const header = getHeader();
   const footer = getFooter();
   const background = createElement('div', { class: 'background' });

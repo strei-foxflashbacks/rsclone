@@ -33,12 +33,10 @@ const getFilmPage = (film: Film): HTMLElement => {
       container.append(getSeason(film, i));
     }
   }
-  container.append(persons, comments, recommendations);
 
   filmElement.removeEventListener('click', openFilmPage);
 
-
-  container.append(navigation, filmElement, table, materials, persons, comments, recommendations);
+  container.append(persons, comments, recommendations);
   wrapper.append(container);
   return wrapper;
 };

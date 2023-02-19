@@ -3,6 +3,7 @@
 import './style.scss';
 
 //assets import
+import router from './components/router/router';
 
 require.context(
   './components/assets',
@@ -10,8 +11,7 @@ require.context(
   /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav)$/i,
 );
 
-import setCurrentPage from './pages/currentPage';
-import getNews from './templates/main/news/news';
-import getMainContent from './templates/main/films/films';
 
-setCurrentPage([getNews(), getMainContent()]);
+router.addUriListener();
+
+window.addEventListener('load', () => router.navigateTo(window.location.pathname));

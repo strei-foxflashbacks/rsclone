@@ -10,7 +10,7 @@ const getPersonData = async (type: FilmCrew, role: Role): Promise<HTMLElement> =
   const personItem = createElement('div', { class: 'person__item' });
 
   const person: Person = await getPerson(role.personId);
-  
+
   const portraitUrl = `url(${person.imgMin || './assets/person.jpg'})`;
   const name = person.nameRu;
   const filmNameValue = role.role;

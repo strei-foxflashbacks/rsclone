@@ -1,10 +1,10 @@
-import userPage from '../../main/userPage/userPage';
+import router from '../../../components/router/router';
 
 const openUserPage = (): void => {
   const isAuth = true;
   if (!isAuth) return;
 
-  userPage();
+  router.navigateTo('/account');
 };
 
 export default openUserPage;

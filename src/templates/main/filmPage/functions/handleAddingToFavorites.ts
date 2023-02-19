@@ -13,10 +13,10 @@ const handleAddingToFavorites = (event: Event) => {
   const icon = createElement('img', { width: '30', height: '30' });
   if (general.classList.contains('active')) {
     general.classList.remove('active');
-    icon.setAttribute('src', './assets/favorites.svg');
+    icon.setAttribute('src', '/assets/favorites.svg');
   } else {
     general.classList.add('active');
-    icon.setAttribute('src', './assets/favorites-active.svg');
+    icon.setAttribute('src', '/assets/favorites-active.svg');
   }
   general.append(icon);
 };

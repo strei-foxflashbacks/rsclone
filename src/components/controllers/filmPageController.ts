@@ -1,76 +1,26 @@
-import { IFilmResponse } from '../../types/IFilmResponse';
-import { IFilmSections } from '../../types/IFilmSections';
+import { getFilms } from '../../api/apiFilms';
+//import getFilmPage from '../../templates/main/filmPage/filmPage';
+import getFilmElement from '../../templates/main/films/filmElement';
+import { Film } from '../../types/Film';
 
-export const temp: IFilmSections = { genres: 'приключения, детектив, комедия', audio: 'русский', release: '2021', countries: 'Испания' };
+// export const filmPageController = async (id: number): Promise<void> => {
+//   const main = document.querySelector('main');
+//   if (!main) {
+//     throw new Error('main is not found');
+//   }
+//   const films: Film[] = (await getFilms()).films;
+//   films.forEach(film => {
+//     if (film.id === id) {
+//       const filmPage = getFilmPage(film);
+//       main.append(filmPage);
+//     }
+//   });
+// };
 
-export const filmResponse: IFilmResponse[] = [{
-  'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '1',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '1',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '2',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '2',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '3',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '3',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '4',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '4',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '5',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '5',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '6',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '6',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '7',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '7',
-},
-{ 'path': '/assets/losMisteriosDeLaura.jpg',
-  'title': '8',
-  'titleEng': 'Los Misterios De Laura',
-  'rating': 3,
-  'note': 'film about Laura',
-  'id': '8',
-},
-];
-
-const getFilmById = (id: number): IFilmResponse | null => {
-
-  for (const elem of filmResponse) {
-    if (elem.id === String(id)) {
-      return elem;
-    }
-  }
-  return null;
+export const mainPageController = async (main: HTMLElement): Promise<void> => {
+  const films: Film[] = (await getFilms()).films;
+  films.forEach(film => {
+    const filmElement = getFilmElement(film);
+    main.append(filmElement);
+  });
 };
-
-export default getFilmById;
-

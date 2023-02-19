@@ -1,13 +1,10 @@
 import createElement from '../../../helpers/createElement';
-import { filmResponse } from '../../../components/controllers/filmPageController';
-import getFilmElement from './filmElement';
+import { mainPageController } from '../../../components/controllers/filmPageController';
 
-const getFilms = () => {
+
+const getMainContent = () => {
   const mainContent = createElement('section', { class: 'films' });
-  filmResponse.forEach(elem => {
-    const film = getFilmElement(elem.path, elem.title, elem.titleEng, elem.rating, elem.note, elem.id);
-    mainContent.append(film);
-  });
+  mainPageController(mainContent);
   return mainContent;
 };
-export default getFilms;
+export default getMainContent;

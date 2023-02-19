@@ -21,18 +21,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color:rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, .2);
   }
-  & > * {
+
+  &>* {
     position: relative;
     z-index: 1;
   }
 
   &__order {
     @include title;
+    color: $film-name;
     font-size: 15px;
     text-decoration: underline;
   }
+
   &__rate {
     background-color: $light-dark-text;
     padding: 5px;
@@ -56,6 +59,7 @@
     align-self: center;
   }
 }
+
 .season {
   margin-top: 50px;
   max-height: 280px;
@@ -99,6 +103,7 @@
 .collapsed {
   max-height: 260px;
 }
+
 .showed {
   max-height: 100%;
 }

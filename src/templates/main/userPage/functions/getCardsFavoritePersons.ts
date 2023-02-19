@@ -1,23 +1,17 @@
+import { getPerson } from '../../../../api/apiPersons';
 import createElement from '../../../../helpers/createElement';
-import { Person } from '../../../../types/types';
-import { person1 } from '../tempData';
+import { userData } from '../tempData';
 import { getCardPerson } from './getCardPerson';
 
 export const getCardsFavoritePersons = (): HTMLElement => {
-  const persons: Person[] = [
-    person1,
-    person1,
-    person1,
-    person1,
-    person1,
-    person1,
-  ];
+  const favoritePersonsId = userData.collection.persons;
 
   const cardsContainer = <HTMLElement>(
     createElement('div', { class: 'favorite-container' })
   );
 
-  persons.forEach((person) => {
+  favoritePersonsId.forEach(async (id) => {
+    const person = await getPerson(id);
     cardsContainer.append(getCardPerson(person));
   });
 

@@ -1,8 +1,4 @@
 import router from '../../../../components/router/router';
-import getFilmById from '../../../../components/controllers/filmPageController';
-import setCurrentPage from '../../../../pages/currentPage';
-import getFilmPage from '../../filmPage/filmPage';
-
 const openFilmPage = (event: Event): void => {
   const target = event.target as HTMLElement;
 
@@ -17,15 +13,7 @@ const openFilmPage = (event: Event): void => {
       throw new Error('film\'s id is not found!');
     }
 
-    router.add('/film/(:any)', (idFilm: string) => {
-      const filmById = getFilmById(Number(idFilm));
-      if (filmById) {
-        setCurrentPage(getFilmPage(filmById));
-      }
-    });
-
     router.navigateTo(`/film/${id}`);
-
   }
 };
 

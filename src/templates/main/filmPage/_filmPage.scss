@@ -48,7 +48,9 @@
 
   &__trailer {
     grid-area: video;
-
+    display: flex;
+    justify-content: center;
+    position: relative;
   }
 
   &__middle {
@@ -229,4 +231,19 @@
     gap: 5px;
     align-items: center;
   }
+}
+
+.episode__play {
+  text-align: center;
+}
+
+.trailer__label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.episode__rate.trailer__label {
+  background-color: #7c7c7c;
+  color: white;
 }

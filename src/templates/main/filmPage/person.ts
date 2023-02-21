@@ -12,7 +12,6 @@ const getPersonData = async (type: FilmCrew, role: Role): Promise<HTMLElement> =
   const person: Person = await getPerson(role.personId);
 
   const portraitUrl = `url(${person.imgMin || '/assets/smallAvatar.svg'})`;
-  console.log(portraitUrl);
   const name = person.nameRu;
   const filmNameValue = role.role;
 

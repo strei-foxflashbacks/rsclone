@@ -5,9 +5,7 @@ import { getUser } from './apiUsers';
 export const loginUser = async (userParam: UserLogin)=> {
   const options: OptionsFetch = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userParam),
   };
   const response = await fetch(`${URL_LOGIN}`, options);

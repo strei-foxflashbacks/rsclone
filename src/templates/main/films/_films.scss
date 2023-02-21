@@ -61,7 +61,19 @@
   font-size: 19px;
 }
 .films .films__container {
-  align-self: end;
+  bottom: 0;
+}
+.films .films__favorites {
+  top: 5%;
+}
+.films .card-film__rating-container {
+  margin-left: 0;
+}
+.films .card-film__rating-container-imbd {
+  top: 5%;
+}
+.films .card-film__rating-container-kp {
+  top: 22%;
 }
 
 .film {

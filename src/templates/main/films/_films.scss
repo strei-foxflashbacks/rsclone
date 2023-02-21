@@ -27,7 +27,7 @@
 
   &__title {
     @include title;
-    font-size: 35px;
+    font-size: 30px;
   }
 
   &__container {
@@ -50,6 +50,18 @@
     right: 10%;
     cursor: pointer;
   }
+}
+
+.films .films__title {
+  @include title;
+  font-size: 25px;
+}
+.films .films__title_eng {
+  @include title;
+  font-size: 19px;
+}
+.films .films__container {
+  align-self: end;
 }
 
 .film {

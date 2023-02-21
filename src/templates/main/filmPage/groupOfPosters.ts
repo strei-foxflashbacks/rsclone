@@ -1,6 +1,7 @@
 import createElement from '../../../helpers/createElement';
 import { Film } from '../../../types/Film';
 import { openVideoPlayer } from '../../../helpers/openVideoPlayer';
+import openPoster from './functions/openPoster';
 
 const getGroupOfPosters = (film: Film): HTMLElement => {
   const materials = createElement('div', { class: 'materials' });
@@ -29,6 +30,13 @@ const getGroupOfPosters = (film: Film): HTMLElement => {
   trailer.append(trailerLabel, playIcon);
 
   materials.append(trailer, middlePoster, materialsMiniGroup, bigPoster);
+
+  middlePoster.addEventListener('click', openPoster);
+  for (const child of materialsMiniGroup.children) {
+    child.addEventListener('click', openPoster);
+  }
+  bigPoster.addEventListener('click', openPoster);
+
 
   return materials;
 };

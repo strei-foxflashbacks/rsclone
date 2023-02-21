@@ -39,6 +39,7 @@
   gap: 10px;
   width: 70%;
   margin-left: auto;
+  position: relative;
 
   &>div {
     width: 100%;
@@ -246,4 +247,17 @@
 .episode__rate.trailer__label {
   background-color: #7c7c7c;
   color: white;
+}
+
+.modal__picture {
+  @include background-positioning;
+  max-height: 600px;
+  max-width: 800px;
+  height: 100%;
+  width: 100%;
+  z-index: 103;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

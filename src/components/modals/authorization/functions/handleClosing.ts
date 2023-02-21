@@ -8,10 +8,10 @@ const handleClosing = (event: Event) => {
   const logInButton = document.querySelector('#logIn') as HTMLElement;
   const updatePassword = document.querySelector('#updatePassword') as HTMLElement;
 
-  if (target === crossButton 
-    || target === background 
-    || target === registerButton 
-    || logInButton 
+  if (target === crossButton
+    || target === background
+    || target === registerButton
+    || logInButton
     || updatePassword) {
     closeModal();
   }

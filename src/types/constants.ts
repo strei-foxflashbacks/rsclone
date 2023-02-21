@@ -13,3 +13,5 @@ export const URL_USERS = `${URL_BASE}/users`;
 export const URL_REGISTER = `${URL_USERS}/register`;
 export const URL_LOGIN = `${URL_USERS}/login`;
 export const URL_LOGOUT = `${URL_USERS}/logout`;
+
+export const COUNT_SLIDES_ON_MAIN_PAGE = 6;

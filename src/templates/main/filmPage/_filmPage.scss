@@ -39,6 +39,7 @@
   gap: 10px;
   width: 70%;
   margin-left: auto;
+  position: relative;
 
   &>div {
     width: 100%;
@@ -48,7 +49,9 @@
 
   &__trailer {
     grid-area: video;
-
+    display: flex;
+    justify-content: center;
+    position: relative;
   }
 
   &__middle {
@@ -229,4 +232,49 @@
     gap: 5px;
     align-items: center;
   }
+}
+
+.episode__play {
+  text-align: center;
+}
+
+.trailer__label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.episode__rate.trailer__label {
+  background-color: #7c7c7c;
+  color: white;
+}
+
+.modal__picture {
+  @include background-positioning;
+  max-height: 600px;
+  max-width: 800px;
+  height: 100%;
+  width: 100%;
+  z-index: 103;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.films__title {
+  font-size: 40px;
+}
+
+.film-page .card-film__rating-container-kp {
+  top: 10%;
+  left: 0;
+}
+.film-page .card-film__rating-container-imbd {
+  top: 10%;
+  left: 10%;
+}
+.film-page .films__favorites {
+  top: 10%;
+  right: 5%;
 }

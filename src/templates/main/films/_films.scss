@@ -7,7 +7,7 @@
   // margin-top: $header-size;
 
   &__big-element {
-    height: 550px;
+    height: 390px;
     background-position-x: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -26,7 +26,7 @@
 
   &__title {
     @include title;
-    font-size: 35px;
+    font-size: 30px;
   }
 
   &__container {
@@ -49,6 +49,36 @@
     right: 10%;
     cursor: pointer;
   }
+}
+
+.films .films__title {
+  @include title;
+  font-size: 25px;
+}
+
+.films .films__title_eng {
+  @include title;
+  font-size: 19px;
+}
+
+.films .films__container {
+  bottom: 0;
+}
+
+.films .films__favorites {
+  top: 5%;
+}
+
+.films .card-film__rating-container {
+  margin-left: 0;
+}
+
+.films .card-film__rating-container-imbd {
+  top: 5%;
+}
+
+.films .card-film__rating-container-kp {
+  top: 22%;
 }
 
 .film {

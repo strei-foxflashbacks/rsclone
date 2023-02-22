@@ -3,6 +3,7 @@ import openFilmPage from './functions/openFilmPage';
 import getRatingElement from '../../rating/getRatingElement';
 import handleAddingToFavorites from '../filmPage/functions/handleAddingToFavorites';
 import { Film } from '../../../types/Film';
+import getCircleElement from '../userPage/functions/getCircleElement';
 
 const getFilmElement = (film : Film): HTMLElement => {
   const bigElement = createElement(
@@ -17,6 +18,8 @@ const getFilmElement = (film : Film): HTMLElement => {
   const titleElem  = createElement('div', { class: 'films__title' }, `${film.name}`);
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, `${film.originalName}`);
 
+  const [imbd, kp] = film.ratings;
+
   const ratingKpContainer = createElement('div', {
     class:
       'card-film__rating-container rating-card card-film__rating-container-kp',
@@ -24,19 +27,20 @@ const getFilmElement = (film : Film): HTMLElement => {
   const ratingKp = createElement(
     'span',
     { class: 'card-film__rating-kp' },
-    `${film.ratings[1].toFixed(1) || '-'}`,
+    `${kp.toFixed(1) || '-'}`,
   );
   const ratingKpText = createElement(
     'span',
     { class: 'card-film__rating-text' },
     'КП',
   );
-  ratingKpContainer.append(ratingKp, ratingKpText);
+  const circleRatingKp = getCircleElement(kp);
+  ratingKpContainer.append(ratingKp, ratingKpText, circleRatingKp);
 
   const ratingImbd = createElement(
     'span',
     { class: 'card-film__rating-imbd' },
-    `${film.ratings[0].toFixed(1) || '-'}`,
+    `${imbd.toFixed(1) || '-'}`,
   );
   const ratingImbdText = createElement(
     'span',
@@ -47,7 +51,8 @@ const getFilmElement = (film : Film): HTMLElement => {
     class:
       'card-film__rating-container rating-card card-film__rating-container-imbd',
   });
-  ratingImbdContainer.append(ratingImbd, ratingImbdText);
+  const circleRatingImbd = getCircleElement(imbd);
+  ratingImbdContainer.append(ratingImbd, ratingImbdText, circleRatingImbd);
 
   const favorites = createElement('div', { class: 'films__favorites' });
   const icon = createElement('img', { src: '/assets/favorites.svg', width: '30', height: '30' });

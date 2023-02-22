@@ -2,10 +2,11 @@ import createElement from '../../../../helpers/createElement';
 import { Film } from '../../../../types/Film';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
+import openFilmPage from '../../films/functions/openFilmPage';
 
 const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const card = <HTMLElement>(
-    createElement('div', { class: 'card-film card-info' })
+    createElement('div', { class: 'card-film card-info', 'data-id': `${film.id}` })
   );
   card.style.backgroundImage = `url(${film.poster})`;
 
@@ -72,6 +73,11 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
     ageLimit,
     descContainer,
   );
+  card.addEventListener('click', (e: Event) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains('card-film__favorite')) return;
+    openFilmPage(e);
+  });
   return card;
 };
 

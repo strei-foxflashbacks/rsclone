@@ -14,8 +14,8 @@ const router = new Router({
 });
 export default router;
 
-router.add(router.root, () => {
-  setCurrentPage(getMainPage());
+router.add(router.root, async () => {
+  setCurrentPage(await getMainPage());
 });
 router.add('/film/(:any)', async (id: string) => {
   const filmById = await getFilm(Number(id));

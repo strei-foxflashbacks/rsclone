@@ -4,7 +4,7 @@ import { URL_REGISTER } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
 
 export const getRegistrationPage = async () => {
-  
+
 };
 
 export const registerUser = async (dataParams: RegisterUser) => {
@@ -22,7 +22,6 @@ export const registerUser = async (dataParams: RegisterUser) => {
     handleLogInButton();
   }
   console.log(response);
-
 };
 
 type RegisterUser = {

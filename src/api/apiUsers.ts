@@ -1,15 +1,23 @@
+import getValueFromLS from '../components/localStorage/getValueFromLS';
 import { URL_USERS } from '../types/constants';
-import { OptionsFetch } from '../types/fetch';
+// import { OptionsFetch } from '../types/fetch';
 import { User } from '../types/User';
 
 export const getUser = async () => {
-  const response = await fetch(`${URL_USERS}`);
+  const options = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${getValueFromLS('token')}`,
+    },
+  };
+  const response = await fetch(`${URL_USERS}`, options);
   const user: User = await response.json();
-  return user;
+  // return user;
+  console.log(user);
 };
 
 export const updateUser = async (updateData: User) => {
-  const options: OptionsFetch = {
+  const options = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

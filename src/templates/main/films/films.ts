@@ -2,9 +2,9 @@ import createElement from '../../../helpers/createElement';
 import { mainPageController } from '../../../components/controllers/filmPageController';
 import getMainPageSwiper from './functions/getMainPageSwiper';
 
-const getMainContent = () => {
+const getMainContent = async () => {
   const mainContent = createElement('section', { class: 'films' });
-  mainContent.append(getMainPageSwiper());
+  mainContent.append(await getMainPageSwiper());
   mainPageController(mainContent);
   return mainContent;
 };

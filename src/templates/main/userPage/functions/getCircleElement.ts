@@ -6,7 +6,6 @@ const circleSvg = `<svg class="rating-svg" width="56" height="56" viewBox="0 0 5
 <circle class="rating-svg-percent" cx="28" cy="28" r="25" fill="none" stroke="#ffffff" stroke-width="6" stroke-dasharray="157"/>
 </svg>`;
 
-
 const getCircleElement = (rating: number): HTMLElement => {
   const circleRating = createElement('div', { class: 'rating-circle' });
   circleRating.innerHTML = circleSvg;

@@ -1,9 +1,8 @@
-const getValueFromLS = (name: string): string => {
+const getValueFromLS = (name: string, defaultValue = ''): string => {
   if (!localStorage.getItem(`${name}`)) {
-    localStorage.setItem(`${name}`, '');
+    localStorage.setItem(`${name}`, defaultValue);
   }
-  const item = localStorage.getItem(`${name}`)!;
 
-  return item;
+  return localStorage.getItem(`${name}`)!;
 };
 export default getValueFromLS;

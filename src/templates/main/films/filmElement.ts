@@ -1,7 +1,9 @@
 import createElement from '../../../helpers/createElement';
 import openFilmPage from './functions/openFilmPage';
 import getRatingElement from '../../rating/getRatingElement';
-import handleAddingToFavorites from '../filmPage/functions/handleAddingToFavorites';
+import handleAddingToFavorites, {
+  updateFavoritesButton,
+} from '../filmPage/functions/handleAddingToFavorites';
 import { Film } from '../../../types/Film';
 
 const getFilmElement = (film : Film): HTMLElement => {
@@ -50,8 +52,10 @@ const getFilmElement = (film : Film): HTMLElement => {
   ratingImbdContainer.append(ratingImbd, ratingImbdText);
 
   const favorites = createElement('div', { class: 'films__favorites' });
-  const icon = createElement('img', { src: '/assets/favorites.svg', width: '30', height: '30' });
+  const icon = createElement('img', { width: '30', height: '30', alt: 'icon' }) as HTMLImageElement;
+  icon.setAttribute('src', updateFavoritesButton(String(film.id)));
   favorites.append(icon);
+
 
   const noteElem = createElement('p', { class: 'films__note' }, film.summary);
   container.append(titleElem, titleEngElem, getRatingElement(film.usersRating), noteElem);

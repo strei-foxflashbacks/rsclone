@@ -8,7 +8,7 @@ export const updateFavoritesButton = (id: string): string => {
   let src = '/assets/favorites.svg';
   for (let i = 0; i < favorites.length; i++) {
     if (favorites[i] === id) {
-      src = '/assets/favorites-active.svg';
+      src = '/assets/icon_like.svg';
       break;
     }
   }

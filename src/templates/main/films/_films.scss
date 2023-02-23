@@ -6,6 +6,14 @@
   gap: $gap;
   // margin-top: $header-size;
 
+  // &__img {
+  //   height: 100%;
+  //   width: 100%;
+  //   padding: 0;
+  //   margin: 0;
+  //   object-fit: cover;
+  // }
+
   &__big-element {
     height: 390px;
     background-position-x: center;
@@ -18,7 +26,7 @@
     @include blackout;
   }
 
-  &__big-element>* {
+  &__big-element>*:not(img) {
     position: absolute;
     bottom: 20%;
     margin-left: 10%;

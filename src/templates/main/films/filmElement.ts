@@ -13,7 +13,14 @@ const getFilmElement = (film : Film): HTMLElement => {
       'data-id': `${film.id}`,
     },
   );
-  bigElement.style.backgroundImage = `url('${film.poster}')`;
+  const img = createElement('img', 
+    {
+      class: 'films__img poster-img', 
+      src: film.poster,
+      alt: `${film.type} poster ${film.originalName}`,
+      loading: 'lazy',
+    });
+  // bigElement.style.backgroundImage = `url('${film.poster}')`;
   const container = createElement('div', { class: 'films__container' });
   const titleElem  = createElement('div', { class: 'films__title' }, `${film.name}`);
   const titleEngElem  = createElement('div', { class: 'films__title_eng' }, `${film.originalName}`);
@@ -60,7 +67,7 @@ const getFilmElement = (film : Film): HTMLElement => {
 
   const noteElem = createElement('p', { class: 'films__note' }, film.summary);
   container.append(titleElem, titleEngElem, getRatingElement(film.usersRating), noteElem);
-  bigElement.append(container, favorites, ratingImbdContainer, ratingKpContainer);
+  bigElement.append(img, container, favorites, ratingImbdContainer, ratingKpContainer);
   favorites.addEventListener('click', handleAddingToFavorites);
   bigElement.addEventListener('click', openFilmPage);
   return bigElement;

@@ -4,9 +4,7 @@ import { createInfoTable } from './infoTable';
 import getGroupOfPosters from './groupOfPosters';
 import { getSeason, getFilm } from './season';
 import getPersonsElement from './persons';
-import getRecommendations from './recommendations';
 import openFilmPage from '../films/functions/openFilmPage';
-import getComments from './comments';
 import { getNavigation } from '../navigation';
 import { Film } from '../../../types/Film';
 
@@ -22,8 +20,8 @@ const getFilmPage = (film: Film): HTMLElement => {
   const table = createInfoTable(film);
   const materials = getGroupOfPosters(film);
   const persons = getPersonsElement(film);
-  const comments = getComments();
-  const recommendations = getRecommendations();
+  //const comments = getComments();
+  //const recommendations = getRecommendations();
   container.append(navigation, filmElement, table, materials);
 
   if (film.type === 'film') {
@@ -36,7 +34,9 @@ const getFilmPage = (film: Film): HTMLElement => {
 
   filmElement.removeEventListener('click', openFilmPage);
 
-  container.append(persons, comments, recommendations);
+  //container.append(persons, comments, recommendations);
+  container.append(persons);
+
   wrapper.append(container);
   return wrapper;
 };

@@ -1,11 +1,14 @@
 import createElement from '../../../../helpers/createElement';
 import { Film } from '../../../../types/Film';
+import getCircleElement from './getCircleElement';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
+import { deleteFromFavorites } from '../../films/functions/deleteFromFavorites';
+import openFilmPage from '../../films/functions/openFilmPage';
 
 const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const card = <HTMLElement>(
-    createElement('div', { class: 'card-film card-info' })
+    createElement('div', { class: 'card-film card-info', 'data-id': `${film.id}` })
   );
   card.style.backgroundImage = `url(${film.poster})`;
 
@@ -15,6 +18,8 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
     'FullHD 1080p',
   );
 
+  const [imbd, kp] = film.ratings;
+
   const ratingImbdContainer = createElement('div', {
     class:
       'card-film__rating-container rating-card card-film__rating-container-imbd',
@@ -22,14 +27,15 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingImbd = createElement(
     'span',
     { class: 'card-film__rating-imbd' },
-    `${film.ratings[0].toFixed(1) || '-'}`,
+    `${imbd.toFixed(1) || '-'}`,
   );
   const ratingImbdText = createElement(
     'span',
     { class: 'card-film__rating-text' },
     'IMBD',
   );
-  ratingImbdContainer.append(ratingImbd, ratingImbdText);
+  const circleRatingImbd = getCircleElement(imbd);
+  ratingImbdContainer.append(ratingImbd, ratingImbdText, circleRatingImbd);
 
   const ratingKpContainer = createElement('div', {
     class:
@@ -38,16 +44,19 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const ratingKp = createElement(
     'span',
     { class: 'card-film__rating-kp' },
-    `${film.ratings[1].toFixed(1) || '-'}`,
+    `${kp.toFixed(1) || '-'}`,
   );
   const ratingKpText = createElement(
     'span',
     { class: 'card-film__rating-text' },
     'КП',
   );
-  ratingKpContainer.append(ratingKp, ratingKpText);
+  const circleRatingKp = getCircleElement(kp);
+  ratingKpContainer.append(ratingKp, ratingKpText, circleRatingKp);
   const favorite = getFavoriteElement();
   favorite.classList.add('card-film__favorite');
+  favorite.addEventListener('click', deleteFromFavorites);
+
   const ageLimit = createElement('div', { class: 'card-film__limit' }, `${film.age}`);
   const descContainer = createElement('div', {
     class: 'card-film__desc-container',
@@ -72,6 +81,11 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
     ageLimit,
     descContainer,
   );
+  card.addEventListener('click', (e: Event) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains('card-film__favorite')) return;
+    openFilmPage(e);
+  });
   return card;
 };
 

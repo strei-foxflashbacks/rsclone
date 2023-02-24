@@ -1,7 +1,7 @@
 .authorization,
 .register,
 .change-password {
-  position: absolute;
+  position: fixed;
   top: 100px;
   left: 0;
   right: 0;
@@ -79,4 +79,8 @@
   top: 0;
   right: 0;
   cursor: pointer;
+}
+
+.background.active {
+  height: 100%;
 }

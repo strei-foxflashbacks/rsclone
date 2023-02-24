@@ -2,12 +2,14 @@ import createElement from '../../../../helpers/createElement';
 import { Film } from '../../../../types/Film';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
+import { deleteFromFavorites } from '../../films/functions/deleteFromFavorites';
 
 const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const card = <HTMLElement>(
     createElement('div', { class: 'card-film card-info' })
   );
   card.style.backgroundImage = `url(${film.poster})`;
+  card.setAttribute('data-id', String(film.id));
 
   const resolution = createElement(
     'div',
@@ -48,6 +50,8 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   ratingKpContainer.append(ratingKp, ratingKpText);
   const favorite = getFavoriteElement();
   favorite.classList.add('card-film__favorite');
+  favorite.addEventListener('click', deleteFromFavorites);
+
   const ageLimit = createElement('div', { class: 'card-film__limit' }, `${film.age}`);
   const descContainer = createElement('div', {
     class: 'card-film__desc-container',

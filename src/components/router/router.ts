@@ -19,14 +19,14 @@ router.add(router.root, async () => {
   setCurrentPage(await getMainPage());
 });
 router.add('/film/(:any)', async (id: string) => {
-  window.removeEventListener('scroll', pagination);
+  document.removeEventListener('scroll', pagination);
   const filmById = await getFilm(Number(id));
   if (filmById) {
     setCurrentPage(getFilmPage(filmById));
   }
 });
 router.add('/account', () => {
-  window.removeEventListener('scroll', pagination);
+  document.removeEventListener('scroll', pagination);
   setCurrentPage(userPage());
 });
 

@@ -4,21 +4,15 @@ import { LIMIT_FILM } from '../../types/constants';
 
 let maxPage = 0;
 let page = 1;
-let isFirst = true;
+
 export const mainPageController = async (main: HTMLElement): Promise<void> => {
-  if (isFirst) {
-    page = 1;
-  }
   if (!maxPage) maxPage = Math.ceil(((await getFilms()).films.length) / LIMIT_FILM);
-  if (page > maxPage) {
-    isFirst = true;
-    return;
-  }
+  if (main.childElementCount === 1) page = 1;
+  if (page > maxPage) return;  
 
   const { films } = await getFilms(page++, LIMIT_FILM);
   films.forEach(film => {
     const filmElement = getFilmElement(film);
     main.append(filmElement);
   });
-  isFirst = false;
 };

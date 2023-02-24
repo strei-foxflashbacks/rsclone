@@ -2,8 +2,8 @@
   flex-grow: 3;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-
   gap: $gap;
+  height: 100%;
   // margin-top: $header-size;
 
   // &__img {
@@ -99,5 +99,5 @@
   grid-column-end: 4;
   grid-row-start: 1;
   width: 100%;
-  height: 350px;
+  height: 395px;
 }

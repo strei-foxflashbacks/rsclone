@@ -7,7 +7,7 @@ const getMainContent = async () => {
   const mainContent = createElement('section', { class: 'films' });
   mainContent.append(await getMainPageSwiper());
   mainPageController(mainContent);
-  window.addEventListener('scroll', pagination);
+  document.addEventListener('scroll', pagination);
   return mainContent;
 };
 export default getMainContent;

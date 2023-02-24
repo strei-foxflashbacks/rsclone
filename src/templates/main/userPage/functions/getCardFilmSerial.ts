@@ -3,6 +3,7 @@ import { Film } from '../../../../types/Film';
 import getCircleElement from './getCircleElement';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
+import { deleteFromFavorites } from '../../films/functions/deleteFromFavorites';
 import openFilmPage from '../../films/functions/openFilmPage';
 
 const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
@@ -16,7 +17,7 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
     { class: 'card-film__resolution' },
     'FullHD 1080p',
   );
-  
+
   const [imbd, kp] = film.ratings;
 
   const ratingImbdContainer = createElement('div', {
@@ -54,6 +55,8 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   ratingKpContainer.append(ratingKp, ratingKpText, circleRatingKp);
   const favorite = getFavoriteElement();
   favorite.classList.add('card-film__favorite');
+  favorite.addEventListener('click', deleteFromFavorites);
+
   const ageLimit = createElement('div', { class: 'card-film__limit' }, `${film.age}`);
   const descContainer = createElement('div', {
     class: 'card-film__desc-container',

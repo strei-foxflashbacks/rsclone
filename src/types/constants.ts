@@ -15,3 +15,4 @@ export const URL_LOGIN = `${URL_USERS}/login`;
 export const URL_LOGOUT = `${URL_USERS}/logout`;
 
 export const COUNT_SLIDES_ON_MAIN_PAGE = 6;
+export const LIMIT_FILM = 6;

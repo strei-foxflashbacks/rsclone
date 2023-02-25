@@ -3,7 +3,6 @@ import { OptionsFetch } from '../types/fetch';
 import { RegisterUser } from '../types/User';
 
 export const registerUser = async (dataParams: RegisterUser): Promise<Response> => {
-  console.log('dataParams', JSON.stringify(dataParams));
   const options: OptionsFetch = {
     method: 'POST',
     headers: {

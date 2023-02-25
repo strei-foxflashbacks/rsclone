@@ -1,6 +1,6 @@
 import { URL_LOGIN } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
-import { getUser } from './apiUsers';
+import { UserLogin } from '../types/User';
 
 export const loginUser = async (userParam: UserLogin)=> {
   const options: OptionsFetch = {
@@ -9,21 +9,6 @@ export const loginUser = async (userParam: UserLogin)=> {
     body: JSON.stringify(userParam),
   };
   const response = await fetch(`${URL_LOGIN}`, options);
-  const token = await response.json();
-  // console.log(response);
-  // console.log(JSON.stringify(userParam));
-
-  if (response.status === 200) {
-    localStorage.token = token;
-    // console.log(getValueFromLS('token'));
-    getUser();
-  }
-  if (response.status === 401) {
-    console.log('Error');
-  }
+  return response;
 };
 
-type UserLogin = {
-  email: string,
-  password: string
-};

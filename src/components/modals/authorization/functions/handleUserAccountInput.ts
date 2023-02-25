@@ -1,37 +1,28 @@
 import { loginUser } from '../../../../api/apiLogin';
-import { registerUser } from '../../../../api/apiRegister';
-import handleLogInButton from '../../../../templates/header/functions/handleLogInButton';
 import closeModal from '../../functions/closeModal';
-import isValidEmail from './isValidEmail';
+import { saveTokenInLocalStorage } from './tokenInLocalStorage';
 
-const handleUserAccountInput = async (e: Event) => {
+const handleLogin = async (e: Event) => {
   e.preventDefault();
   const target = <HTMLButtonElement>e.target;
-  const emailElem = document.querySelector('#register-email') as HTMLInputElement;
-  const nameElem = document.querySelector('#register-name') as HTMLInputElement;
-  const passwordElem = document.querySelector('#register-password') as HTMLInputElement;
-  const errorMsg = <HTMLElement>document.querySelector('.register__error-message');
-  if (!emailElem || !passwordElem || !nameElem || !errorMsg) {
+  const emailElem = document.querySelector('#email') as HTMLInputElement;
+  const passwordElem = document.querySelector('#password') as HTMLInputElement;
+  const errorMsg = <HTMLElement>document.querySelector('.authorization__error-message');
+  if (!emailElem || !passwordElem || !errorMsg) {
     throw new Error('emailElem or password is not found');
   }
   const email = emailElem.value;
-  const name = nameElem.value;
   const password = passwordElem.value;
-  if (target.id === 'register' && isValidEmail(email) && (name.length > 2) && (password.length > 5)) {
-    const response = await registerUser({
-      email,
-      name,
-      password, 
-    });
-    if (response.redirected) {
+  if (target.id === 'logIn') {
+    const response = await loginUser({ email, password });
+    
+    if (response.status === 200) {
+      const token = await response.json();
+      saveTokenInLocalStorage(token);
       closeModal();
-      handleLogInButton();
-    } else {
+    } else if ( response.status === 401) {
       errorMsg.classList.add('active');
     }
-  } else if (target.id === 'logIn') {
-    console.log('login');    
-    await loginUser({ email, password });
   }
 };
-export default handleUserAccountInput;
+export default handleLogin;

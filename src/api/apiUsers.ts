@@ -12,8 +12,7 @@ export const getUser = async () => {
   };
   const response = await fetch(`${URL_USERS}`, options);
   const user: User = await response.json();
-  // return user;
-  console.log(user);
+  return user;
 };
 
 export const updateUser = async (updateData: User) => {

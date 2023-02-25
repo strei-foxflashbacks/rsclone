@@ -2,9 +2,7 @@ import createElement from '../../../helpers/createElement';
 import setThemeStyles from '../../themes/functions/setThemeStyles';
 import { TextButtons } from '../authorization/authorization';
 import handleClosing from '../authorization/functions/handleClosing';
-import handleUserAccountInput from '../authorization/functions/handleUserAccountInput';
-import openRegisterModal from '../authorization/functions/openRegisterModal';
-import closeModal from '../functions/closeModal';
+import handleRegister from './handleRegister';
 
 const getRegisterModal = () => {
   const container = createElement('div', { class: 'register modal' });
@@ -65,9 +63,7 @@ const getRegisterModal = () => {
   container.append(title, innerContainer);
 
   cross.addEventListener('click', handleClosing);
-  buttonRegister.addEventListener('click', openRegisterModal);
-  form.addEventListener('submit', closeModal);
-  buttonRegister.addEventListener('click', handleUserAccountInput);
+  buttonRegister.addEventListener('click', handleRegister);
   return container;
 };
 

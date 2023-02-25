@@ -8,7 +8,7 @@ import setThemeStyles from '../components/themes/functions/setThemeStyles';
 import getChangePasswordModal from '../components/modals/changePassword/getChangePasswordModal';
 import getRegisterModal from '../components/modals/registerModal/registerModal';
 
-const setCurrentPage = (container: HTMLElement): HTMLElement => {
+const setCurrentPage = async (container: HTMLElement): Promise<HTMLElement> => {
   const body = document.querySelector('body') as HTMLElement;
   if (!body) {
     throw new Error('body is not found!');
@@ -28,7 +28,7 @@ const setCurrentPage = (container: HTMLElement): HTMLElement => {
   }
   main.append(container);
 
-  const header = getHeader();
+  const header = await getHeader();
   const footer = getFooter();
   const background = createElement('div', { class: 'background' });
   background.addEventListener('click', closeModal);

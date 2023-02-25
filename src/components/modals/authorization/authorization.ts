@@ -1,5 +1,5 @@
 import createElement from '../../../helpers/createElement';
-import handleLogin from './functions/handleUserAccountInput';
+import handleLogin from './functions/handleLogin';
 import handleClosing from './functions/handleClosing';
 import closeModal from '../functions/closeModal';
 import setThemeStyles from '../../themes/functions/setThemeStyles';

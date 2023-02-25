@@ -1,5 +1,5 @@
 import { loginUser } from '../../../../api/apiLogin';
-import closeModal from '../../functions/closeModal';
+import router from '../../../router/router';
 import { saveTokenInLocalStorage } from './tokenInLocalStorage';
 
 const handleLogin = async (e: Event) => {
@@ -19,7 +19,7 @@ const handleLogin = async (e: Event) => {
     if (response.status === 200) {
       const token = await response.json();
       saveTokenInLocalStorage(token);
-      closeModal();
+      router.navigateTo(window.location.pathname);
     } else if ( response.status === 401) {
       errorMsg.classList.add('active');
     }

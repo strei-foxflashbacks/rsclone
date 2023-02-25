@@ -4,6 +4,8 @@ import getMainPage from '../../pages/mainPage';
 import getFilmPage from '../../templates/main/filmPage/filmPage';
 import { getFilm } from '../../api/apiFilms';
 import userPage from '../../templates/main/userPage/userPage';
+import { getPerson } from '../../api/apiPersons';
+import getPersonPage from '../../templates/main/personPage/personPage';
 
 const router = new Router({
   mode: 'history',
@@ -27,3 +29,9 @@ router.add('/account', () => {
   setCurrentPage(userPage());
 });
 
+router.add('/person/(:any)', async (id: string) => {
+  const personById = await getPerson(Number(id));
+  if (personById) {
+    setCurrentPage(getPersonPage(personById));
+  }
+});

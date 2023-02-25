@@ -1,6 +1,7 @@
 import createElement from '../../../../helpers/createElement';
 import { Person } from '../../../../types/Person';
 import { getFavoriteElement } from './getFavoriteElement';
+import router from '../../../../components/router/router';
 
 export const getCardPerson = (person: Person): HTMLElement => {
   const card = <HTMLElement>(
@@ -47,5 +48,9 @@ export const getCardPerson = (person: Person): HTMLElement => {
   personDesc.append(personName, personProfession);
 
   card.append(countFilms, favorite, personDesc);
+
+  card.addEventListener('click', () => {
+    router.navigateTo(`/person/${person.id}`);
+  });
   return card;
 };

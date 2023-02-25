@@ -4,6 +4,7 @@ import openUserPage from './functions/openUserPage';
 import setThemeStyles from '../../components/themes/functions/setThemeStyles';
 import router from '../../components/router/router';
 import { getUser } from '../../api/apiUsers';
+import handleLogoutButton from './functions/handleLogoutButton';
 
 const getHeader = async (): Promise<HTMLElement> => {
   const header = createElement('header', { class: 'header-container' });
@@ -67,7 +68,11 @@ const getHeader = async (): Promise<HTMLElement> => {
 
   const signIn = createElement(
     'button',
-    { type: 'button', id: 'signInButton', class: 'button' },
+    { 
+      type: 'button',
+      id: 'signInButton',
+      class: 'button',
+    },
     `${name ? 'Выйти' : 'Войти'}`,
   );
   authContainer.append(userPageBtn, signIn);
@@ -76,7 +81,8 @@ const getHeader = async (): Promise<HTMLElement> => {
 
   container.append(logoImg, containerSections);
 
-  signIn.addEventListener('click', handleLogInButton);
+  if (!name) signIn.addEventListener('click', handleLogInButton);
+  else signIn.addEventListener('click', handleLogoutButton);
 
   header.append(container);
   return header;

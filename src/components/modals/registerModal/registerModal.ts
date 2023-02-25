@@ -7,7 +7,7 @@ import handleRegister from './handleRegister';
 const getRegisterModal = () => {
   const container = createElement('div', { class: 'register modal' });
   const title = createElement('div', { class: 'authorization__title' }, 'Регистрация');
-  const cross = createElement('img', { src: './assets/cross.svg', width: '30', height: '30', class: 'close' });
+  const cross = createElement('img', { src: '/assets/cross.svg', width: '30', height: '30', class: 'close' });
 
   title.append(cross);
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });

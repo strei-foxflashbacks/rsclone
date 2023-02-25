@@ -15,6 +15,7 @@ const getRegisterModal = () => {
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });
   setThemeStyles(innerContainer);
   const text = createElement('p', { class: 'authorization__text' }, 'Введите e-mail, никнейм и пароль');
+  const errorMsg = createElement('p', { class: 'register__error-message' }, 'Ошибка регистрации, повторите попытку');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
   const inputEmail = createElement(
     'input', 
@@ -60,7 +61,7 @@ const getRegisterModal = () => {
   buttons.append(buttonRegister);
 
   form.append(inputs, buttons);
-  innerContainer.append(text, form);
+  innerContainer.append(text, errorMsg, form);
   container.append(title, innerContainer);
 
   cross.addEventListener('click', handleClosing);

@@ -11,14 +11,14 @@ const deleteFilmFromPage = (element: HTMLElement) => {
   filmCard.parentElement.removeChild(filmCard);
 };
 
-const deleteFilmFromLS = (id: string) => {
-  const favorites: string[] = JSON.parse(getValueFromLS('favorites', '[]'));
+const deleteFavoritesElementFromLS = (id: string, favoritesName: string) => {
+  const favorites: string[] = JSON.parse(getValueFromLS(favoritesName, '[]'));
   for (let i = 0; i < favorites.length; i++) {
     if (favorites[i] === id) {
       favorites.splice(i, 1);
     }
   }
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+  localStorage.setItem(favoritesName, JSON.stringify(favorites));
 };
 
 export const deleteFromFavorites = (event: Event) => {
@@ -33,5 +33,5 @@ export const deleteFromFavorites = (event: Event) => {
   }
 
   deleteFilmFromPage(target);
-  deleteFilmFromLS(idFilm);
+  deleteFavoritesElementFromLS(idFilm, 'favorites-films');
 };

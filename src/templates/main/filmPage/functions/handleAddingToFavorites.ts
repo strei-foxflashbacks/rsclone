@@ -3,8 +3,8 @@ import createElement from '../../../../helpers/createElement';
 import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
 
 //
-export const updateFavoritesButton = (id: string): string => {
-  const favorites: string[] = JSON.parse(getValueFromLS('favorites', '[]'));
+export const updateFavoritesButton = (id: string, favoritesName: string): string => {
+  const favorites: string[] = JSON.parse(getValueFromLS(favoritesName, '[]'));
   let src = '/assets/favorites.svg';
   for (let i = 0; i < favorites.length; i++) {
     if (favorites[i] === id) {
@@ -15,9 +15,9 @@ export const updateFavoritesButton = (id: string): string => {
   return src;
 };
 
-export const toggleFavoritesInLS = (id: string): void => {
+export const toggleFavoritesInLS = (id: string, favoritesName: string): void => {
   let isFound = false;
-  const favorites: string[] = JSON.parse(getValueFromLS('favorites', '[]'));
+  const favorites: string[] = JSON.parse(getValueFromLS(favoritesName, '[]'));
   for (let i = 0; i < favorites.length; i++) {
     if (favorites[i] === id) {
       favorites.splice(i, 1);
@@ -27,7 +27,7 @@ export const toggleFavoritesInLS = (id: string): void => {
   if (!isFound) {
     favorites.push(id);
   }
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+  localStorage.setItem(favoritesName, JSON.stringify(favorites));
 };
 
 
@@ -54,8 +54,8 @@ const handleAddingToFavorites = (event: Event) => {
   clearElement(general);
   const icon = createElement('img', { width: '30', height: '30' }) as HTMLImageElement;
 
-  toggleFavoritesInLS(idFilm);
-  icon.setAttribute('src', updateFavoritesButton(idFilm));
+  toggleFavoritesInLS(idFilm, 'favorites-films');
+  icon.setAttribute('src', updateFavoritesButton(idFilm, 'favorites-films'));
   general.append(icon);
 };
 

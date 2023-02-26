@@ -58,7 +58,7 @@ const getFilmElement = (film : Film): HTMLElement => {
 
   const favorites = createElement('div', { class: 'films__favorites' });
   const icon = createElement('img', { width: '30', height: '30', alt: 'icon' }) as HTMLImageElement;
-  icon.setAttribute('src', updateFavoritesButton(String(film.id)));
+  icon.setAttribute('src', updateFavoritesButton(String(film.id), 'favorites-films'));
   favorites.append(icon);
 
 

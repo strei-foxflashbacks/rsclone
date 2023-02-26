@@ -99,6 +99,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+
+  }
+  &__container:hover {
+  background-color: rgba(90, 194, 241, 0.48);
   }
 
   &__real-name {

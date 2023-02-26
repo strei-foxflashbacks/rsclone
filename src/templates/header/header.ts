@@ -86,8 +86,5 @@ const getHeader = async (): Promise<HTMLElement> => {
 
   header.append(container);
   return header;
-
-  // принимать из другой функции компонент кнопки авторизации (чтобы обновлять состояние)
-
 };
 export default getHeader;

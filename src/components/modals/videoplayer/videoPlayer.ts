@@ -277,6 +277,7 @@ const videoPlayerRender = (episode: Episode) => {
   );
   videoElement = video;
   videoPlayerElement = videoPlayer;
+  video.poster = episode.thumbnail;
   const close = createElement('div', { class: 'close-video' });
   close.addEventListener('click', () => {
     closeVideoplayer(video);

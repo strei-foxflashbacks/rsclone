@@ -4,10 +4,12 @@ import { OptionsFetch } from '../types/fetch';
 import { User } from '../types/User';
 
 export const getUser = async () => {
+  const token = getTokenFromLocalStorage();
+  if (!token) return null;
   const options: OptionsFetch = {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${getTokenFromLocalStorage()}`,
+      'Authorization': `Bearer ${token}`,
     },
   };
   const response = await fetch(`${URL_USERS}`, options);

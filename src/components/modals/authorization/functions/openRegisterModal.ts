@@ -1,10 +1,7 @@
-const openRegisterModal = () => {
-  const body = document.querySelector('body');
-  if (!body) {
-    throw new Error('body is not found');
-  }
-  body.style.overflow = 'hidden';
+import hideBody from '../../../../helpers/hideBody';
 
+const openRegisterModal = () => {
+  hideBody();
   const modal = document.querySelector('.register');
   const modalAuth = document.querySelector('.authorization');
   if (!modal || !modalAuth) {

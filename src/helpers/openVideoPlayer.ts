@@ -2,9 +2,9 @@ import { getFilm } from '../api/apiFilms';
 import videoPlayerRender from '../components/modals/videoplayer/videoPlayer';
 import { Episode } from '../types/Episode';
 import createElement from './createElement';
+import hideBody from './hideBody';
 
 export const openVideoPlayer = async () => {
-  const body = document.body;
   let modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   if (!modalPlayer)
     modalPlayer = createElement('div', { class: 'modal-player' });
@@ -18,7 +18,7 @@ export const openVideoPlayer = async () => {
     ? film.film! 
     : film.serial!.seasons[season].episodes[episodeNumber];
     
-  body.style.overflowY = 'hidden';
+  hideBody();
   modalPlayer.style.display = 'block';  
   modalPlayer.append(videoPlayerRender(episode));
 };

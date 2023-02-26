@@ -1,11 +1,8 @@
 import { URL_REGISTER } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
+import { RegisterUser } from '../types/User';
 
-export const getRegistrationPage = async () => {
-  
-};
-
-export const registerUser = async (dataParams: RegisterUser) => {
+export const registerUser = async (dataParams: RegisterUser): Promise<Response> => {
   const options: OptionsFetch = {
     method: 'POST',
     headers: {
@@ -14,11 +11,5 @@ export const registerUser = async (dataParams: RegisterUser) => {
     body: JSON.stringify(dataParams),
   };
   const response = await fetch(`${URL_REGISTER}`, options);
-  console.log(response);
-};
-
-type RegisterUser = {
-  name: string,
-  email: string,
-  password: string
+  return response;
 };

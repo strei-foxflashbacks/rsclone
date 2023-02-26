@@ -1,4 +1,5 @@
 .authorization,
+.register,
 .change-password {
   position: fixed;
   top: 100px;
@@ -10,8 +11,9 @@
   z-index: 103;
   display: none;
 
-  & .active {
-    display: block;
+  &__error-message {
+    display: none;
+    color: $error-text
   }
 
   &__title {
@@ -61,6 +63,8 @@
   &__button {
     padding: 10px;
     box-sizing: content-box;
+    line-height: 30px;
+    cursor: pointer;
   }
 
   &__buttons {
@@ -80,4 +84,8 @@
 
 .background.active {
   height: 100%;
+}
+
+.active {
+  display: block;
 }

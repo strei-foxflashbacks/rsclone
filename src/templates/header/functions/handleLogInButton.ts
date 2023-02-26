@@ -1,9 +1,7 @@
+import hideBody from '../../../helpers/hideBody';
+
 const handleLogInButton = (): void => {
-  const body = document.querySelector('body');
-  if (!body) {
-    throw new Error('body is not found');
-  }
-  body.style.overflow = 'hidden';
+  hideBody();
 
   const modal = document.querySelector('.authorization');
   const background = document.querySelector('.background');

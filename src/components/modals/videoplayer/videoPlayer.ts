@@ -282,9 +282,8 @@ const videoPlayerRender = (episode: Episode) => {
   close.addEventListener('click', () => {
     closeVideoplayer(video);
   });
-  
   const filmName = createElement('div', { class: 'film-name' });
-  filmName.innerText = episode.name;
+  if (episode.name) filmName.innerText = episode.name;
 
   const controls = createElement('div', { class: 'controls' });
   controls.append(getTimelineElement());

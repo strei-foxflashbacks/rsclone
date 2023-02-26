@@ -26,7 +26,9 @@ const getGroupOfPosters = (film: Film): HTMLElement => {
     src: '/assets/playTrailer.svg',
   });
   const trailerLabel = createElement('span', { class: 'episode__rate trailer__label' }, 'Трейлер');
-  playIcon.addEventListener('click', openVideoPlayer);
+  playIcon.addEventListener('click', () => {
+    openVideoPlayer(film.id, true);
+  });
   trailer.append(trailerLabel, playIcon);
 
   materials.append(trailer, middlePoster, materialsMiniGroup, bigPoster);

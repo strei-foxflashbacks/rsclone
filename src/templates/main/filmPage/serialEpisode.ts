@@ -2,7 +2,7 @@ import createElement from '../../../helpers/createElement';
 import { openVideoPlayer } from '../../../helpers/openVideoPlayer';
 import { Episode } from '../../../types/Episode';
 
-const getSerialEpisode = (episode: Episode, season?: number, order?: number): HTMLElement => {
+const getSerialEpisode = (id: number, episode: Episode, season?: number, order?: number): HTMLElement => {
   const container = createElement('div', { class: 'episode' });
   container.style.backgroundImage = `url(${episode.thumbnail})`;
   const orderAndRate = createElement('div', {
@@ -24,7 +24,9 @@ const getSerialEpisode = (episode: Episode, season?: number, order?: number): HT
   });
 
   container.append(orderAndRate, playIcon, nameElem);
-  playIcon.addEventListener('click', openVideoPlayer);
+  playIcon.addEventListener('click', () => {
+    openVideoPlayer(id, false, season, order);
+  });
   return container;
 };
 

@@ -31,7 +31,7 @@ const renderSerialInPlaylist = (ser: Film) => {
   ser.serial!.seasons.forEach((season, seasonNumber) => {
     season.episodes.forEach((episode, episodeNumber) => {
       seriesContainer.append(
-        getSerialEpisode(episode, seasonNumber + 1, episodeNumber + 1),
+        getSerialEpisode(ser.id, episode, seasonNumber + 1, episodeNumber + 1),
       );
     });
   });

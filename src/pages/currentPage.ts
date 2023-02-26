@@ -6,8 +6,9 @@ import getAuthorizationModal from '../components/modals/authorization/authorizat
 import closeModal from '../components/modals/functions/closeModal';
 import setThemeStyles from '../components/themes/functions/setThemeStyles';
 import getChangePasswordModal from '../components/modals/changePassword/getChangePasswordModal';
+import getRegisterModal from '../components/modals/registerModal/registerModal';
 
-const setCurrentPage = (container: HTMLElement): HTMLElement => {
+const setCurrentPage = async (container: HTMLElement): Promise<HTMLElement> => {
   const body = document.querySelector('body') as HTMLElement;
   if (!body) {
     throw new Error('body is not found!');
@@ -15,6 +16,7 @@ const setCurrentPage = (container: HTMLElement): HTMLElement => {
   clearElement(body);
 
   const authorization = getAuthorizationModal();
+  const register = getRegisterModal();
   const changePassword = getChangePasswordModal();
 
   let main = document.querySelector('#main') as HTMLElement;
@@ -26,7 +28,7 @@ const setCurrentPage = (container: HTMLElement): HTMLElement => {
   }
   main.append(container);
 
-  const header = getHeader();
+  const header = await getHeader();
   const footer = getFooter();
   const background = createElement('div', { class: 'background' });
   background.addEventListener('click', closeModal);
@@ -34,6 +36,7 @@ const setCurrentPage = (container: HTMLElement): HTMLElement => {
   body.insertAdjacentElement('afterbegin', background);
 
   body.insertAdjacentElement('afterbegin', authorization);
+  body.insertAdjacentElement('afterbegin', register);
   body.insertAdjacentElement('afterbegin', changePassword);
   body.append(header, main, footer);
   setThemeStyles(body);

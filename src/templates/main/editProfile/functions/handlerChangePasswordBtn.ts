@@ -1,10 +1,7 @@
+import hideBody from '../../../../helpers/hideBody';
 
 const handlerChangePasswordBtn = (): void => {
-  const body = document.querySelector('body');
-  if (!body) {
-    throw new Error('body is not found');
-  }
-  body.style.overflow = 'hidden';
+  hideBody();
 
   const modal = document.querySelector('.change-password');
   const background = document.querySelector('.background');

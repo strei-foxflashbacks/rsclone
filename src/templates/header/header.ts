@@ -1,11 +1,12 @@
-import { user } from '../../components/userData';
 import createElement from '../../helpers/createElement';
 import handleLogInButton from './functions/handleLogInButton';
 import openUserPage from './functions/openUserPage';
 import setThemeStyles from '../../components/themes/functions/setThemeStyles';
 import router from '../../components/router/router';
+import { getUser } from '../../api/apiUsers';
+import handleLogoutButton from './functions/handleLogoutButton';
 
-const getHeader = (): HTMLElement => {
+const getHeader = async (): Promise<HTMLElement> => {
   const header = createElement('header', { class: 'header-container' });
   setThemeStyles(header);
   const container = createElement('div', { class: 'content-container' });
@@ -46,30 +47,33 @@ const getHeader = (): HTMLElement => {
     class: 'sections__item sections__auth',
   });
 
-  const isAuth = true;
-
+  const userData = await getUser();
+  const name = userData ? userData.name : null;
+  
   const userPageBtn = createElement(
     'div',
     {
       class: 'sections__item user-name',
     },
-    `${user.name}`,
+    `${name}`,
   );
   const userAvatar = createElement('img', {
     class: 'user-avatar',
     alt: 'User avatar',
-    src: `${user.avatarSrc || '/assets/smallAvatar.svg'}`,
+    src: `${userData?.userpic || '/assets/smallAvatar.svg'}`,
   });
   userPageBtn.append(userAvatar);
-
   userPageBtn.addEventListener('click', openUserPage);
-
-  if (isAuth) userPageBtn.style.display = 'flex';
+  if (name) userPageBtn.style.display = 'flex';
 
   const signIn = createElement(
     'button',
-    { type: 'button', id: 'signInButton', class: 'button' },
-    `${isAuth ? 'Выйти' : 'Войти'}`,
+    { 
+      type: 'button',
+      id: 'signInButton',
+      class: 'button',
+    },
+    `${name ? 'Выйти' : 'Войти'}`,
   );
   authContainer.append(userPageBtn, signIn);
 
@@ -77,7 +81,8 @@ const getHeader = (): HTMLElement => {
 
   container.append(logoImg, containerSections);
 
-  signIn.addEventListener('click', handleLogInButton);
+  if (!name) signIn.addEventListener('click', handleLogInButton);
+  else signIn.addEventListener('click', handleLogoutButton);
 
   header.append(container);
   return header;

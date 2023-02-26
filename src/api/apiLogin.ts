@@ -1,18 +1,14 @@
 import { URL_LOGIN } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
+import { UserLogin } from '../types/User';
 
 export const loginUser = async (userParam: UserLogin)=> {
   const options: OptionsFetch = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userParam),
   };
-  await fetch(`${URL_LOGIN}`, options);
+  const response = await fetch(`${URL_LOGIN}`, options);
+  return response;
 };
 
-type UserLogin = {
-  email: string,
-  password: string
-};

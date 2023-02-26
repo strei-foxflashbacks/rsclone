@@ -12,6 +12,7 @@ $card-background: rgba(0, 0, 0, .4);
 $card-font-color: #f9f9f9;
 $dark-theme-background: #4f4f4f;
 $dark-theme-font-color: $light-dark-text;
+$error-text: #d81414;
 
 //fonts
 $main-font: 400 16px 'Raleway', sans-serif;
@@ -62,10 +63,12 @@ $gap: 7px;
   bottom: 0;
   background-color: rgba(0, 0, 0, .3);
 }
+
 @mixin dark-theme {
   background-color: $dark-theme-background;
   color: $dark-theme-font-color;
 }
+
 @mixin shadow {
   box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);

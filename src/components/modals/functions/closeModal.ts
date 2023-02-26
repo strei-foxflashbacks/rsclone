@@ -3,6 +3,8 @@ const closeModal = () => {
   const background = document.querySelector('.background') as HTMLElement;
   const body = document.querySelector('body') as HTMLElement;
   const poster = document.querySelector('.modal__picture') as HTMLElement;
+  const errorMsgAuth = document.querySelector('.authorization__error-message') as HTMLElement;
+  const errorMsgReg = document.querySelector('.register__error-message') as HTMLElement;
   if (!body) {
     throw new Error('body is not found');
   }
@@ -11,6 +13,8 @@ const closeModal = () => {
   });
   background.classList.remove('active');
   body.style.overflow = 'visible';
+  errorMsgAuth.classList.remove('active');
+  errorMsgReg.classList.remove('active');
   if (poster) {
     if (!poster.parentElement) {
       throw new Error('poster.parentElement is not found');

@@ -11,7 +11,7 @@ const getMainPageSwiper = async () => {
   const swiperPagination = createElement('div', { class: 'swiper-pagination' });
   
   for (let i = 0; i < COUNT_SLIDES_ON_MAIN_PAGE; i++) {
-    const slide = createElement('div', { class: 'swiper-slide' });
+    const slide = createElement('div', { class: 'swiper-slide', lazy: 'true' });
     const randFilm = await getRandomFilm();
     slide.append(getFilmElement(randFilm));
     swiperWrapper.append(slide);

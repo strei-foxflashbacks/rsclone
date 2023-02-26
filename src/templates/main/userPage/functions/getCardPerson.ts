@@ -8,7 +8,7 @@ export const getCardPerson = (person: Person): HTMLElement => {
   const card = <HTMLElement>(
     createElement('div', { class: 'card-person card-info' })
   );
-  card.style.backgroundImage = `url(${person.img})`;
+  card.style.backgroundImage = `url(${person.img || '/assets/smallAvatar.svg'})`;
 
   const countFilms = createElement(
     'div',

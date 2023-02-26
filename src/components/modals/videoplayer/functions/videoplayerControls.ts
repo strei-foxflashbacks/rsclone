@@ -59,5 +59,5 @@ export const closeVideoplayer = (video: HTMLVideoElement) => {
   const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   modalPlayer.remove();
   modalPlayer!.style.display = 'none';
-  document.body.style.overflowY = 'visible';
+  document.body.style.overflow = 'visible';
 };

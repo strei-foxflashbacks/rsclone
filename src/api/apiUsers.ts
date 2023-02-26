@@ -1,9 +1,19 @@
+import { getTokenFromLocalStorage } from '../components/modals/authorization/functions/tokenInLocalStorage';
 import { URL_USERS } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
 import { User } from '../types/User';
 
 export const getUser = async () => {
-  const response = await fetch(`${URL_USERS}`);
+  const token = getTokenFromLocalStorage();
+  if (!token) return null;
+  const options: OptionsFetch = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(`${URL_USERS}`, options);
+  if (response.status !== 200) return null;
   const user: User = await response.json();
   return user;
 };

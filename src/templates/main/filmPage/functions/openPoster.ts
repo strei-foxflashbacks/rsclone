@@ -1,5 +1,6 @@
 import createElement from '../../../../helpers/createElement';
 import closeModal from '../../../../components/modals/functions/closeModal';
+import hideBody from '../../../../helpers/hideBody';
 
 const openPoster = (event: Event): void => {
   const target = event.target as HTMLElement;
@@ -9,11 +10,7 @@ const openPoster = (event: Event): void => {
   if (!background) {
     throw new Error('background is not found');
   }
-  const body = document.querySelector('body');
-  if (!body) {
-    throw new Error('body is not found');
-  }
-  body.style.overflow = 'hidden';
+  hideBody();
   const container = document.querySelector('.materials');
   if (!container) {
     throw new Error('materials is not found');

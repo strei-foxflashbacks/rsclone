@@ -1,7 +1,7 @@
 import { URL_LOGOUT } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
 
-export const loginUser = async ()=> {
+export const logoutUser = async ()=> {
   const options: OptionsFetch = {
     method: 'POST',
   };

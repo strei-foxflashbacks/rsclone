@@ -16,8 +16,6 @@ const handleLogin = async (e: Event, email: string, password: string) => {
   if (response.status === 200) {
     const token = await response.json();
     saveTokenInLocalStorage(token);
-    emailElem.value = '';
-    passwordElem.value = '';
     closeModal();
     router.navigateTo(window.location.pathname);
   } else if ( response.status === 401) {

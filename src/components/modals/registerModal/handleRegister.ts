@@ -8,11 +8,13 @@ const handleRegister = async (e: Event) => {
   const target = <HTMLButtonElement>e.target;
   const emailElem = document.querySelector('#register-email') as HTMLInputElement;
   const nameElem = document.querySelector('#register-name') as HTMLInputElement;
-  const passwordElem = document.querySelector('#register-password') as HTMLInputElement;
+  const passwordElem = document.querySelector('#register-password') as HTMLInputElement;  
+
   const errorMsg = <HTMLElement>document.querySelector('.register__error-message');
   if (!emailElem || !passwordElem || !nameElem || !errorMsg) {
     throw new Error('emailElem or password is not found');
   }
+
   const email = emailElem.value;
   const name = nameElem.value;
   const password = passwordElem.value;
@@ -24,10 +26,6 @@ const handleRegister = async (e: Event) => {
     });
     if (response.status === 200) {
       await handleLogin(e, email, password);
-      // handleLogInButton();
-      emailElem.value = '';
-      nameElem.value = '';
-      passwordElem.value = '';
       errorMsg.classList.remove('active');
       closeModal();
     } else {

@@ -15,6 +15,12 @@ const closeModal = () => {
   body.style.overflow = 'visible';
   errorMsgAuth.classList.remove('active');
   errorMsgReg.classList.remove('active');
+
+  (document.querySelector('#register-email') as HTMLInputElement).value = '';
+  (document.querySelector('#register-password') as HTMLInputElement).value = '';
+  (document.querySelector('#email') as HTMLInputElement).value = '';
+  (document.querySelector('#password') as HTMLInputElement).value = '';
+  
   if (poster) {
     if (!poster.parentElement) {
       throw new Error('poster.parentElement is not found');

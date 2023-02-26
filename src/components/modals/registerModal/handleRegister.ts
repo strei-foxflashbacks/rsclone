@@ -1,5 +1,5 @@
 import { registerUser } from '../../../api/apiRegister';
-import handleLogInButton from '../../../templates/header/functions/handleLogInButton';
+import handleLogin from '../authorization/functions/handleLogin';
 import isValidEmail from '../authorization/functions/isValidEmail';
 import closeModal from '../functions/closeModal';
 
@@ -23,9 +23,13 @@ const handleRegister = async (e: Event) => {
       password, 
     });
     if (response.status === 200) {
-      closeModal();
-      handleLogInButton();
+      await handleLogin(e, email, password);
+      // handleLogInButton();
+      emailElem.value = '';
+      nameElem.value = '';
+      passwordElem.value = '';
       errorMsg.classList.remove('active');
+      closeModal();
     } else {
       errorMsg.classList.add('active');
     }

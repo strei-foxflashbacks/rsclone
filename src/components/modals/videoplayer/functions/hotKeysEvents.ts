@@ -2,9 +2,11 @@ import { SKIP_BACKWARD, SKIP_FORWARD } from '../../../../types/constants';
 import { blurAllBtn } from './blurAllBtn';
 import { playPauseVideo, skip, toggleFullscreen, toggleMute } from './videoplayerControls';
 
-const pressHotKey = (e: KeyboardEvent, video: HTMLVideoElement) => {
+const videoPlayerElement = <HTMLElement>document.querySelector('.video-player');
+const video = <HTMLVideoElement>document.querySelector('.video');
+
+const pressHotKey = (e: KeyboardEvent) => {
   blurAllBtn();
-  const videoPlayerElement = <HTMLElement>document.querySelector('.video-player');
   switch (e.key.toLocaleLowerCase()) {
     case ' ':
     case 'k':

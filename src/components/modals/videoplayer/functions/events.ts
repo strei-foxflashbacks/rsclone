@@ -5,6 +5,17 @@ import { iconCenterAnimate } from './iconCenterAnimate';
 import { updateTimeLine } from './updateTimeLine';
 import { playPauseVideo, toggleFullscreen, updateTime } from './videoplayerControls';
 
+const timeUpdateEvent = () => {
+  updateTime();
+  updateTimeLine();
+};
+
+const pauseEvents = () => {
+  const btnPlayPause = document.querySelector('.play-pause');
+  btnPlayPause!.classList.remove('pause');
+  iconCenterAnimate('pause');
+};
+
 const videoPlayerEvents = (videoPlayerElement: HTMLElement, video: HTMLVideoElement) => {
   videoPlayerElement.addEventListener('mousemove', () => {
     hideControlsPanel(video, videoPlayerElement);
@@ -18,10 +29,7 @@ const videoPlayerEvents = (videoPlayerElement: HTMLElement, video: HTMLVideoElem
     time!.textContent = formatTime(duration);
   });
 
-  video.addEventListener('timeupdate', () => {
-    updateTime(video);
-    updateTimeLine(video);
-  });
+  video.addEventListener('timeupdate', timeUpdateEvent);
 
   video.addEventListener('click', () => {
     playPauseVideo(video);
@@ -33,15 +41,15 @@ const videoPlayerEvents = (videoPlayerElement: HTMLElement, video: HTMLVideoElem
     iconCenterAnimate('play');
     hideControlsPanel(video, videoPlayerElement);
   });
-  video.addEventListener('pause', () => {
-    const btnPlayPause = document.querySelector('.play-pause');
-    btnPlayPause!.classList.remove('pause');
-    iconCenterAnimate('pause');
-  });
+  video.addEventListener('pause', pauseEvents);
 
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
-    pressHotKey(e, video);
-  });
+  document.addEventListener('keydown', pressHotKey);
 };
 
 export default videoPlayerEvents;
+
+export const removeEvents = () => {
+  const video = <HTMLVideoElement>document.querySelector('.video');
+  video.removeEventListener('pause', pauseEvents);
+  video.removeEventListener('timeupdate', timeUpdateEvent);
+};

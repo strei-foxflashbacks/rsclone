@@ -6,6 +6,7 @@ export const hideControlsPanel = (
   const close = document.querySelector('.close-video');
   const filmName = document.querySelector('.film-name');
   const controls = document.querySelector('.controls');
+  if (!videoPlayer.childElementCount) timeoutHidden = undefined;
   if (timeoutHidden) {
     clearTimeout(timeoutHidden);
     videoPlayer.classList.remove('hide-interface');

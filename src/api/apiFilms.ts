@@ -18,3 +18,14 @@ export const getFilm = async (id: number) => {
   const film: Film = await response.json();
   return film;
 };
+
+export const getFilmsById = async (ids: number[]): Promise<Film[]> => {
+  const responsePromises: Promise<Response>[] = [];
+  ids.forEach(id => {
+    const responsePromise = fetch(`${URL_FILMS}/${id}`);
+    responsePromises.push(responsePromise);
+  });
+  const allResponses = await Promise.all(responsePromises);
+
+  return Promise.all(allResponses.map(responsesResult => responsesResult.json()));
+};

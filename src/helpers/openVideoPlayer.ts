@@ -17,7 +17,6 @@ export const openVideoPlayer = async () => {
   const episode: Episode = film.type === 'film' 
     ? film.film! 
     : film.serial!.seasons[season].episodes[episodeNumber];
-    
   body.style.overflowY = 'hidden';
   modalPlayer.style.display = 'block';  
   modalPlayer.append(videoPlayerRender(episode));

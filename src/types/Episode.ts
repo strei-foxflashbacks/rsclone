@@ -5,4 +5,5 @@ export type Episode = {
   thumbnail: string,
   src: string,
   subtitles: SubtitlesData[],
+  snapshots: string[],
 };

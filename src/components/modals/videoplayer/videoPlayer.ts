@@ -286,8 +286,7 @@ const videoPlayerRender = (episode: Episode) => {
   if (episode.name) filmName.innerText = episode.name;
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(getTimelineElement());
-  controls.append(btnControlsRender(episode));
+  controls.append(getTimelineElement(episode.snapshots), btnControlsRender(episode));
 
   addSubtitles(episode.subtitles);
   hideControlsPanel(video, videoPlayer);

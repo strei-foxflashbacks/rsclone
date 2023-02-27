@@ -1,6 +1,6 @@
 import clearElement from '../../../../helpers/clearElement';
 import resetOpen from '../../../../helpers/resetOpen';
-import getCardsFavorite from './getCardsFavorite';
+import getFilmsElemFavorite from './getFilmsElemFavorite';
 import { getCardsFavoritePersons } from './getCardsFavoritePersons';
 import { getProfileElement } from './getProfileElement';
 import renderPlaylist from './renderPlaylist';
@@ -21,10 +21,10 @@ const renderContest = (e: Event) => {
       renderPlaylist(userPageContent);
       break;
     case 'films':
-      userPageContent.append(getCardsFavorite('film'));
+      userPageContent.append(getFilmsElemFavorite('film'));
       break;
     case 'serials':
-      userPageContent.append(getCardsFavorite('serial'));
+      userPageContent.append(getFilmsElemFavorite('serial'));
       break;
     case 'persons':
       userPageContent.append(getCardsFavoritePersons());

@@ -2,7 +2,9 @@ import createElement from '../../../../helpers/createElement';
 import { Person } from '../../../../types/Person';
 import { getFavoriteElement } from './getFavoriteElement';
 import router from '../../../../components/router/router';
-import { toggleFavoritesInLS, updateFavoritesButton } from '../../filmPage/functions/handleAddingToFavorites';
+import { updateFavoritesButton } from '../../filmPage/functions/handleAddingToFavorites';
+import { deleteFavoriteElemFromPage, deleteFavoritesElementFromLS } from '../../films/functions/deleteFromFavorites';
+
 
 export const getCardPerson = (person: Person): HTMLElement => {
   const card = <HTMLElement>(
@@ -18,14 +20,13 @@ export const getCardPerson = (person: Person): HTMLElement => {
 
   const favorite = getFavoriteElement();
   favorite.classList.add('card-person__favorite');
-  favorite.addEventListener('click', () => {
-    toggleFavoritesInLS(String(person.id), 'favorites-persons');
-    const srcForIcon = updateFavoritesButton(String(person.id), 'favorites-persons');
-    console.log(favorite);
-    console.log(srcForIcon);
-    favorite.style.backgroundImage = `url('${srcForIcon}')`;
-    //icon.setAttribute('src', updateFavoritesButton(idFilm));
-  });
+  favorite.onclick = () => {
+    deleteFavoritesElementFromLS(`${person.id}`, 'favorites-persons');
+    deleteFavoriteElemFromPage(favorite);
+  };
+
+  const srcForIcon = updateFavoritesButton(String(person.id), 'favorites-persons');
+  favorite.style.backgroundImage = `url('${srcForIcon}')`;
 
   const personDesc = createElement('div', { class: 'card-person__desc' });
   const personName = createElement('div', {

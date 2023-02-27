@@ -1,3 +1,5 @@
+@import './../../../baseStyles/variables.scss';
+
 .video-player {
   // display: none;
   position: fixed;
@@ -145,13 +147,13 @@
     }
 
     &::before {
-      background-color: skyblue;
+      background-color: $accent-color;
       right: calc(100% - var(--timeline-position));
       z-index: 1;
     }
 
     &::after {
-      background-color: white;
+      background-color: $light-title;
       right: calc(100% - var(--timeline-preview));
     }
 
@@ -186,9 +188,9 @@
     }
 
     &-preview-img {
-      height: 50px;
+      height: 100px;
       position: absolute;
-      top: -80px;
+      top: -120px;
       left: calc(var(--timeline-preview) - 40px);
       display: none;
     }

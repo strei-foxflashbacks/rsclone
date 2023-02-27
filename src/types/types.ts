@@ -40,13 +40,6 @@ export type FilmType = 'film' | 'serial';
 
 export type FilmCrew = 'actors' | 'director' | 'producers';
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-};
-
 export enum Page {
   personPage = 'personPage',
   userPage = 'userPage',

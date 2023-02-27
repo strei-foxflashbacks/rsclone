@@ -1,19 +1,11 @@
+import { getUser } from '../../../../api/apiUsers';
 import createElement from '../../../../helpers/createElement';
-import { User } from '../../../../types/types';
+import handleLogoutButton from '../../../header/functions/handleLogoutButton';
 import { renderEditProfilePage } from '../../editProfile/editProfile';
 
-export const getProfileElement = (): HTMLElement => {
-  const user: User = {
-    id: '111865610',
-    name: 'User1434523',
-    email: 'bbb@sfs.ru',
-    password: '',
-  };
-  const userData = {
-    img: './assets/smallAvatar.svg',
-    key: '12312314231',
-  };
-
+export const getProfileElement = async (): Promise<HTMLElement> => {
+  const user = await getUser();
+  if (!user) throw new Error("User data don't find");
   const profileContainer = createElement('div', {
     class: 'profile-container',
   });
@@ -22,7 +14,7 @@ export const getProfileElement = (): HTMLElement => {
   const image = <HTMLImageElement>(
     createElement('img', { class: 'profile__avatar-img', alt: 'User avatar' })
   );
-  image.src = userData.img;
+  image.src = user.userpic || './assets/avatar.svg';
   avatar.append(image);
   const userName = createElement(
     'div',
@@ -41,7 +33,7 @@ export const getProfileElement = (): HTMLElement => {
   const userKey = createElement(
     'div',
     { class: 'profile__key' },
-    `Ключ переноса: ${userData.key}`,
+    `Ключ переноса: ${user.id}`,
   );
   const userEmail = createElement(
     'div',
@@ -74,6 +66,7 @@ export const getProfileElement = (): HTMLElement => {
   logout.prepend(imgLogout);
   logout.classList.add('button');
   bottomContainer.append(devices, logout);
+  logout.addEventListener('click', handleLogoutButton);
 
   profileContainer.append(
     avatar,

@@ -1,7 +1,7 @@
 import { getTokenFromLocalStorage } from '../components/modals/authorization/functions/tokenInLocalStorage';
 import { URL_USERS } from '../types/constants';
 import { OptionsFetch } from '../types/fetch';
-import { User } from '../types/User';
+import { User, UserUpdate } from '../types/User';
 
 export const getUser = async () => {
   const token = getTokenFromLocalStorage();
@@ -18,7 +18,7 @@ export const getUser = async () => {
   return user;
 };
 
-export const updateUser = async (updateData: User) => {
+export const updateUser = async (updateData: UserUpdate) => {
   const token = getTokenFromLocalStorage();
   if (!token) return null;
   const options: OptionsFetch = {

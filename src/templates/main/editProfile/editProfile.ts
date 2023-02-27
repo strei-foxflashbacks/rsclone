@@ -2,7 +2,7 @@ import { getUser, updateUser } from '../../../api/apiUsers';
 import router from '../../../components/router/router';
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
-import { User } from '../../../types/User';
+import { UserUpdate } from '../../../types/User';
 import handlerChangePasswordBtn from './functions/handlerChangePasswordBtn';
 import isValidDate from './functions/isValidDate';
 import isValidPhone from './functions/isValidPhone';
@@ -170,28 +170,19 @@ export const renderEditProfilePage = async () => {
       return;
     }
 
-    console.log(inputFemale.checked ? 'Женщина' : inputMale.checked ? 'Мужчина' : null);
-    
-
-    const newUserData: User = {
+    const newUserData: UserUpdate = {
       name: inputName.value,
-      id: user.id,
-      email: inputEmail.value,
       phone: inputPhone.value,
       birthday: inputBirthday.value,
-      userpic: user.userpic,
-      password: user.password,
       sex: inputFemale.checked ? 'Женщина' : inputMale.checked ? 'Мужчина' : null,
-      collection: {
-        playlist: [],
-        films: [],
-        persons: [],
-      },
     };
     await updateUser(newUserData);
     router.navigateTo('/account');
   });
-  btnPassword.addEventListener('click', handlerChangePasswordBtn);
+  btnPassword.addEventListener('click', (e: Event) => {
+    e.preventDefault();
+    handlerChangePasswordBtn();
+  });
   editProfilePage.append(navigation, title, editProfile);
   main.append(editProfilePage);
 };

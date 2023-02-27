@@ -65,7 +65,6 @@ const getCardFavoriteFilmSerial = (film: Film, page: Page): HTMLElement => {
 
   favorite.classList.add('card-film__favorite');
   if (page === Page.userPage) {
-    console.log(page);
     favorite.addEventListener('click', () => {
       deleteFavoritesElementFromLS(`${film.id}`, 'favorites-films');
       deleteFavoriteElemFromPage(favorite);

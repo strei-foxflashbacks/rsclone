@@ -2,6 +2,8 @@ import createElement from '../../../helpers/createElement';
 import closeModal from '../functions/closeModal';
 import setThemeStyles from '../../themes/functions/setThemeStyles';
 import handleClosing from '../authorization/functions/handleClosing';
+import { getUser, updateUser } from '../../../api/apiUsers';
+import { UserUpdate } from '../../../types/User';
 
 const getChangePasswordModal = (): HTMLElement => {
   const container = createElement('div', { class: 'change-password modal' });
@@ -12,20 +14,10 @@ const getChangePasswordModal = (): HTMLElement => {
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });
   setThemeStyles(innerContainer);
   const text = createElement('p', { class: 'authorization__text' }, 'Введите старый и новый пароль.');
+  const errorMsg = createElement('p', { class: 'authorization__error-message' }, 'Ошибка пароля, введите верный пароль');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
 
-  const inputCurrentPassword = createElement(
-    'input',
-    {
-      type: 'password',
-      placeholder: 'Текущий пароль',
-      class: 'authorization__input',
-      id: 'oldPassword',
-      required: '',
-      pattern: '^[\\w-]{5,10}$',
-    },
-  );
-  const inputNewPassword = createElement(
+  const inputNewPassword = <HTMLInputElement>createElement(
     'input',
     {
       type: 'password',
@@ -35,8 +27,20 @@ const getChangePasswordModal = (): HTMLElement => {
       required: '',
       pattern: '^[\\w-]{5,10}$',
     });
+  const inputRepeatNewPassword = <HTMLInputElement>createElement(
+    'input',
+    {
+      type: 'password',
+      placeholder: 'Повторите новый пароль',
+      class: 'authorization__input',
+      id: 'repeatNewPassword',
+      required: '',
+      pattern: '^[\\w-]{5,10}$',
+    },
+  );
+
   const inputs = createElement('div', { class: 'authorization__inputs' });
-  inputs.append(inputCurrentPassword, inputNewPassword);
+  inputs.append(inputNewPassword, inputRepeatNewPassword);
 
   const buttons = createElement('div', { class: 'authorization__buttons' });
   const buttonLogIn = createElement(
@@ -51,12 +55,38 @@ const getChangePasswordModal = (): HTMLElement => {
   buttons.append(buttonLogIn);
 
   form.append(inputs, buttons);
-  innerContainer.append(text, form);
+  innerContainer.append(text, errorMsg, form);
   container.append(title, innerContainer);
 
   cross.addEventListener('click', handleClosing);
   form.addEventListener('submit', closeModal);
-  buttonLogIn.addEventListener('click', ()=>{});
+  buttonLogIn.addEventListener('click', async (e: Event) => {
+    e.preventDefault();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("User data don't find");
+    }
+
+    if (inputNewPassword.value !== inputRepeatNewPassword.value) {
+      inputRepeatNewPassword.classList.add('invalid');
+      errorMsg.classList.add('active');
+      return;
+    }
+
+    if (inputRepeatNewPassword.classList.contains('invalid'))
+      inputRepeatNewPassword.classList.remove('invalid');
+    if (errorMsg.classList.contains('active'))
+      errorMsg.classList.remove('active');
+
+    const newPassword: UserUpdate = {
+      name: user.name,
+      password: inputNewPassword.value,
+    };
+    await updateUser(newPassword);
+    inputNewPassword.value = '';
+    inputRepeatNewPassword.value = '';
+    handleClosing(e);
+  });
   return container;
 };
 export default getChangePasswordModal;

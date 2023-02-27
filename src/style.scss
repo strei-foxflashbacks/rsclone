@@ -102,7 +102,6 @@ button {
 
 .active {
   display: block;
-  //height: 100%;
 }
 
 .open {
@@ -124,4 +123,8 @@ main.dark-theme {
 
 .footer-container.dark-theme>a {
   color: white;
+}
+
+input.invalid {
+  border: solid 2px red;
 }

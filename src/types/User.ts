@@ -12,6 +12,16 @@ export type User = {
   collection: Collection,
 };
 
+export type UserUpdate = {
+  name?: string,
+  password?: string,
+  userpic?: string,
+  birthday?: string,
+  sex?: null | 'Мужчина' | 'Женщина',
+  phone?: string,
+  collection?: Collection,
+};
+
 export type RegisterUser = {
   name: string,
   email: string,

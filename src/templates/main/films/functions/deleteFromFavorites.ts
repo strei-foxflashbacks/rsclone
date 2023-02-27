@@ -1,24 +1,24 @@
 import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
 
-const deleteFilmFromPage = (element: HTMLElement) => {
-  const filmCard = element.parentElement;
-  if (!filmCard) {
+export const deleteFavoriteElemFromPage = (element: HTMLElement) => {
+  const card = element.parentElement;
+  if (!card) {
     throw new Error('film card is not found');
   }
-  if (!filmCard.parentElement) {
+  if (!card.parentElement) {
     throw new Error('container for film card is not found');
   }
-  filmCard.parentElement.removeChild(filmCard);
+  card.parentElement.removeChild(card);
 };
 
-const deleteFilmFromLS = (id: string) => {
-  const favorites: string[] = JSON.parse(getValueFromLS('favorites', '[]'));
+export const deleteFavoritesElementFromLS = (id: string, favoritesName: string) => {
+  const favorites: string[] = JSON.parse(getValueFromLS(favoritesName, '[]'));
   for (let i = 0; i < favorites.length; i++) {
     if (favorites[i] === id) {
       favorites.splice(i, 1);
     }
   }
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+  localStorage.setItem(favoritesName, JSON.stringify(favorites));
 };
 
 export const deleteFromFavorites = (event: Event) => {
@@ -32,6 +32,6 @@ export const deleteFromFavorites = (event: Event) => {
     throw new Error('id film is not found');
   }
 
-  deleteFilmFromPage(target);
-  deleteFilmFromLS(idFilm);
+  deleteFavoriteElemFromPage(target);
+  deleteFavoritesElementFromLS(idFilm, 'favorites-films');
 };

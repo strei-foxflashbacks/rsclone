@@ -3,6 +3,7 @@ import createElement from '../../../helpers/createElement';
 import { Person } from '../../../types/Person';
 import { Role } from '../../../types/Role';
 import { FilmCrew } from '../../../types/types';
+import router from '../../../components/router/router';
 
 const getPersonData = async (type: FilmCrew, role: Role): Promise<HTMLElement> => {
   const container = createElement('div', { class: `${type} person` });
@@ -22,6 +23,9 @@ const getPersonData = async (type: FilmCrew, role: Role): Promise<HTMLElement> =
   containerNames.append(realName, filmName);
   containerActor.append(personItem, containerNames);
   container.append(containerActor);
+  container.addEventListener('click', () => {
+    router.navigateTo(`/person/${person.id}`);
+  });
 
   return container;
 };

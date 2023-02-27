@@ -3,10 +3,15 @@ import { Film } from '../../../../types/Film';
 import getCircleElement from './getCircleElement';
 import { getDescText } from './getDescText';
 import { getFavoriteElement } from './getFavoriteElement';
-import { deleteFromFavorites } from '../../films/functions/deleteFromFavorites';
+import {
+  deleteFavoriteElemFromPage,
+  deleteFavoritesElementFromLS,
+} from '../../films/functions/deleteFromFavorites';
 import openFilmPage from '../../films/functions/openFilmPage';
+import { Page } from '../../../../types/types';
+import { toggleFavoritesInLS, updateFavoritesButton } from '../../filmPage/functions/handleAddingToFavorites';
 
-const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
+const getCardFavoriteFilmSerial = (film: Film, page: Page): HTMLElement => {
   const card = <HTMLElement>(
     createElement('div', { class: 'card-film card-info', 'data-id': `${film.id}` })
   );
@@ -54,8 +59,24 @@ const getCardFavoriteFilmSerial = (film: Film): HTMLElement => {
   const circleRatingKp = getCircleElement(kp);
   ratingKpContainer.append(ratingKp, ratingKpText, circleRatingKp);
   const favorite = getFavoriteElement();
+
+  let srcForIcon = updateFavoritesButton(String(film.id), 'favorites-films');
+  favorite.style.backgroundImage = `url('${srcForIcon}')`;
+
   favorite.classList.add('card-film__favorite');
-  favorite.addEventListener('click', deleteFromFavorites);
+  if (page === Page.userPage) {
+    console.log(page);
+    favorite.addEventListener('click', () => {
+      deleteFavoritesElementFromLS(`${film.id}`, 'favorites-films');
+      deleteFavoriteElemFromPage(favorite);
+    });
+  } else if (page === Page.personPage) {
+    favorite.addEventListener('click', () => {
+      toggleFavoritesInLS(`${film.id}`, 'favorites-films');
+      srcForIcon = updateFavoritesButton(String(film.id), 'favorites-films');
+      favorite.style.backgroundImage = `url('${srcForIcon}')`;
+    });
+  }
 
   const ageLimit = createElement('div', { class: 'card-film__limit' }, `${film.age}`);
   const descContainer = createElement('div', {

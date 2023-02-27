@@ -23,7 +23,7 @@ const renderFilmInPlaylist = (filmData: Film): HTMLElement => {
 
   const filmContainer = createElement('div', { class: 'serial__series' });
   filmContainer.append(
-    getSerialEpisode(filmData.film!),
+    getSerialEpisode(filmData.id, filmData.film!),
   );
 
   film.append(titleContainer, filmContainer);

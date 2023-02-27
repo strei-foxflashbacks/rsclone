@@ -10,6 +10,11 @@ require.context(
   false,
   /\.(?:ico|gif|png|jpg|jpeg|svg|ogg|mp3|wav)$/i,
 );
+require.context(
+  './components/assets/videos',
+  false,
+  /\.(?:mp4|vtt)$/i,
+);
 
 
 router.addUriListener();

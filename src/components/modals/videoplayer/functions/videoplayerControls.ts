@@ -1,5 +1,6 @@
 import { TSpeedVideo } from '../../../../types/types';
 import { speedVideo } from './constants';
+import { removeEvents } from './events';
 import formatTime from './formatTime';
 import pressHotKey from './hotKeysEvents';
 
@@ -44,7 +45,8 @@ export const toggleFullscreen = (videoPlayer: HTMLElement) => {
   }
 };
 
-export const updateTime = (video: HTMLVideoElement) => {
+export const updateTime = () => {
+  const video = <HTMLVideoElement>document.querySelector('.video');
   const time = document.querySelector('.time');
   const duration = video.duration;
   const currentTime = video.currentTime;
@@ -53,9 +55,9 @@ export const updateTime = (video: HTMLVideoElement) => {
 
 export const closeVideoplayer = (video: HTMLVideoElement) => {
   video.pause();
-  document.removeEventListener('keydown', (e: KeyboardEvent)=>{
-    pressHotKey(e, video);
-  });
+  removeEvents();
+  
+  document.removeEventListener('keydown', pressHotKey);
   const modalPlayer = <HTMLElement>document.querySelector('.modal-player');
   modalPlayer.remove();
   modalPlayer!.style.display = 'none';

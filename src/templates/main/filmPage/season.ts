@@ -21,7 +21,7 @@ export const getSeason = (film: Film, order: number): HTMLElement => {
   const seriesContainer = createElement('div', { class: 'season__series' });
 
   film.serial!.seasons[order].episodes.forEach((episode, episodeNumber) => {
-    seriesContainer.append(getSerialEpisode(episode, order + 1, episodeNumber + 1));
+    seriesContainer.append(getSerialEpisode(film.id, episode, order + 1, episodeNumber + 1));
   },
   );
 
@@ -46,7 +46,7 @@ export const getFilm = (film: Film):HTMLElement => {
   addingButton.append(text);
   titleContainer.append(title, addingButton);
   const seriesContainer = createElement('div', { class: 'season__series' });
-  seriesContainer.append(getSerialEpisode(film.film!));
+  seriesContainer.append(getSerialEpisode(film.id, film.film!));
   filmElement.append(titleContainer, seriesContainer);
   return filmElement;
 };

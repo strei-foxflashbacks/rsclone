@@ -43,7 +43,7 @@ export enum ControlsPopupSubtitleSoundText {
 }
 type SubSettingSubtitleSound = {
   sound: string[];
-  language: string[];
+  language: { [key: string]: string }[];
   subtitle: string[];
 };
 export const subSettingSubtitleSound: SubSettingSubtitleSound = {

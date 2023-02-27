@@ -29,16 +29,20 @@ const defaultQuality = 'auto';
 const defaultSpeedVideo = 'normal';
 
 const defaultSound = 'stereo';
-const defaultLanguage = 'en';
 const defaultSubtitle = 'off';
 
 let videoElement: HTMLVideoElement;
 let videoPlayerElement: HTMLElement;
+let lastVolumeRange: number;
 
 const getSubtitlesInfo = (episode: Episode) => {
   subSettingSubtitleSound.language = [];
   episode.subtitles.forEach((sub) => {
-    subSettingSubtitleSound.language.push(sub.srcLang);
+    const tempObj: { [key in 'label' | 'srcLang']: string } = {
+      label: sub.label,
+      srcLang: sub.srcLang,
+    };
+    subSettingSubtitleSound.language.push(tempObj);
   });
 };
 
@@ -84,6 +88,8 @@ const btnControlsRender = (episode: Episode) => {
   const subtitleSoundPopup = createElement('div', {
     class: 'controls-popup subtitle-sound-popup',
   });
+  getSubtitlesInfo(episode);
+  const defaultLanguage = subSettingSubtitleSound.language[0].srcLang || 'en';
   subtitleSoundItemsName.forEach((item) => {
     const subtitleSoundItem = createElement('div', {
       class: 'controls-popup-item',
@@ -96,13 +102,13 @@ const btnControlsRender = (episode: Episode) => {
     const subSettingsItems = createElement('ul', {
       class: 'subsettings-items',
     });
-    getSubtitlesInfo(episode);
     subSettingSubtitleSound[item].forEach((itemSubSettings) => {
+      const temp = typeof itemSubSettings === 'string' ? itemSubSettings : itemSubSettings.srcLang;
       const activeSubSettingsItem = [
         defaultSound,
         defaultLanguage,
         defaultSubtitle,
-      ].includes(itemSubSettings);
+      ].includes(temp);
       const activeSubSettingsClass = activeSubSettingsItem
         ? 'active-subsettings'
         : '';
@@ -110,16 +116,16 @@ const btnControlsRender = (episode: Episode) => {
         'li',
         {
           class: `subsettings-item subsettings-item-${item} ${activeSubSettingsClass}`,
-          id: `${itemSubSettings}`,
+          id: `${temp}`,
         },
-        `${itemSubSettings}`,
+        `${typeof itemSubSettings === 'string' ? itemSubSettings : itemSubSettings.label}`,
       );
       subSettingsItems.append(subSettingsItem);
     });
 
     subtitleSoundItem.append(titleItem, subSettingsItems);
     subSettingsItems.addEventListener('click', (e: Event) => {
-      changeSettings(e, videoElement);
+      changeSettings(e, videoElement, defaultLanguage);
     });
     subtitleSoundPopup.append(subtitleSoundItem);
   });
@@ -176,7 +182,7 @@ const btnControlsRender = (episode: Episode) => {
     });
 
     subSettingsItems.addEventListener('click', (e: Event) => {
-      changeSettings(e, videoElement);
+      changeSettings(e, videoElement, defaultLanguage);
     });
     settingsItem.append(titleContainer, subSettingsItems);
     settingsPopup.append(settingsItem);
@@ -190,7 +196,7 @@ const btnControlsRender = (episode: Episode) => {
   const fullscreen = <HTMLButtonElement>(
     createElement('button', { class: 'controls-btn fullscreen' })
   );
- 
+
   btnControlsRight.append(
     subtitleSoundContainer,
     settingsContainer,
@@ -213,7 +219,16 @@ const btnControlsRender = (episode: Episode) => {
     videoElement.muted = false;
     videoElement.volume = +volumeRange.value;
   });
-  volumeBtn.addEventListener('click', () => {});
+  volumeBtn.addEventListener('click', () => {
+    if (!videoElement.muted) {
+      lastVolumeRange = videoElement.volume;
+      videoElement.volume = 0;
+      videoElement.muted = true;
+    } else {
+      videoElement.muted = false;
+      videoElement.volume = lastVolumeRange;
+    }
+  });
   videoElement.addEventListener('volumechange', () => {
     volumeRange.value = `${videoElement.volume}`;
     if (!videoElement.volume || videoElement.muted) {
@@ -262,17 +277,16 @@ const videoPlayerRender = (episode: Episode) => {
   );
   videoElement = video;
   videoPlayerElement = videoPlayer;
+  video.poster = episode.thumbnail;
   const close = createElement('div', { class: 'close-video' });
   close.addEventListener('click', () => {
     closeVideoplayer(video);
   });
-  
   const filmName = createElement('div', { class: 'film-name' });
-  filmName.innerText = episode.name;
+  if (episode.name) filmName.innerText = episode.name;
 
   const controls = createElement('div', { class: 'controls' });
-  controls.append(getTimelineElement());
-  controls.append(btnControlsRender(episode));
+  controls.append(getTimelineElement(episode.snapshots), btnControlsRender(episode));
 
   addSubtitles(episode.subtitles);
   hideControlsPanel(video, videoPlayer);

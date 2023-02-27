@@ -11,7 +11,7 @@ export const offSubtitle = (video: HTMLVideoElement) => {
   }
 };
 
-export const onSubtitle = (video: HTMLVideoElement, lang: 'en' | 'ru' = 'en') => {
+export const onSubtitle = <T>(video: HTMLVideoElement, lang: T) => {
   for (const sub of video.textTracks) {
     if (sub.language === lang) sub.mode = 'showing';
     else sub.mode = 'hidden';

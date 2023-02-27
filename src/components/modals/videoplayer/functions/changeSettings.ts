@@ -3,7 +3,7 @@ import { SubtitleFontSize } from './constants';
 import { changeActiveSubSettings, offSubtitle, onSubtitle } from './subtitleHelpers';
 import { switchVideoSpeed } from './videoplayerControls';
 
-const changeSettings = (e: Event, video: HTMLVideoElement) => {
+const changeSettings = (e: Event, video: HTMLVideoElement, defaultLang: string) => {
   const target = <HTMLElement>e.target;
   if (target.className.includes('speed')) {
     switchVideoSpeed(video, target.id);
@@ -19,12 +19,11 @@ const changeSettings = (e: Event, video: HTMLVideoElement) => {
     if (target.id === 'off') {
       offSubtitle(video);
     } else {
-      onSubtitle(video);
+      onSubtitle(video, defaultLang);
     }
   }
   if (target.className.includes('language')) {
-    const lang = <'en' | 'ru'>target.id;
-    onSubtitle(video, lang);
+    onSubtitle(video, target.id);
   }
   changeActiveSubSettings(target);
   target.classList.add('active-subsettings');

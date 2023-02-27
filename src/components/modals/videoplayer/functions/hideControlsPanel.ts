@@ -1,11 +1,12 @@
+let timeoutHidden: string | number | NodeJS.Timeout | undefined = undefined;
 export const hideControlsPanel = (
   video: HTMLVideoElement,
   videoPlayer: HTMLElement,
 ) => {
-  let timeoutHidden: string | number | NodeJS.Timeout | undefined = undefined;
   const close = document.querySelector('.close-video');
   const filmName = document.querySelector('.film-name');
   const controls = document.querySelector('.controls');
+  if (!videoPlayer.childElementCount) timeoutHidden = undefined;
   if (timeoutHidden) {
     clearTimeout(timeoutHidden);
     videoPlayer.classList.remove('hide-interface');

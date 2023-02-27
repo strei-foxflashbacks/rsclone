@@ -19,10 +19,13 @@ export const getUser = async () => {
 };
 
 export const updateUser = async (updateData: User) => {
+  const token = getTokenFromLocalStorage();
+  if (!token) return null;
   const options: OptionsFetch = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(updateData),
   };

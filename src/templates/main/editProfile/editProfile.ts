@@ -1,24 +1,10 @@
+import { getUser, updateUser } from '../../../api/apiUsers';
+import router from '../../../components/router/router';
 import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import { User } from '../../../types/User';
 import handlerChangePasswordBtn from './functions/handlerChangePasswordBtn';
 import './_editProfile.scss';
-
-const userData: User = {
-  id: '21451443',
-  name: 'User12314',
-  email: 'qwerty@qwerty.qwe',
-  password: '12345678',
-  userpic: './assets/smallAvatar.svg',
-  birthday: '',
-  sex: null,
-  phone: '',
-  collection: {
-    playlist: [],
-    films: [],
-    persons: [],
-  },
-};
 
 export const renderEditProfilePage = async () => {
   const main = document.querySelector('main');
@@ -26,7 +12,9 @@ export const renderEditProfilePage = async () => {
     throw new Error('main is not found!');
   }
   clearElement(main);
-
+  const user = await getUser();
+  if (!user) throw new Error("User data don't find");
+  
   const editProfilePage = createElement('div', { class: 'edit-profile-page page' });
 
   const navigation = createElement('div', { class: 'navigation' });
@@ -55,48 +43,48 @@ export const renderEditProfilePage = async () => {
   const image = <HTMLImageElement>(
     createElement('img', { class: 'profile__avatar-img', alt: 'User avatar' })
   );
-  image.src = userData.userpic;
+  image.src = user.userpic || './assets/avatar.svg';
   avatar.append(image);
 
   const form = createElement(
     'form', 
     { class: 'edit-profile__form', name: 'edit-profile' },
   );
-  const inputName = createElement(
+  const inputName = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-input', 
       type: 'text', 
       placeholder: 'Ваш никнейм',
-      value: userData.name, 
+      value: user.name, 
     }, 
   );
-  const inputBirthday = createElement(
+  const inputBirthday = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-input', 
       type: 'date', 
       placeholder: 'День рождения',
-      value: userData.birthday,
+      value: user.birthday,
     },
   );
-  const inputEmail = createElement(
+  const inputEmail = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-input', 
       type: 'email', 
       placeholder: 'Ваш email', 
       readonly: 'true',
-      value: userData.email, 
+      value: user.email, 
     }, 
   );
-  const inputTelephone = createElement(
+  const inputPhone = <HTMLInputElement>createElement(
     'input', 
     { 
       class: 'edit-profile__form-input', 
       type: 'text', 
       placeholder: 'Ваш номер телефона', 
-      value: userData.phone,
+      value: user.phone,
     },    
   );
   const radioGender = createElement('div', { class: 'edit-profile__form-gender' });
@@ -110,7 +98,7 @@ export const renderEditProfilePage = async () => {
       value: 'male', 
     },
   );
-  inputMale.checked = userData.sex === 'Мужчина';
+  inputMale.checked = user.sex === 'Мужчина';
   const labelMale = createElement(
     'label', 
     { 
@@ -127,10 +115,10 @@ export const renderEditProfilePage = async () => {
       id: 'female',
       name: 'gender', 
       value: 'female', 
-      checked: `${userData.sex === 'Женщина'}`, 
+      checked: `${user.sex === 'Женщина'}`, 
     },
   );
-  inputFemale.checked = userData.sex === 'Женщина';
+  inputFemale.checked = user.sex === 'Женщина';
   const labelFemale = createElement(
     'label', 
     { 
@@ -152,10 +140,29 @@ export const renderEditProfilePage = async () => {
     'Сменить пароль',
   );
   btnForm.append(btnSave, btnPassword);
-  form.append(inputName, inputBirthday, radioGender, inputEmail, inputTelephone, btnForm);
+  form.append(inputName, inputBirthday, radioGender, inputEmail, inputPhone, btnForm);
   editProfile.append(avatar, form);
 
-  btnSave.addEventListener('click', ()=>{});
+  btnSave.addEventListener('click', async (e: Event) => {
+    e.preventDefault();
+    const newUserData: User = {
+      name: inputName.value,
+      id: user.id,
+      email: inputEmail.value,
+      phone: inputPhone.value,
+      birthday: inputBirthday.value,
+      userpic: user.userpic,
+      password: user.password,
+      sex: inputFemale.checked ? 'Женщина' : inputMale.checked ? 'Мужчина' : null,
+      collection: {
+        playlist: [],
+        films: [],
+        persons: [],
+      },
+    };
+    await updateUser(newUserData);
+    router.navigateTo('/account');
+  });
   btnPassword.addEventListener('click', handlerChangePasswordBtn);
   editProfilePage.append(navigation, title, editProfile);
   main.append(editProfilePage);

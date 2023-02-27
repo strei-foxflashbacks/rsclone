@@ -1,0 +1,130 @@
+@import "./baseStyles/normalize.css";
+@import "./baseStyles/variables";
+@import "./templates/header/header";
+@import "components/modals/authorization/authorization";
+@import "templates/main/news/news";
+@import "./templates/main/films/films";
+@import "./templates/main/filmPage/filmPage";
+@import "templates/main/filmPage/series";
+@import "templates/main/personPage/person-page";
+@import "components/themes/themeElement";
+@import "./templates/footer/footer";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font: $main-font;
+  padding: 0 calc(20px - (100vw - 100%)) 0 0;
+  position: relative;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button {
+  border: none;
+  background-color: $accent-color;
+  height: 30px;
+  border-radius: $border-radius;
+  min-width: 70px;
+  color: #00062d;
+
+  &:hover {
+    background-color: #59bcee;
+  }
+
+  &:active {
+    scale: 1.1;
+    background-color: $accent-color;
+  }
+}
+
+.wrapper {
+  @include content-container;
+  @include shadow;
+  display: flex;
+  padding-top: $header-size;
+  gap: $gap;
+}
+
+.subtitle {
+  @include subtitle;
+}
+
+.navigation {
+  padding: 20px 0 15px 20px;
+}
+
+.nav {
+  &__titles {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__title {
+    @include title;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover,
+    &:active {
+      color: $accent-color;
+    }
+  }
+}
+
+.poster-img {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  object-fit: cover;
+}
+
+.background {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background-color: black;
+  opacity: 60%;
+  z-index: 102;
+  display: none;
+
+  & .active {
+    display: block;
+  }
+}
+
+.active {
+  display: block;
+}
+
+.open {
+  color: $accent-color;
+}
+
+.dark-theme {
+  background-color: $dark-theme-background;
+  color: $dark-theme-font-color;
+}
+
+body.dark-theme {
+  background-color: black;
+}
+
+main.dark-theme {
+  background-color: #4f4f4f;
+}
+
+.footer-container.dark-theme>a {
+  color: white;
+}
+
+input.invalid {
+  border: solid 2px red;
+}

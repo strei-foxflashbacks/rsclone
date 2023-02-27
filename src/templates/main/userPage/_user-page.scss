@@ -1,0 +1,311 @@
+@import './../../../baseStyles/variables';
+
+.user-page {
+  padding: 30px 30px;
+
+  &__titles {
+    margin-bottom: 32px;
+  }
+
+  &__container {
+    width: 100%;
+  }
+
+  &__content {
+    &>div:not(:first-child) {
+      margin-top: 40px;
+    }
+  }
+
+  .serial {
+    position: relative;
+
+    &__title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    &__carousel {
+      overflow: hidden;
+      position: relative;
+
+      &-arrows {
+        position: absolute;
+        top: 50%;
+        width: calc(100% + 40px);
+        left: -20px;
+        display: flex;
+        justify-content: space-between;
+
+        &-prev,
+        &-next {
+          width: 10px;
+          height: 25px;
+          background-color: inherit;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          border: none;
+        }
+
+        &-prev {
+          background-image: url(../../../components/assets/arrow-left.png);
+        }
+
+        &-next {
+          background-image: url(../../../components/assets/arrow-right.png);
+        }
+      }
+    }
+
+    &__series {
+      width: calc(340px * var(--count-slide));
+      gap: 10px;
+      display: flex;
+      flex-wrap: nowrap;
+      transition: all 0.5s ease;
+
+      .episode {
+        width: calc((1010px - 20px) / 3);
+      }
+    }
+  }
+
+  .favorite {
+    &-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  }
+
+  .profile {
+    &-container {
+      text-align: center;
+      font-size: 20px;
+
+      &>div {
+        margin-bottom: 10px;
+      }
+    }
+
+    &__avatar {
+      width: 170px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto;
+
+      &-img {
+        width: 100%;
+      }
+    }
+
+    &__name {
+      font-size: 34px;
+      padding-bottom: 20px;
+    }
+
+    &__edit {
+      width: 32px;
+      height: 32px;
+      background-color: inherit;
+      background-image: url(./../../../components/assets/icon-pen.svg);
+      background-position: center;
+      border: none;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 40px 10px;
+
+      &-btn {
+        height: 49px;
+        line-height: 49px;
+        border: none;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-bottom: 4px solid $user-name-color;
+        }
+      }
+
+      &-img {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.card-info {
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $card-font-color;
+
+  &__title {
+    font: $title-font-card;
+    text-transform: uppercase;
+  }
+}
+
+.card-film {
+  width: calc(25% - 10px);
+  aspect-ratio: 3/4;
+
+  &__resolution {
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 10px;
+    border-radius: 11px;
+    background-color: $card-background;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+
+  &__rating {
+
+    &-imbd,
+    &-kp {
+      padding-top: 5px;
+    }
+
+    &-container {
+      left: 16px;
+      color: $light-title;
+
+      &-imbd {
+        top: 50px;
+      }
+
+      &-kp {
+        top: 120px;
+      }
+    }
+  }
+
+  &__favorite,
+  &__limit {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    right: 16px;
+    background-color: $card-background;
+    border: 2px solid rgba(255, 255, 255, .75);
+  }
+
+  &__favorite {
+    top: 50px;
+  }
+
+  &__limit {
+    top: 100px;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  &__desc {
+    font-size: 12px;
+
+    &-container {
+      position: absolute;
+      bottom: 0px;
+      padding: 10px 20px;
+      background-color: $card-background;
+      width: 100%;
+    }
+
+    &-title {
+      margin-bottom: 5px;
+      line-height: 32px;
+    }
+  }
+}
+
+.card-person {
+  width: 245px;
+  height: 325px;
+
+  &__count {
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0 10px;
+    border-radius: 11px;
+    background-color: $card-background;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+
+  &__favorite {
+    top: 10px;
+    right: 10px;
+  }
+
+  &__desc {
+    position: absolute;
+    bottom: 0px;
+    padding: 10px 20px;
+    background-color: $card-background;
+    width: 100%;
+
+    &-name {
+      font-size: 24px;
+      line-height: 24px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.favorite-icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: $card-background;
+  border: 2px solid rgba(255, 255, 255, .75);
+  background-image: url(../../../components/assets/icon_unlike.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+
+  &.liked {
+    background-image: url(../../../components/assets/icon_like.svg);
+  }
+}
+
+.rating {
+  &-card {
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    background-color: $card-background;
+    // border: 3px solid $card-font-color;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-circle {
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    transform: rotate(-90deg);
+  }
+}
+
+.serial__title {
+  color: inherit;
+  @include title;
+}

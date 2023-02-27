@@ -1,0 +1,83 @@
+.header-container {
+  @include shadow;
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  position: fixed;
+  z-index: 100;
+}
+
+.content-container {
+  @include content-container;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $header-size;
+}
+
+.logo {
+  height: 45px;
+}
+
+.sections {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: flex-end;
+
+  &__item {
+    text-decoration: none;
+    color: #6b6b6b;
+  }
+
+  &__item:hover {
+    color: $title-background;
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.form {
+  position: relative;
+
+  &__input {
+    border: none;
+    background-color: #b9b9b9;
+    border-radius: $border-radius;
+    padding: 7px;
+    width: 290px;
+  }
+
+  &__search-button {
+    border: none;
+    background: none;
+    position: absolute;
+    right: 8px;
+    top: 3px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  &__search-button img {
+    width: 13px;
+  }
+}
+
+.user {
+  &-name {
+    display: none;
+    align-items: center;
+    color: $user-name-color;
+  }
+
+  &-avatar {
+    height: 30px;
+    width: 30px;
+    margin: 0 20px;
+  }
+}

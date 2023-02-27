@@ -1,0 +1,76 @@
+//colors
+$title-background: black;
+$shadow: #000000;
+$light-title: white;
+$film-name: white;
+$dark-text: #000000;
+$light-dark-text: #ffffff;
+$accent-color: #5ac2f1;
+$neutral-light-color: #ffffff;
+$user-name-color: #00abce;
+$card-background: rgba(0, 0, 0, .4);
+$card-font-color: #f9f9f9;
+$dark-theme-background: #4f4f4f;
+$dark-theme-font-color: $light-dark-text;
+$error-text: #d81414;
+
+//fonts
+$main-font: 400 16px 'Raleway', sans-serif;
+$title-font: 600 16px 'Oswald', sans-serif;
+$title-font-card: 600 32px 'Oswald', sans-serif;
+
+//sizes
+$header-size: 50px;
+$border-radius: 7px;
+$news-width: 300px;
+$gap: 7px;
+
+//mixins
+@mixin content-container {
+  max-width: 1100px;
+  margin: auto auto $header-size auto;
+  padding: 0 15px 40px;
+}
+
+@mixin title {
+  font: $title-font;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+@mixin subtitle {
+  font: $title-font;
+  font-size: 19px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@mixin background-positioning {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin blackout {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+@mixin dark-theme {
+  background-color: $dark-theme-background;
+  color: $dark-theme-font-color;
+}
+
+@mixin shadow {
+  box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.6);
+}

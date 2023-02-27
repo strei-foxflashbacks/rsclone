@@ -58,7 +58,9 @@ export const getCardPerson = (person: Person): HTMLElement => {
 
   card.append(countFilms, favorite, personDesc);
 
-  card.addEventListener('click', () => {
+  card.addEventListener('click', (e: Event) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains('card-person__favorite')) return;
     router.navigateTo(`/person/${person.id}`);
   });
   return card;

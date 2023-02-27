@@ -5,6 +5,7 @@ import getFilmPage from '../../templates/main/filmPage/filmPage';
 import { getFilm } from '../../api/apiFilms';
 import userPage from '../../templates/main/userPage/userPage';
 import pagination from '../../templates/main/films/functions/pagination';
+import { getUser } from '../../api/apiUsers';
 
 const router = new Router({
   mode: 'history',
@@ -25,7 +26,11 @@ router.add('/film/(:any)', async (id: string) => {
     setCurrentPage(getFilmPage(filmById));
   }
 });
-router.add('/account', () => {
+router.add('/account', async () => {
+  if (!(await getUser())) {
+    router.navigateTo(router.root);
+    return;
+  }
   document.removeEventListener('scroll', pagination);
   setCurrentPage(userPage());
 });

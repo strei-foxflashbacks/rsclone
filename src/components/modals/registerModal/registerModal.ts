@@ -15,6 +15,7 @@ const getRegisterModal = () => {
   const text = createElement('p', { class: 'authorization__text' }, 'Введите e-mail, никнейм и пароль');
   const errorMsg = createElement('p', { class: 'register__error-message' }, 'Ошибка регистрации, повторите попытку');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
+  
   const inputEmail = createElement(
     'input', 
     { 

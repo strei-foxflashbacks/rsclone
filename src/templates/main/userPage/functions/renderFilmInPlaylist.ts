@@ -3,6 +3,7 @@ import { Film } from '../../../../types/Film';
 import { AddToPlayListValue } from '../../../../types/types';
 import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
 import getSerialEpisode from '../../filmPage/serialEpisode';
+import { deleteFavoritesElementFromLS } from '../../films/functions/deleteFromFavorites';
 
 const renderFilmInPlaylist = (filmData: Film): HTMLElement => {
   const film = <HTMLElement>createElement('div', { class: 'film' });
@@ -19,6 +20,10 @@ const renderFilmInPlaylist = (filmData: Film): HTMLElement => {
     AddToPlayListValue.remove,
   );
   addingButton.classList.add('button');
+  addingButton.onclick = () => {
+    deleteFavoritesElementFromLS(film.id, 'favorites-playlist');
+    //deleteFavoriteElemFromPage()
+  };
   titleContainer.append(title, addingButton);
 
   const filmContainer = createElement('div', { class: 'serial__series' });

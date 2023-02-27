@@ -1,13 +1,13 @@
 import { getFilm } from '../../../../api/apiFilms';
-import { userData } from '../tempData';
 import renderFilmInPlaylist from './renderFilmInPlaylist';
 import renderSerialInPlaylist from './renderSerialInPlaylist';
+import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
 
 const renderPlaylist = (parent: HTMLElement) => {
-  const playlistIdsArr = userData.collection.playlist;
+  const favorites = JSON.parse(getValueFromLS('favorites-playlist'));
 
-  playlistIdsArr.forEach(async (id) => {
-    const film = await getFilm(id);
+  favorites.forEach(async (id: string) => {
+    const film = await getFilm(Number(id));
 
     if (film.type === 'film') {
       parent.append(renderFilmInPlaylist(film));

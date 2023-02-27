@@ -4,6 +4,8 @@ import clearElement from '../../../helpers/clearElement';
 import createElement from '../../../helpers/createElement';
 import { User } from '../../../types/User';
 import handlerChangePasswordBtn from './functions/handlerChangePasswordBtn';
+import isValidDate from './functions/isValidDate';
+import isValidPhone from './functions/isValidPhone';
 import './_editProfile.scss';
 
 export const renderEditProfilePage = async () => {
@@ -66,6 +68,8 @@ export const renderEditProfilePage = async () => {
       type: 'date', 
       placeholder: 'День рождения',
       value: user.birthday,
+      min: '1900-01-01',
+      max: '2023-01-01',
     },
   );
   const inputEmail = <HTMLInputElement>createElement(
@@ -82,9 +86,10 @@ export const renderEditProfilePage = async () => {
     'input', 
     { 
       class: 'edit-profile__form-input', 
-      type: 'text', 
+      type: 'tel', 
       placeholder: 'Ваш номер телефона', 
       value: user.phone,
+      pattern: '\\+?[0-9\\s\\-\\(\\)]+',
     },    
   );
   const radioGender = createElement('div', { class: 'edit-profile__form-gender' });
@@ -115,7 +120,6 @@ export const renderEditProfilePage = async () => {
       id: 'female',
       name: 'gender', 
       value: 'female', 
-      checked: `${user.sex === 'Женщина'}`, 
     },
   );
   inputFemale.checked = user.sex === 'Женщина';
@@ -143,8 +147,32 @@ export const renderEditProfilePage = async () => {
   form.append(inputName, inputBirthday, radioGender, inputEmail, inputPhone, btnForm);
   editProfile.append(avatar, form);
 
+  const isNumber = (key: string) => /\d/.test(key);
+  inputPhone.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (!(isNumber(e.key) || e.key === 'Backspace') 
+        || (e.key !== 'Backspace' && inputPhone.value.length > 15)) {
+      e.preventDefault();
+    }
+    if (isValidPhone(inputPhone.value)) inputPhone.classList.remove('invalid');
+  });
+
+
   btnSave.addEventListener('click', async (e: Event) => {
     e.preventDefault();
+    
+    if (!isValidPhone(inputPhone.value)) {
+      inputPhone.classList.add('invalid');
+      return;
+    }
+
+    if (!(isValidDate(inputBirthday.value))) {
+      inputBirthday.classList.add('invalid');
+      return;
+    }
+
+    console.log(inputFemale.checked ? 'Женщина' : inputMale.checked ? 'Мужчина' : null);
+    
+
     const newUserData: User = {
       name: inputName.value,
       id: user.id,

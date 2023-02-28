@@ -9,7 +9,7 @@ export const getNavigation = (location: string): HTMLElement => {
     router.navigateTo(router.root);
   });
   const currentPage = createElement('span', { class: 'navigation__item' }, location);
-  const separator = createElement('span', { class: 'navigation__item' }, ' / ');
+  const separator = createElement('span', { class: 'navigation__item navigation__item-separator' }, ' / ');
 
   navigation.append(mainPage, separator, currentPage);
   return navigation;

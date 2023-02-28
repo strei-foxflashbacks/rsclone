@@ -19,6 +19,7 @@
 
 .logo {
   height: 45px;
+  cursor: pointer;
 }
 
 .sections {
@@ -73,6 +74,7 @@
     display: none;
     align-items: center;
     color: $user-name-color;
+    cursor: pointer;
   }
 
   &-avatar {

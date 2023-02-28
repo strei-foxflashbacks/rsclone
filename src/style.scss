@@ -58,6 +58,10 @@ button {
 
 .navigation {
   padding: 20px 0 15px 20px;
+
+  &__item:not(&__item-separator) {
+    cursor: pointer;
+  }
 }
 
 .nav {

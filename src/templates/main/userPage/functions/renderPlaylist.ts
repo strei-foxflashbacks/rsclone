@@ -4,7 +4,7 @@ import renderSerialInPlaylist from './renderSerialInPlaylist';
 import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
 
 const renderPlaylist = (parent: HTMLElement) => {
-  const favorites = JSON.parse(getValueFromLS('favorites-playlist', '[]'));
+  const favorites = JSON.parse(getValueFromLS('playlist-serials', '[]'));
   if (favorites.length === 0) {
     console.log(0);
   }

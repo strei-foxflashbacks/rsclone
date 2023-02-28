@@ -28,7 +28,7 @@ export const getSeason = (film: Film, order: number): HTMLElement => {
 
   const addingButton = createElement('button', { class: 'adding-button button' });
   const text = createElement('div', {});
-  text.innerText = updatePlaylistsButton(`${film.id}`, 'favorites-playlist');
+  text.innerText = updatePlaylistsButton(`${film.id}-${order}`, 'playlist-serials');
   addingButton.append(text);
 
   titleContainer.append(title, addingButton);
@@ -52,18 +52,22 @@ export const getSeason = (film: Film, order: number): HTMLElement => {
     const textButton = createElement('div', {});
 
     let isFound = false;
-    const favorites: string[] = JSON.parse(getValueFromLS('favorites-playlist', '[]'));
+    const favorites: string[] = JSON.parse(getValueFromLS('playlist-serials', '[]'));
     for (let i = 0; i < favorites.length; i++) {
-      if (favorites[i] === `${film.id}`) {
+      if (favorites[i] === `${film.id}-${order}`) {
         favorites.splice(i, 1);
         isFound = true;
+      } else {
+        console.log(favorites[i] + ' ' + `${film.id}-${order}`);
       }
     }
     if (!isFound) {
-      favorites.push(`${film.id}`);
+      favorites.push(`${film.id}-${order}`);
     }
-    localStorage.setItem('favorites-playlist', JSON.stringify(favorites));
-    textButton.innerText = updatePlaylistsButton(`${film.id}`, 'favorites-playlist');
+
+
+    localStorage.setItem('playlist-serials', JSON.stringify(favorites));
+    textButton.innerText = updatePlaylistsButton(`${film.id}-${order}`, 'playlist-serials');
     addingButton.append(textButton);
   });
 

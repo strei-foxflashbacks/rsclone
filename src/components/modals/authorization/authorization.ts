@@ -4,6 +4,7 @@ import handleClosing from './functions/handleClosing';
 import closeModal from '../functions/closeModal';
 import setThemeStyles from '../../themes/functions/setThemeStyles';
 import openRegisterModal from './functions/openRegisterModal';
+import isValidEmail from './functions/isValidEmail';
 
 export const enum TextButtons {
   register = 'Зарегистрироваться',
@@ -50,6 +51,9 @@ const getAuthorizationModal = (): HTMLElement => {
   buttonRegister.addEventListener('click', openRegisterModal);
   form.addEventListener('submit', closeModal);
   buttonLogIn.addEventListener('click', (e: Event) => {
+    if (!isValidEmail(inputEmail.value)) {
+      return;
+    }
     handleLogin(e, inputEmail.value, inputPassword.value);
   });
   return container;

@@ -5,7 +5,7 @@ import { getCardsFavoritePersons } from './getCardsFavoritePersons';
 import { getProfileElement } from './getProfileElement';
 import renderPlaylist from './renderPlaylist';
 
-const renderContest = (e: Event) => {
+const renderContest = async (e: Event) => {
   resetOpen();
   const userPageContent = <HTMLElement>(
     document.querySelector('.user-page__content')
@@ -30,7 +30,7 @@ const renderContest = (e: Event) => {
       userPageContent.append(getCardsFavoritePersons());
       break;
     case 'profile':
-      userPageContent.append(getProfileElement());
+      userPageContent.append(await getProfileElement());
       break;
   }
 };

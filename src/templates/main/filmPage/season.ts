@@ -1,10 +1,25 @@
 import createElement from '../../../helpers/createElement';
-import handleAddingToPlaylist from './functions/handleAddingToPlaylist';
 import { AddToPlayListValue } from '../../../types/types';
 import handleShowAll from './functions/handleShowAll';
 import setThemeStyles from '../../../components/themes/functions/setThemeStyles';
 import { Film } from '../../../types/Film';
 import getSerialEpisode from './serialEpisode';
+import clearElement from '../../../helpers/clearElement';
+import getValueFromLS from '../../../components/localStorage/getValueFromLS';
+
+export const updatePlaylistsButton = (id: string, favoritesName: string): string => {
+  const favorites: string[] = JSON.parse(getValueFromLS(favoritesName, '[]'));
+  let textButton  = AddToPlayListValue.add;
+
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i] === id) {
+      textButton = AddToPlayListValue.remove;
+      break;
+    }
+  }
+  return textButton;
+};
+
 
 export const getSeason = (film: Film, order: number): HTMLElement => {
   const season = createElement('div', { class: 'season collapsed' });
@@ -13,7 +28,7 @@ export const getSeason = (film: Film, order: number): HTMLElement => {
 
   const addingButton = createElement('button', { class: 'adding-button button' });
   const text = createElement('div', {});
-  text.innerText = AddToPlayListValue.add;
+  text.innerText = updatePlaylistsButton(`${film.id}`, 'favorites-playlist');
   addingButton.append(text);
 
   titleContainer.append(title, addingButton);
@@ -31,7 +46,28 @@ export const getSeason = (film: Film, order: number): HTMLElement => {
   season.append(titleContainer, seriesContainer, showMore, backForArrow);
 
   showMore.addEventListener('click', handleShowAll);
-  addingButton.addEventListener('click', handleAddingToPlaylist);
+
+  addingButton.addEventListener('click', () => {
+    clearElement(addingButton);
+    const textButton = createElement('div', {});
+
+    let isFound = false;
+    const favorites: string[] = JSON.parse(getValueFromLS('favorites-playlist', '[]'));
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i] === `${film.id}`) {
+        favorites.splice(i, 1);
+        isFound = true;
+      }
+    }
+    if (!isFound) {
+      favorites.push(`${film.id}`);
+    }
+    localStorage.setItem('favorites-playlist', JSON.stringify(favorites));
+    textButton.innerText = updatePlaylistsButton(`${film.id}`, 'favorites-playlist');
+    addingButton.append(textButton);
+  });
+
+
 
   return season;
 };

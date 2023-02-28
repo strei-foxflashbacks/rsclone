@@ -1,6 +1,8 @@
 import clearElement from '../../../../helpers/clearElement';
 import createElement from '../../../../helpers/createElement';
 import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
+import { getUser } from '../../../../api/apiUsers';
+import handleLogInButton from '../../../header/functions/handleLogInButton';
 
 //
 export const updateFavoritesButton = (id: string, favoritesName: string): string => {
@@ -31,8 +33,12 @@ export const toggleFavoritesInLS = (id: string, favoritesName: string): void => 
 };
 
 
-const handleAddingToFavorites = (event: Event) => {
+const handleAddingToFavorites = async (event: Event) => {
   event.stopPropagation();
+  if (!await getUser()) {
+    handleLogInButton();
+    return;
+  }
   const target = event.target as HTMLElement;
   const general = target.closest('.films__favorites') as HTMLElement;
   if (!target.parentElement) {

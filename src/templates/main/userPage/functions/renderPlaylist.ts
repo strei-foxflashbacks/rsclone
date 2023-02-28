@@ -4,10 +4,7 @@ import renderSerialInPlaylist from './renderSerialInPlaylist';
 import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
 
 const renderPlaylist = (parent: HTMLElement) => {
-  const favorites = JSON.parse(getValueFromLS('playlist-serials', '[]'));
-  if (favorites.length === 0) {
-    console.log(0);
-  }
+  const favorites = JSON.parse(getValueFromLS('playlist', '[]'));
 
   favorites.forEach(async (id: string) => {
     const film = await getFilm(Number(id));

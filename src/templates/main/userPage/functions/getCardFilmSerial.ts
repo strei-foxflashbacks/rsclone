@@ -10,6 +10,8 @@ import {
 import openFilmPage from '../../films/functions/openFilmPage';
 import { Page } from '../../../../types/types';
 import { toggleFavoritesInLS, updateFavoritesButton } from '../../filmPage/functions/handleAddingToFavorites';
+import { getUser } from '../../../../api/apiUsers';
+import handleLogInButton from '../../../header/functions/handleLogInButton';
 
 const getCardFavoriteFilmSerial = (film: Film, page: Page): HTMLElement => {
   const card = <HTMLElement>(
@@ -70,7 +72,11 @@ const getCardFavoriteFilmSerial = (film: Film, page: Page): HTMLElement => {
       deleteFavoriteElemFromPage(favorite);
     });
   } else if (page === Page.personPage) {
-    favorite.addEventListener('click', () => {
+    favorite.addEventListener('click', async () => {
+      if (!await getUser()) {
+        handleLogInButton();
+        return;
+      }
       toggleFavoritesInLS(`${film.id}`, 'favorites-films');
       srcForIcon = updateFavoritesButton(String(film.id), 'favorites-films');
       favorite.style.backgroundImage = `url('${srcForIcon}')`;

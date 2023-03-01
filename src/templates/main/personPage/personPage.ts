@@ -5,6 +5,8 @@ import getCardFavoriteFilmSerial from '../userPage/functions/getCardFilmSerial';
 import { getFavoriteElement } from '../userPage/functions/getFavoriteElement';
 import { toggleFavoritesInLS, updateFavoritesButton } from '../filmPage/functions/handleAddingToFavorites';
 import { Page } from '../../../types/types';
+import { getUser } from '../../../api/apiUsers';
+import handleLogInButton from '../../header/functions/handleLogInButton';
 
 const getPersonPage = (person: Person): HTMLElement => {
   const wrapper = createElement('div', { class: 'wrapper' });
@@ -21,7 +23,11 @@ const getPersonPage = (person: Person): HTMLElement => {
   favorite.style.backgroundImage = `url('${srcForIcon}')`;
   favorite.classList.add('card-person__favorite');
 
-  favorite.addEventListener('click', () => {
+  favorite.addEventListener('click', async () => {
+    if (!await getUser()) {
+      handleLogInButton();
+      return;
+    }
     toggleFavoritesInLS(String(person.id), 'favorites-persons');
     srcForIcon = updateFavoritesButton(String(person.id), 'favorites-persons');
     favorite.style.backgroundImage = `url('${srcForIcon}')`;

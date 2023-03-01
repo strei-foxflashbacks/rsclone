@@ -10,6 +10,8 @@ import { Film } from '../../../types/Film';
 import clearElement from '../../../helpers/clearElement';
 import { AddToPlayListValue, PlaylistItem } from '../../../types/types';
 import getValueFromLS from '../../../components/localStorage/getValueFromLS';
+import { getUser } from '../../../api/apiUsers';
+import handleLogInButton from '../../header/functions/handleLogInButton';
 
 export const updatePlaylistsButton = (film: Film): string => {
   let textButton = AddToPlayListValue.add;
@@ -67,7 +69,11 @@ const getFilmPage = (film: Film): HTMLElement => {
   text.innerText = updatePlaylistsButton(film);
   addToPlaylistButton.append(text);
 
-  addToPlaylistButton.addEventListener('click', () => {
+  addToPlaylistButton.addEventListener('click', async () => {
+    if (!await getUser()) {
+      handleLogInButton();
+      return;
+    }
     togglePlaylistElementInLS(film);
 
     clearElement(addToPlaylistButton);

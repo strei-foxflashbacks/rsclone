@@ -3,6 +3,8 @@ import { Film } from '../../../../types/Film';
 import getSerialEpisode from '../../filmPage/serialEpisode';
 import { AddToPlayListValue } from '../../../../types/types';
 import { deletePlaylistElementFromLS } from './renderSerialInPlaylist';
+import { getUser } from '../../../../api/apiUsers';
+import handleLogInButton from '../../../header/functions/handleLogInButton';
 
 const renderFilmInPlaylist = (film: Film): HTMLElement => {
   const filmElem = <HTMLElement>createElement('div', { class: 'film' });
@@ -16,7 +18,11 @@ const renderFilmInPlaylist = (film: Film): HTMLElement => {
   );
   const deletingButton = createElement('button', { class: 'adding-button button' }, AddToPlayListValue.remove);
 
-  deletingButton.onclick = () => {
+  deletingButton.onclick = async () => {
+    if (!await getUser()) {
+      handleLogInButton();
+      return;
+    }
     deletePlaylistElementFromLS(`${film.id}`);
     if (!filmElem.parentElement) {
       throw new Error();

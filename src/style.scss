@@ -33,14 +33,14 @@ button {
   border-radius: $border-radius;
   min-width: 70px;
   color: #00062d;
+  transition: background-color ease 0.2s;
 
   &:hover {
     background-color: #59bcee;
   }
 
   &:active {
-    scale: 1.1;
-    background-color: $accent-color;
+    background-color: #3c8fb9;
   }
 }
 
@@ -50,6 +50,7 @@ button {
   display: flex;
   padding-top: $header-size;
   gap: $gap;
+  position: relative;
 }
 
 .subtitle {

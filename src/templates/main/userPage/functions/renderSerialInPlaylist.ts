@@ -1,11 +1,22 @@
 import createElement from '../../../../helpers/createElement';
 import { Film } from '../../../../types/Film';
-import { AddToPlayListValue } from '../../../../types/types';
-import getAddOrRemoveButton from '../../filmPage/addOrRemoveButton';
+import { AddToPlayListValue, PlaylistItem } from '../../../../types/types';
 import handleAddingToPlaylist from '../../filmPage/functions/handleAddingToPlaylist';
 import getSerialEpisode from '../../filmPage/serialEpisode';
 import getCountEpisodes from './getCountEpisodes';
 import scrollSlider from './scrollSlider';
+import getValueFromLS from '../../../../components/localStorage/getValueFromLS';
+
+export const deletePlaylistElementFromLS = (id: string) => {
+  const favorites: PlaylistItem[] = JSON.parse(getValueFromLS('playlist', '[]'));
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].id === id) {
+      favorites.splice(i, 1);
+    }
+  }
+  console.log('film');
+  localStorage.setItem('playlist', JSON.stringify(favorites));
+};
 
 const renderSerialInPlaylist = (ser: Film) => {
   const serial = createElement('div', { class: 'serial' });
@@ -17,11 +28,14 @@ const renderSerialInPlaylist = (ser: Film) => {
     { class: 'serial__title', href: '#' },
     `${ser.name}`,
   );
-  const addingButton = getAddOrRemoveButton(
-    './assets/minus.svg',
-    AddToPlayListValue.remove,
-  );
-  addingButton.classList.add('button');
+  const addingButton = createElement('button', { class: 'button adding-button' }, AddToPlayListValue.remove);
+  addingButton.onclick = () => {
+    deletePlaylistElementFromLS(`${ser.id}`);
+    if (!serial.parentElement) {
+      throw new Error();
+    }
+    serial.parentElement.removeChild(serial);
+  };
   titleContainer.append(title, addingButton);
 
   const seriesContainer = <HTMLElement>createElement('div', { class: 'serial__series' });

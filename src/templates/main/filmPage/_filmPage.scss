@@ -41,6 +41,7 @@
   width: 70%;
   margin-left: auto;
   position: relative;
+  margin-bottom: 30px;
 
   &>div {
     width: 100%;
@@ -292,4 +293,8 @@
 .film-page .films__favorites {
   top: 10%;
   right: 5%;
+}
+
+.adding-button {
+  margin-left: 83%;
 }

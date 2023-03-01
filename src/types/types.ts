@@ -41,6 +41,11 @@ export type FilmType = 'film' | 'serial';
 export type FilmCrew = 'actors' | 'director' | 'producers';
 
 export enum Page {
-  personPage = 'personPage',
-  userPage = 'userPage',
+  'personPage' = 'personPage',
+  'userPage' = 'userPage',
 }
+
+export type PlaylistItem = {
+  id: string;
+  type: FilmType;
+};

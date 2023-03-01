@@ -13,7 +13,11 @@
 
   &__error-message {
     display: none;
-    color: $error-text
+    color: $error-text;
+
+    & .active {
+      display: block;
+    }
   }
 
   &__title {
@@ -80,8 +84,4 @@
   top: 0;
   right: 0;
   cursor: pointer;
-}
-
-.active {
-  display: block;
 }

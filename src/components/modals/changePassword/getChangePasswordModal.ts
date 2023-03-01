@@ -14,7 +14,7 @@ const getChangePasswordModal = (): HTMLElement => {
   const innerContainer = createElement('div', { class: 'authorization__inner-container' });
   setThemeStyles(innerContainer);
   const text = createElement('p', { class: 'authorization__text' }, 'Введите старый и новый пароль.');
-  const errorMsg = createElement('p', { class: 'authorization__error-message' }, 'Ошибка пароля, введите верный пароль');
+  const errorMsg = createElement('p', { class: 'change-password__error-message' }, 'Ошибка пароля, введите верный пароль');
   const form = createElement('form', { action: '#', class: 'authorization__form' });
 
   const inputNewPassword = <HTMLInputElement>createElement(

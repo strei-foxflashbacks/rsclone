@@ -50,6 +50,7 @@ button {
   display: flex;
   padding-top: $header-size;
   gap: $gap;
+  position: relative;
 }
 
 .subtitle {

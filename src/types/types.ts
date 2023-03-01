@@ -48,5 +48,4 @@ export enum Page {
 export type PlaylistItem = {
   id: string;
   type: FilmType;
-  season?: number;
 };
